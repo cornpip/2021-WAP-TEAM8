@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration-line: none;
+  color: white;
+}
+
+.banner {
+  background-image: url(../assets/2.jpg);
+  background-size: 1980px 1080px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 720px;
+}
+
+.upper__banner {
+  height: 25px;
+  width: 1300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.middle__banner {
+  height: 120px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.lower__banner {
+  display: flex;
+}
