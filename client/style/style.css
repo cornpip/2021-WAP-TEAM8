@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+
 body {
   margin: 0;
+  font-family: "Song Myung", serif;
 }
 
 .app {
@@ -13,8 +16,8 @@ a {
 }
 
 .banner {
-  background-image: url(../assets/2.jpg);
-  background-size: 1980px 1080px;
+  background-image: url(../assets/4.jpg);
+  background-size: 1980px 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,20 +25,30 @@ a {
 }
 
 .upper__banner {
+  margin: 10px 0px 0px 0px;
   height: 25px;
   width: 1300px;
   display: flex;
   justify-content: space-between;
 }
 
+.upper__banner .left,
+.upper__banner .right {
+  width: 130px;
+  display: flex;
+  justify-content: space-around;
+}
+
 .middle__banner {
   height: 120px;
 }
 
-li {
-  list-style-type: none;
+.lower__banner {
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
 }
 
-.lower__banner {
-  display: flex;
+li {
+  list-style-type: none;
 }
