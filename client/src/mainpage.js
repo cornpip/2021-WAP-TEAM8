@@ -3,12 +3,16 @@ imgButtons = document.getElementsByClassName("lower__button");
 wantToSee = document.getElementById("see");
 
 bannerStyle = banner.style;
-
-FAID_IN = "@keyframes fadein {from { opacity: 0;} to {opacity: 1;}}";
+CURRENT_BUTTON = imgButtons[0];
+CURRENT_BUTTON.style.backgroundColor = "black";
+console.log(CURRENT_BUTTON);
 
 function handleClick(e) {
-  bannerImgCount = e.target.id;
-  bannerStyle.backgroundImage = `url(../assets/${bannerImgCount}.jpg)`;
+  imgCount = e.target.id;
+  CURRENT_BUTTON.style.backgroundColor = " rgb(194, 190, 190)";
+  CURRENT_BUTTON = imgButtons[imgCount - 1];
+  bannerStyle.backgroundImage = `url(../assets/${e.target.id}.jpg)`;
+  CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
 function init() {
@@ -24,7 +28,7 @@ function addEventListenerButtons() {
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
-    top: 780,
+    top: 1000,
     behavior: "smooth",
   });
 });
