@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+
+:root {
+  --fontcolor: white;
+}
+
+body {
+  margin: 0;
+  font-family: "Song Myung", serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 2000px;
+  font-size: 18px;
+}
+
+a {
+  text-decoration-line: none;
+  color: var(--fontcolor);
+}
+
+.banner {
+  background-repeat: no-repeat;
+  background-size: 1920px 780px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 780px;
+  color: var(--fontcolor);
+}
+
+.upper__banner {
+  margin: 10px 0px 0px 0px;
+  height: 50px;
+  width: 1300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upper__banner .left,
+.upper__banner .right {
+  width: 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.middle__banner {
+  font-size: 40px;
+  display: flex;
+  height: 200px;
+  align-items: center;
+}
+
+.lower__banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+  height: 480px;
+}
+
+.lower__navbar {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
+  width: 0px;
+  height: 15px;
+  outline: 0;
+  border-radius: 10px;
+  border-color: rgb(153, 152, 152);
+  background-color: rgb(129, 129, 129);
+}
+
+.footer {
+  height: 200px;
+  color: rgb(0, 0, 0);
+}
+
+footer {
+  width: 1980px;
+  background-color: rgb(207, 206, 206);
+}
