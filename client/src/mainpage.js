@@ -1,14 +1,13 @@
-banner = document.querySelector(".banner");
-Buttons = document.getElementsByClassName("lower__button");
-wantToSee = document.getElementById("see");
-imgModeBtn = document.getElementById("image");
-colorModeBtn = document.getElementById("color");
+const banner = document.querySelector(".banner");
+const buttons = document.getElementsByClassName("lower__button");
+const wantToSee = document.getElementById("see");
+const imgModeBtn = document.getElementById("image");
+const colorModeBtn = document.getElementById("color");
 
-bannerStyle = banner.style;
+const bannerStyle = banner.style;
 
-BANNER_COLORS = ["#2E86C1", "#1E8449", "#F7DC6F", "#F1948A", "#76448A"];
-CURRENT_BUTTON = Buttons[0];
-CURRENT_BUTTON.style.backgroundColor = "black";
+const BANNER_COLORS = ["#2E86C1", "#1E8449", "#F7DC6F", "#F1948A", "#76448A"];
+CURRENT_BUTTON = buttons[0];
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
@@ -32,10 +31,12 @@ colorModeBtn.addEventListener("click", (e) => {
 });
 
 function addEventListenerButtons() {
-  for (let i = 0; i <= Buttons.length; i++) {
-    Buttons[i].addEventListener("click", handleClick);
+  for (let i = 0; i <= buttons.length; i++) {
+    buttons[i].addEventListener("click", handleClick);
   }
 }
+
+// document.addEventListener("scroll", handleScroll);
 
 function handleClick(e) {
   if (BANNER_STATE === "image") changeImage(e);
@@ -56,7 +57,7 @@ function changeColor(e) {
 
 function setBtn(Count) {
   CURRENT_BUTTON.style.backgroundColor = " rgb(194, 190, 190)";
-  CURRENT_BUTTON = Buttons[Count - 1];
+  CURRENT_BUTTON = buttons[Count - 1];
   CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
@@ -70,8 +71,22 @@ function initColor() {
   bannerStyle.backgroundColor = BANNER_COLORS[0];
 }
 
+// function handleScroll() {
+//   const minibanner = banner.querySelector(".hidden");
+//   const buttonsPr = banner.querySelector(".lower__buttons");
+//   console.log(buttonsPr);
+//   if (pageYOffset >= 1009 - 100) {
+//     buttonsPr.style.display = "none";
+//     minibanner.classList.add("fixnav");
+//   } else {
+//     buttonsPr.style.display = "inline";
+//     minibanner.classList.remove("fixnav");
+//   }
+// }
+
 function init() {
   BANNER_STATE = localStorage.getItem("banner_mode");
+  CURRENT_BUTTON.style.backgroundColor = "black";
   if (BANNER_STATE === "image") initImage();
   else initColor();
   addEventListenerButtons();

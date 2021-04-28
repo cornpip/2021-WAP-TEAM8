@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
 
 :root {
-  --fontcolor: rgb(255, 250, 239);
+  --fontcolor: rgb(255, 251, 228);
 }
 
 body {
@@ -18,7 +18,11 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 19px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 a {
@@ -50,8 +54,7 @@ a {
   cursor: pointer;
 }
 
-.upper__banner .left,
-.upper__banner .right {
+.upper__banner .left {
   width: 130px;
   display: flex;
   justify-content: space-around;
@@ -90,6 +93,7 @@ li {
 }
 
 button {
+  margin: 5px;
   cursor: pointer;
   height: 15px;
   outline: 0;
@@ -99,7 +103,16 @@ button {
 }
 
 .document {
-  height: 1000px;
+  height: 1009px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-around;
+}
+
+.document span {
+  display: flex;
+  justify-content: end;
 }
 
 .footer {
@@ -113,4 +126,61 @@ footer {
 
 #see {
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+/* 
+.fixnav {
+  display: flex;
+  position: fixed;
+  top: 0px;
+  width: 1920px;
+  height: 100px;
+  justify-content: space-between;
+  text-shadow: none;
+  border-bottom: 0.1px solid rgb(255, 255, 255);
+} */
+
+/* .fixnav .title__banner,
+.fixnav a {
+  color: black;
+} */
+
+/* .fixnav .title__banner {
+  text-shadow: 1px 1px 0px black;
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  color: black;
+} */
+
+/* .fixnav .center {
+  position: fixed;
+  top: 40px;
+  left: 760px;
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  justify-content: space-between;
+}
+
+.fixnav .right {
+  position: fixed;
+  top: 40px;
+  right: 30px;
+} */
+
+.document a {
+  color: black;
+}
+
+@keyframes down {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
