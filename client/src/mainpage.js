@@ -19,28 +19,17 @@ wantToSee.addEventListener("click", () => {
 
 imgModeBtn.addEventListener("click", (e) => {
   localStorage.setItem("banner_mode", "image");
-  offBtn();
-  setCurrentBtn(1);
-  onBtn();
-  bannerStyle.backgroundColor = BANNER_COLORS[0];
-  bannerStyle.backgroundImage = "url(../assets/1.jpg)";
+  setBtn(1);
+  initImage();
   BANNER_STATE = "image";
 });
 
 colorModeBtn.addEventListener("click", (e) => {
   localStorage.setItem("banner_mode", "color");
-  offBtn();
-  setCurrentBtn(1);
-  onBtn();
-  bannerStyle.backgroundImage = "none";
-  bannerStyle.backgroundColor = BANNER_COLORS[0];
+  setBtn(1);
+  initColor();
   BANNER_STATE = "color";
 });
-
-function handleClick(e) {
-  if (BANNER_STATE === "image") changeImage(e);
-  else changeColor(e);
-}
 
 function addEventListenerButtons() {
   for (let i = 0; i <= Buttons.length; i++) {
@@ -48,39 +37,43 @@ function addEventListenerButtons() {
   }
 }
 
+function handleClick(e) {
+  if (BANNER_STATE === "image") changeImage(e);
+  else changeColor(e);
+}
+
 function changeImage(e) {
   imgCount = e.target.id;
-  offBtn();
-  setCurrentBtn(imgCount);
+  setBtn(imgCount);
   bannerStyle.backgroundImage = `url(../assets/${e.target.id}.jpg)`;
-  onBtn();
 }
 
 function changeColor(e) {
   colorCount = e.target.id;
-  offBtn();
-  setCurrentBtn(colorCount);
+  setBtn(colorCount);
   bannerStyle.backgroundColor = BANNER_COLORS[colorCount - 1];
-  onBtn();
 }
 
-function setCurrentBtn(Count) {
-  CURRENT_BUTTON = Buttons[Count - 1];
-}
-
-function offBtn() {
+function setBtn(Count) {
   CURRENT_BUTTON.style.backgroundColor = " rgb(194, 190, 190)";
+  CURRENT_BUTTON = Buttons[Count - 1];
+  CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
-function onBtn() {
-  CURRENT_BUTTON.style.backgroundColor = "black";
+function initImage() {
+  bannerStyle.backgroundColor = BANNER_COLORS[0];
+  bannerStyle.backgroundImage = `url(../assets/1.jpg)`;
+}
+
+function initColor() {
+  bannerStyle.backgroundImage = "none";
+  bannerStyle.backgroundColor = BANNER_COLORS[0];
 }
 
 function init() {
   BANNER_STATE = localStorage.getItem("banner_mode");
-  if (BANNER_STATE === "image")
-    bannerStyle.backgroundImage = `url(../assets/1.jpg)`;
-  else bannerStyle.backgroundColor = BANNER_COLORS[0];
+  if (BANNER_STATE === "image") initImage();
+  else initColor();
   addEventListenerButtons();
 }
 
