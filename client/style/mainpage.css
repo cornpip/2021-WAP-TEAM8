@@ -18,7 +18,7 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 19px;
+  font-size: 21px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -42,9 +42,10 @@ a {
 }
 
 .upper__banner {
+  border-bottom: 0.1px solid rgb(255, 255, 255);
   margin: 10px 0px 0px 0px;
   height: 80px;
-  width: 1300px;
+  width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,6 +53,11 @@ a {
 
 .mode {
   cursor: pointer;
+}
+
+.upper__banner .left,
+.upper__banner .right {
+  padding: 0px 60px;
 }
 
 .upper__banner .left {
@@ -84,6 +90,21 @@ a {
 
 li {
   list-style-type: none;
+}
+
+.lower__title {
+  /* border: 0.1px solid rgb(255, 255, 255); */
+  width: 700px;
+  /* height: 500px; */
+  opacity: 70%;
+  line-height: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  font-size: 50px;
+  color: var(--fontcolor);
+  text-shadow: 1px 1px 10px rgb(43, 39, 104);
 }
 
 .lower__buttons {
