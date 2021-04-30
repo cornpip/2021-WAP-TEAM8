@@ -19,58 +19,59 @@ wantToSee.addEventListener("click", () => {
 imgModeBtn.addEventListener("click", (e) => {
   localStorage.setItem("banner_mode", "image");
   setBtn(1);
-  initImage();
+  setImage();
   BANNER_STATE = "image";
 });
 
 colorModeBtn.addEventListener("click", (e) => {
   localStorage.setItem("banner_mode", "color");
   setBtn(1);
-  initColor();
+  setColor();
   BANNER_STATE = "color";
 });
 
 function addEventListenerButtons() {
-  for (let i = 0; i <= buttons.length; i++) {
+  for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", handleClick);
   }
 }
 
-// document.addEventListener("scroll", handleScroll);
+const setImage = (count = 1) => {
+  bannerStyle.backgroundImage = `url(../assets/${count}.jpg)`;
+};
+
+const setColor = (count = 1) => {
+  bannerStyle.backgroundImage = "none";
+  bannerStyle.backgroundColor = BANNER_COLORS[count - 1];
+};
 
 function handleClick(e) {
-  if (BANNER_STATE === "image") changeImage(e);
-  else changeColor(e);
+  const count = e.target.id;
+  setBtn(count);
+  if (BANNER_STATE === "image") setImage(count);
+  else setColor(count);
 }
 
-function changeImage(e) {
-  imgCount = e.target.id;
-  setBtn(imgCount);
-  bannerStyle.backgroundImage = `url(../assets/${e.target.id}.jpg)`;
-}
-
-function changeColor(e) {
-  colorCount = e.target.id;
-  setBtn(colorCount);
-  bannerStyle.backgroundColor = BANNER_COLORS[colorCount - 1];
-}
-
-function setBtn(Count) {
-  CURRENT_BUTTON.style.backgroundColor = " rgb(194, 190, 190)";
-  CURRENT_BUTTON = buttons[Count - 1];
+function setBtn(count) {
+  CURRENT_BUTTON.style.backgroundColor = "rgb(194, 190, 190)";
+  CURRENT_BUTTON = buttons[count - 1];
   CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
-function initImage() {
-  bannerStyle.backgroundColor = BANNER_COLORS[0];
-  bannerStyle.backgroundImage = `url(../assets/1.jpg)`;
+function init() {
+  BANNER_STATE = localStorage.getItem("banner_mode") || "image";
+  setColor();
+  if (BANNER_STATE === "image") setImage();
+  else setColor();
+  CURRENT_BUTTON.style.backgroundColor = "black";
+  addEventListenerButtons();
 }
 
-function initColor() {
-  bannerStyle.backgroundImage = "none";
-  bannerStyle.backgroundColor = BANNER_COLORS[0];
-}
+init();
 
+// mainpage.js:18 Uncaught TypeError: Cannot read property 'addEventListener' of undefined 이거 해결해야 됩니당...
+
+// document.addEventListener("scroll", handleScroll);
 // function handleScroll() {
 //   const minibanner = banner.querySelector(".hidden");
 //   const buttonsPr = banner.querySelector(".lower__buttons");
@@ -83,15 +84,3 @@ function initColor() {
 //     minibanner.classList.remove("fixnav");
 //   }
 // }
-
-function init() {
-  BANNER_STATE = localStorage.getItem("banner_mode");
-  CURRENT_BUTTON.style.backgroundColor = "black";
-  if (BANNER_STATE === "image") initImage();
-  else initColor();
-  addEventListenerButtons();
-}
-
-init();
-
-// mainpage.js:18 Uncaught TypeError: Cannot read property 'addEventListener' of undefined 이거 해결해야 됩니당...
