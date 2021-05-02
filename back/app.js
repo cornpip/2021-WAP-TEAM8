@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const db = require('../db/db.js')
+const db = require('./db/db.js')
 const port = 4000
 
 app.use(express.static('../client'))
