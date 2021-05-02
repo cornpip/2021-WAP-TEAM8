@@ -3,7 +3,7 @@ let db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '1122',
-  database: 'wap'
+  database: 'testdb'
 });
 
 module.exports=db;
