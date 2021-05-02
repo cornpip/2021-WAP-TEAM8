@@ -18,6 +18,10 @@ app.get('/',function(req,res){
     res.render('mainpage.html')
 })
 
+app.get('/login', function(req,res){
+    res.render('login.html')
+})
+
 app.post('/sign', function(req,res){
     let body = req.body;
     console.log(body.pw);
