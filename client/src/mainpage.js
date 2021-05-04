@@ -47,7 +47,8 @@ const setColor = (count = 1) => {
 
 function handleClick(e) {
   const count = e.target.id;
-  setBtn(count);
+  console.log(count);
+  setBtn(1);
   if (BANNER_STATE === "image") setImage(count);
   else setColor(count);
 }

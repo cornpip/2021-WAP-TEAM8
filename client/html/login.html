@@ -4,9 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>로그인페이지</title>
+    <link rel="stylesheet" href="../style/login.css" />
   </head>
   <body>
-    <a href="mainpage.html">Togetor</a>
-    <h1>로그인 페이지 입니다.</h1>
+    <header class="header">
+      <div class="navbar"></div>
+    </header>
+    <form class="login__form">
+      <h1 class="login__title">LOGIN</h1>
+      <input type="text" class="user__id" /><br />
+      <input type="password" class="user__pwd" /><br />
+      <input type="submit" value="LOGIN" class="login" />
+    </form>
+    <a href="" class="naver">
+      <img class="naver__login" src="../assets/naver.PNG" /> </a
+    ><br />
+    <a href="" class="kakao">
+      <img class="kakao__login" src="../assets/kakao.png" />
+    </a>
+    <script src="../src/login.js"></script>
   </body>
 </html>

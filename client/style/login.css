@@ -1,0 +1,45 @@
+form {
+  padding: 80px 0px;
+}
+.naver__login,
+.kakao__login {
+  width: 300px;
+}
+
+.fixnav {
+  position: fixed;
+  top: 0px;
+  width: 1920px;
+  height: 100px;
+  text-shadow: none;
+  border-bottom: 0.1px solid rgb(0, 0, 0);
+}
+
+.fixnav .title__banner,
+.fixnav a {
+  color: black;
+}
+
+.fixnav .title__banner {
+  text-shadow: 1px 1px 0px black;
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  color: black;
+}
+
+.fixnav .center {
+  position: fixed;
+  display: flex;
+
+  top: 40px;
+  left: 40vw;
+  justify-content: space-around;
+  width: 400px;
+}
+
+.fixnav .right {
+  position: fixed;
+  top: 40px;
+  right: 30px;
+}
