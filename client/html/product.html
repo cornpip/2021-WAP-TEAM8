@@ -6,7 +6,6 @@
     <title>Product</title>
     <link rel="stylesheet" href="../style/product.css" />
     <link rel="stylesheet" href="../style/navbar.css" />
-    <script type="module" src="../src/product.js"></script>
   </head>
   <body>
     <main>
@@ -17,18 +16,14 @@
           <li id="3" class="category">카테고리3</li>
         </ul>
       </div>
-      <form class="insert__product">
-        <input type="text" class="title" /> <br /><input
-          type="text"
-          class="detail"
-        /><br />
-        <input type="number" class="number" />
-        <input type="button" value="상품등록" class="button" />
-      </form>
+      <a href="./insertproduct.html">
+        <input type="button" value="상품등록" />
+      </a>
       <div class="js__products">
         <div class="products"></div>
       </div>
     </main>
     <footer>푸터입니다.</footer>
+    <script type="module" src="../src/product.js"></script>
   </body>
 </html>

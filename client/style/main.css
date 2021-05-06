@@ -44,8 +44,10 @@ a {
 .upper__banner {
   border-bottom: 0.1px solid rgb(255, 255, 255);
   margin: 10px 0px 0px 0px;
+  width: 100vw;
+  max-width: 1400px;
+  min-width: 1000px;
   height: 80px;
-  width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
