@@ -3,7 +3,7 @@ export class ProductInformation {
     this.title = information.title;
     this.detail = information.detail;
     this.number = information.number;
-    this.participant = 1;
+    this.participant = information.participant;
     this.date = information.date;
     this.state = "진행중";
   }

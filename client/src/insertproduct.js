@@ -4,15 +4,18 @@ const detail = form.querySelector(".detail");
 const title = form.querySelector(".title");
 const number = form.querySelector(".number");
 
-let jsonArray = new Array();
+let jsonArray = [];
 
-insertProduct.addEventListener("click", function handleClick() {
+insertProduct.addEventListener("click", handleClick);
+
+function handleClick() {
   if (title.value === "") alert("Value is empty");
   else {
     const information = {
       title: title.value,
       detail: detail.value,
       number: number.value,
+      participant: 1,
       date: new Date(),
     };
     jsonArray.push(information);
@@ -21,13 +24,11 @@ insertProduct.addEventListener("click", function handleClick() {
   title.value = "";
   detail.value = "";
   number.value = "";
-});
+}
 
 function init() {
-  const body = document.querySelector("body");
-  const h1 = document.createElement("h1");
-  h1.innerText = "hello";
-  form.append(h1);
-  jsonArray = JSON.parse(localStorage.getItem("product"));
+  const json = Array(JSON.parse(localStorage.getItem("product")));
+  jsonArray = json === null ? json : [];
+  console.log(jsonArray);
 }
 init();
