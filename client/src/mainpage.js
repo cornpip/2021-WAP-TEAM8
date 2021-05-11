@@ -16,14 +16,14 @@ wantToSee.addEventListener("click", () => {
   });
 });
 
-imgModeBtn.addEventListener("click", (e) => {
+imgModeBtn.addEventListener("click", () => {
   localStorage.setItem("banner_mode", "image");
   setBtn(1);
   setImage();
   BANNER_STATE = "image";
 });
 
-colorModeBtn.addEventListener("click", (e) => {
+colorModeBtn.addEventListener("click", () => {
   localStorage.setItem("banner_mode", "color");
   setBtn(1);
   setColor();
@@ -68,19 +68,3 @@ function init() {
 }
 
 init();
-
-// mainpage.js:18 Uncaught TypeError: Cannot read property 'addEventListener' of undefined 이거 해결해야 됩니당...
-
-// document.addEventListener("scroll", handleScroll);
-// function handleScroll() {
-//   const minibanner = banner.querySelector(".hidden");
-//   const buttonsPr = banner.querySelector(".lower__buttons");
-//   console.log(buttonsPr);
-//   if (pageYOffset >= 1009 - 100) {
-//     buttonsPr.style.display = "none";
-//     minibanner.classList.add("fixnav");
-//   } else {
-//     buttonsPr.style.display = "inline";
-//     minibanner.classList.remove("fixnav");
-//   }
-// }
