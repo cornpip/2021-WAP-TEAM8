@@ -13,7 +13,7 @@ export function Navbar(parent) {
                     </div>
                 </div>`;
 
-  const element = document.createElement("header");
+  const element = document.createElement("nav");
   element.setAttribute("class", "navbar");
   element.innerHTML = navbar;
   parent.insertAdjacentElement("afterbegin", element);

@@ -4,7 +4,7 @@ import { Navbar } from "./navbar.js";
 const body = document.querySelector("body");
 const products = document.querySelector(".products");
 
-Navbar(body);
+// Navbar(body);
 
 let informationJson = JSON.parse(localStorage.getItem("product"));
 

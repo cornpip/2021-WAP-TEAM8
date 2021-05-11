@@ -1,26 +1,53 @@
+body {
+  margin: 0px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .fixnav {
+  width: 100vw;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 80px;
   text-shadow: none;
   border-bottom: 0.1px solid rgb(0, 0, 0);
+  z-index: 1;
 }
 
 .fixnav .title__banner,
 .fixnav a {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .fixnav .title__banner {
   text-shadow: 1px 1px 0px black;
-  color: black;
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  margin-top: 30px;
+  margin-left: 40px;
 }
 
 .fixnav .center {
+  position: absolute;
+  left: 790px;
   display: flex;
   justify-content: space-around;
   width: 400px;
+  font-size: 20px;
+  color: white;
+}
+
+.fixnav .right {
+  position: absolute;
+  width: 80px;
+  left: 1780px;
+  margin-right: 40px;
+  margin-top: 0px;
+  font-size: 25px;
 }
 
 a {

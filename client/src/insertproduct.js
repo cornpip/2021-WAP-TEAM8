@@ -5,6 +5,7 @@ const title = form.querySelector(".title");
 const number = form.querySelector(".number");
 
 let jsonArray = [];
+let testjson;
 
 insertProduct.addEventListener("click", handleClick);
 
@@ -29,6 +30,9 @@ function handleClick() {
 function init() {
   const json = Array(JSON.parse(localStorage.getItem("product")));
   jsonArray = json === null ? json : [];
-  console.log(jsonArray);
+
+  fetch("https://jsonplaceholder.typicode.com/todos/")
+    .then((response) => response.json())
+    .then((res) => (testjson = res));
 }
 init();
