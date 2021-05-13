@@ -68,3 +68,12 @@ function makeCircle(number, top, left, color1, color2) {
 //     window.scrollTo({ top: 1009, left: 0, behavior: "smooth" });
 //   }
 // }
+
+let USER_DATA;
+
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+  .then((res) => res.json())
+  .then((res) => console.log(res))
+  .catch((err) => alert(err));
+
+console.log(USER_DATA);

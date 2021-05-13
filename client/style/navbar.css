@@ -6,6 +6,11 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+main {
+  position: relative;
+  top: 100px;
+}
+
 .fixnav {
   width: 100vw;
   position: fixed;
@@ -16,6 +21,7 @@ body::-webkit-scrollbar {
   text-shadow: none;
   border-bottom: 0.1px solid rgb(0, 0, 0);
   z-index: 1;
+  background-color: black;
 }
 
 .fixnav .title__banner,
@@ -33,7 +39,7 @@ body::-webkit-scrollbar {
 
 .fixnav .center {
   position: absolute;
-  left: 790px;
+  left: 760px;
   display: flex;
   justify-content: space-around;
   width: 400px;

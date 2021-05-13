@@ -22,7 +22,7 @@ body {
   position: fixed;
   display: flex;
   top: 200px;
-  left: 690px;
+  left: 650px;
   width: 600px;
   height: 600px;
   background: var(--color);
@@ -35,7 +35,7 @@ body {
 .circle_title {
   position: fixed;
   top: 290px;
-  left: 630px;
+  left: 600px;
   color: white;
   font-size: 150px;
 }
@@ -44,7 +44,7 @@ body {
   width: 160px;
   position: fixed;
   top: 550px;
-  left: 905px;
+  left: 880px;
   color: white;
   font-size: 25px;
   font-weight: 500;
@@ -57,7 +57,7 @@ body {
 
 .main {
   position: relative;
-  width: 1984px;
+  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -68,7 +68,7 @@ body {
 
 .footer {
   position: relative;
-  width: 1984px;
+  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -89,6 +89,7 @@ body {
   justify-content: center;
   align-items: center;
   align-content: center;
+  background-color: aqua;
 }
 
 @keyframes circle {
