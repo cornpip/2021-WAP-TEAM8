@@ -8,7 +8,7 @@ Navbar(body);
 
 let informationJson;
 
-function insertInfo() {
+function insertInfo(res) {
   informationJson.map((information, index) => {
     const product = new ProductInformation(information);
     product.attachTo(products, product.insertToHTMl());
@@ -23,10 +23,13 @@ function insertInfo() {
 }
 
 function init() {
-  fetch("/oproduct")
-    .then((res) => res.status(200))
-    .then((res) => (informationJson = res), insertInfo)
-    .catch((err) => console.log(err));
+  fetch("/oproduct", { method: "post" })
+    .then((res) => res.json())
+    .then((res) => (informationJson = res))
+    .then(() => insertInfo())
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 init();
