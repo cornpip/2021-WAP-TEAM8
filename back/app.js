@@ -12,6 +12,12 @@ const passport = require('passport')
 const session = require('express-session')
 const cookieparser = require('cookie-parser')
 
+const multer = require('multer')
+//const upload = multer({dest: 'image/'})
+const upload = multer({
+    storage: multer.memoryStorage(),
+  });
+
 app.use(express.static('../client'))
 
 app.use(express.urlencoded({
@@ -105,6 +111,13 @@ app.post('/auth', function(req,res){
     res.send(req.user)
 })
 
+app.post('/oproduct',function(req,res){
+    let sql = `SELECT user,itime,title,detail,inguser FROM insertproduct ORDER BY itime desc`
+    db.query(sql,function(err, result){
+        res.send(result);
+    })
+})
+
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
@@ -118,10 +131,27 @@ app.get('/login', function(req,res){
     res.render('login.html')
 })
 
+app.get('/mypage',function(req,res){
+    res.render('mypage.html')
+})
+
 app.get('/product', function(req,res){
     res.render('product.html')
 })
 
+app.get('/insertproduct', function(req,res){
+    res.render('insertproduct.html')
+})
+
+app.post('/iproduct_process',upload.single('image'), function(req,res){
+    console.log('hi');
+    console.log(req.file);
+    let body = req.body;
+    let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser) 
+    VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser})`;
+    db.query(sql);
+    res.redirect('/product')
+})
 
 app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
