@@ -1,10 +1,13 @@
-  
+const dotenv = require('dotenv')
+dotenv.config();
+
 const express = require("express")
 const app = express()
 const db = require('./db/db.js')
-const port = 4000
+const PORT = 4000
 
 const naver = require('passport-naver').Strategy;
+const KakaoStrategy = require('passport-kakao').Strategy;
 const passport = require('passport')
 const session = require('express-session')
 const cookieparser = require('cookie-parser')
@@ -26,9 +29,9 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile)
 
 passport.use(new naver({
-    clientID: '2wRRFAoU30s8HnihrrPX',
+    clientID: process.env.NAVER_ID,
     clientSecret: 'blEJNI4QTA',
-    callbackURL: 'http://localhost:4000/callback/naver'
+    callbackURL: `http://localhost:${PORT}/callback/naver`
 },
 function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -43,19 +46,49 @@ function(accessToken, refreshToken, profile, done) {
     });
 }));
 
+passport.use(new KakaoStrategy({
+    clientID: process.env.KAKAO_ID,
+    callbackURL: `http://localhost:${PORT}/callback/naver`
+  },  
+  function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      user = {
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          username: profile.displayName,
+          provider: 'kakao',
+          kakao: profile._json
+      };
+      return done(null, profile);
+  });
+  }));
+
 app.get('/login/naver', passport.authenticate('naver'));
+app.get('/login/kakao', passport.authenticate('kakao'));
 
 app.get('/callback/naver', function (req, res, next) {
   passport.authenticate('naver', function (err, user) {
     //console.log('passport.authenticate(naver)실행');
     if (!user) { 
         console.log('로그인 실패');
-     return res.redirect('http://localhost:4000/login'); }
+     return res.redirect(`http://localhost:${PORT}/login`); }
     req.logIn(user, function (err) { 
        //console.log('naver/callback user : ', user);
        return res.redirect('/');        
     });
   })(req, res);
+});
+
+app.get('/callback/kakao', function(req,res,next){
+    passport.authenticate('kakao', function(err, user){
+        if (!user) { 
+            console.log('로그인 실패');
+         return res.redirect(`http://localhost:${PORT}/login`); }
+        req.logIn(user, function (err) { 
+           //console.log('naver/callback user : ', user);
+           return res.redirect('/');    
+    });
+})(req, res);
 });
 
 passport.serializeUser(function(user, done) {
@@ -89,6 +122,7 @@ app.get('/product', function(req,res){
     res.render('product.html')
 })
 
-app.listen(port, ()=>{
-    console.log(`start ${port}`);
+
+app.listen(PORT, ()=>{
+    console.log(`start ${PORT}`);
 })

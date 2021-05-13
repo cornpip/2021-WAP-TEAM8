@@ -17,3 +17,4 @@ fetch("https://jsonplaceholder.typicode.com/posts/1")
   .then((data) => console.log("data is", data))
   .then(() => console.log("body is", BODY))
   .catch((err) => console.log(err));
+
