@@ -19,8 +19,24 @@
         <img class="kakao__login" src="../assets/kakao.png" />
       </a>
       <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-      <script type="module" src="../src/kakaoLogin.js"></script>
     </main>
-    <script type="module" src="../src/login.js"></script>
+    <script>
+      window.Kakao.init("a09fa3426ff9f3cae91768bd5be71464");
+      function kakaoLogin() {
+        window.Kakao.Auth.login({
+          scope: "profile, account_email",
+          success: function (authObj) {
+            console.log(authObj);
+            window.Kakao.API.request({
+              url: "/v2/user/me",
+              success: (res) => {
+                const kakao_account = res.kakao_account;
+                console.log(kakao_account);
+              },
+            });
+          },
+        });
+      }
+    </script>
   </body>
 </html>
