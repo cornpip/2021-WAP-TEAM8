@@ -6,18 +6,30 @@ const products = document.querySelector(".products");
 
 Navbar(body);
 
-let informationJson = JSON.parse(localStorage.getItem("product"));
+let informationJson;
 
-console.log(informationJson);
+function insertInfo(res) {
+  informationJson.map((information, index) => {
+    const product = new ProductInformation(information);
+    product.attachTo(products, product.insertToHTMl());
+    product.element
+      .querySelector(".participateBtn")
+      .addEventListener("click", function () {
+        console.log(information);
+        product.participateTo(product.element.querySelector(".participant"));
+        information.participant++;
+      });
+  });
+}
 
-informationJson.map((information, index) => {
-  const product = new ProductInformation(information);
-  product.attachTo(products, product.insertToHTMl());
-  product.element
-    .querySelector(".participateBtn")
-    .addEventListener("click", function () {
-      console.log(information);
-      product.participateTo(product.element.querySelector(".participant"));
-      information.participant++;
+function init() {
+  fetch("/oproduct", { method: "post" })
+    .then((res) => res.json())
+    .then((res) => (informationJson = res))
+    .then(() => insertInfo())
+    .catch((err) => {
+      console.log(err);
     });
-});
+}
+
+init();

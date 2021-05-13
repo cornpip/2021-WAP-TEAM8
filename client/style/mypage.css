@@ -1,0 +1,109 @@
+:root {
+  --color: rgb(10, 255, 1);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  max-width: 1980px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: black;
+}
+
+.app {
+  height: 1009px;
+}
+
+.circle {
+  position: fixed;
+  display: flex;
+  top: 200px;
+  left: 650px;
+  width: 600px;
+  height: 600px;
+  background: var(--color);
+  border-radius: 50%;
+  /* animation: circle 3s infinite;
+  animation-fill-mode: both; */
+  background: linear-gradient(140deg, rgb(78, 243, 255), rgb(0, 53, 199));
+}
+
+.circle_title {
+  position: fixed;
+  top: 290px;
+  left: 600px;
+  color: white;
+  font-size: 150px;
+}
+
+.middle_title {
+  width: 160px;
+  position: fixed;
+  top: 550px;
+  left: 880px;
+  color: white;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.circle-no {
+  z-index: 1;
+  animation: circle 5s infinite;
+}
+
+.main {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: black;
+}
+
+.footer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: white;
+  background-color: black;
+}
+
+.products {
+  position: absolute;
+  color: white;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: aqua;
+}
+
+@keyframes circle {
+  25% {
+    border-top-right-radius: 50% 70%;
+    border-bottom-left-radius: 60% 60%;
+  }
+  100% {
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  80% {
+    border-bottom-left-radius: 50% 60%;
+  }
+}
