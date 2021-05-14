@@ -1,14 +1,12 @@
+import { Auth } from "./navbar.js";
+
 const form = document.querySelector(".insert__product");
 const insertProduct = form.querySelector(".button");
 const detail = form.querySelector(".detail");
 const title = form.querySelector(".title");
 const image = form.querySelector(".image");
 const number = form.querySelector(".number");
-
-let jsonArray = [];
-let testjson;
-
-insertProduct.addEventListener("click", handleClick);
+const body = document.querySelector("body");
 
 function handleClick() {
   if (title.value === "") alert("Value is empty");
@@ -32,7 +30,7 @@ function handleClick() {
 }
 
 function init() {
-  // const json = Array(JSON.parse(localStorage.getItem("product")));
-  // jsonArray = json === null ? json : [];
+  Auth(body);
+  insertProduct.addEventListener("click", handleClick);
 }
 init();

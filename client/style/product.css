@@ -1,3 +1,9 @@
+body {
+  position: relative;
+  margin: 0px;
+  top: -30px;
+}
+
 .js__products {
   padding: 30px;
   display: flex;

@@ -1,10 +1,8 @@
 import { ProductInformation } from "./productinfo.js";
-import { Navbar } from "./navbar.js";
+import { Auth } from "./navbar.js";
 
 const body = document.querySelector("body");
 const products = document.querySelector(".products");
-
-Navbar(body);
 
 let informationJson;
 
@@ -23,6 +21,7 @@ function insertInfo(res) {
 }
 
 function init() {
+  Auth(body);
   fetch("/oproduct", { method: "post" })
     .then((res) => res.json())
     .then((res) => (informationJson = res))
