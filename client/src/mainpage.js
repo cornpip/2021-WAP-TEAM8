@@ -1,13 +1,18 @@
+import { Auth, insertInfo } from "./export.js";
+
 const banner = document.querySelector(".banner");
 const buttons = document.getElementsByClassName("lower__button");
 const wantToSee = document.getElementById("see");
 const imgModeBtn = document.getElementById("image");
 const colorModeBtn = document.getElementById("color");
+const products = document.querySelector(".products");
 
 const bannerStyle = banner.style;
 
 const BANNER_COLORS = ["#2E86C1", "#1E8449", "#F7DC6F", "#F1948A", "#76448A"];
-CURRENT_BUTTON = buttons[0];
+
+let CURRENT_BUTTON = buttons[0];
+let BANNER_STATE;
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
@@ -59,6 +64,25 @@ function setBtn(count) {
 }
 
 function init() {
+  Auth().then(function (res) {
+    const bannerRight = banner.querySelector("#right");
+    console.log(bannerRight);
+    if (res) {
+      bannerRight.setAttribute("href", "/mypage");
+      bannerRight.innerHTML = "My page";
+    } else {
+      bannerRight.setAttribute("href", "/login");
+      bannerRight.innerHTML = "Sign in";
+    }
+  });
+
+  fetch("/oproduct", { method: "post" })
+    .then((res) => res.json())
+    .then((res) => insertInfo(res.slice(0, 6), products))
+    .catch((err) => {
+      console.log(err);
+    });
+
   BANNER_STATE = localStorage.getItem("banner_mode") || "image";
   setColor();
   if (BANNER_STATE === "image") setImage();

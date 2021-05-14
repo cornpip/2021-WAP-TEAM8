@@ -155,6 +155,23 @@ footer {
   color: black;
 }
 
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  border: 0.1px solid rgb(0, 0, 0);
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  width: 200px;
+  height: 250px;
+  background-color: rgb(75, 78, 241);
+  border-radius: 12px;
+}
+
 /*animation*/
 .title__banner {
   animation: slideX 1s;

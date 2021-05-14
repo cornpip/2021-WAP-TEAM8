@@ -1,4 +1,4 @@
-import { Auth } from "./navbar.js";
+import { Navbar, Auth } from "./export.js";
 
 const form = document.querySelector(".insert__product");
 const insertProduct = form.querySelector(".button");
@@ -30,7 +30,7 @@ function handleClick() {
 }
 
 function init() {
-  Auth(body);
+  Auth().then((res) => Navbar(body, res));
   insertProduct.addEventListener("click", handleClick);
 }
 init();
