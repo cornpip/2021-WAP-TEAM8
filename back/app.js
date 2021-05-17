@@ -34,6 +34,29 @@ app.set('views',__dirname + '/../client/html')
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile)
 
+app.post('/auth', function(req,res){
+    res.send(req.user)
+})
+
+//카카오 로그인
+passport.use('kakao-login', new KakaoStrategy({
+    clientID: process.env.KAKAO_ID,
+    clientSecret: process.env.KAKAO_SECRET,
+    callbackURL: `http://localhost:${PORT}/auth/kakao/callback`,
+}, function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+        console.log(profile);
+        return done(null, profile);
+    });
+}));
+app.get('/login/kakao', passport.authenticate('kakao-login'));
+app.get('/auth/kakao/callback', passport.authenticate('kakao-login', {
+    failureRedirect: '/',
+}), (req, res) => {
+    res.redirect('/');
+});
+
+//네이버 로그인
 passport.use(new naver({
     clientID: process.env.NAVER_ID,
     clientSecret: 'blEJNI4QTA',
@@ -51,30 +74,11 @@ function(accessToken, refreshToken, profile, done) {
         return done(null, profile);
     });
 }));
-
-passport.use(new KakaoStrategy({
-    clientID: process.env.KAKAO_ID,
-    callbackURL: `http://localhost:${PORT}/callback/naver`
-  },  
-  function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      user = {
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          username: profile.displayName,
-          provider: 'kakao',
-          kakao: profile._json
-      };
-      return done(null, profile);
-  });
-  }));
-
 app.get('/login/naver', passport.authenticate('naver'));
-app.get('/login/kakao', passport.authenticate('kakao'));
 
 app.get('/callback/naver', function (req, res, next) {
   passport.authenticate('naver', function (err, user) {
-    //console.log('passport.authenticate(naver)실행');
+    //console.log('passport.authenticate(naver)실행')
     if (!user) { 
         console.log('로그인 실패');
      return res.redirect(`http://localhost:${PORT}/login`); }
@@ -83,18 +87,6 @@ app.get('/callback/naver', function (req, res, next) {
        return res.redirect('/');        
     });
   })(req, res);
-});
-
-app.get('/callback/kakao', function(req,res,next){
-    passport.authenticate('kakao', function(err, user){
-        if (!user) { 
-            console.log('로그인 실패');
-         return res.redirect(`http://localhost:${PORT}/login`); }
-        req.logIn(user, function (err) { 
-           //console.log('naver/callback user : ', user);
-           return res.redirect('/');    
-    });
-})(req, res);
 });
 
 passport.serializeUser(function(user, done) {
@@ -106,10 +98,6 @@ passport.deserializeUser(function(req,user,done){
     //console.log(user);
     done(null, user);
 });
-
-app.post('/auth', function(req,res){
-    res.send(req.user)
-})
 
 app.post('/oproduct',function(req,res){
     let sql = `SELECT user,itime,title,detail,inguser FROM insertproduct ORDER BY itime desc`
@@ -153,6 +141,33 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     res.redirect('/product')
 })
 
+
+
+// 카카오 로그인 
+// router.use('/auth', require('./auth'));
+
+// passport.use('kakao', new KakaoStrategy({
+//     clientID: process.env.KAKAO_ID,
+//     callbackURL: '/auth/kakao/callback',     // 위에서 설정한 Redirect URI
+//   }, async (accessToken, refreshToken, profile, done) => {
+//     //console.log(profile);
+//     console.log(accessToken);
+//     console.log(refreshToken);
+// }))
+
+
+// router.get('/kakao', passport.authenticate('kakao'));
+
+// router.get('/kakao/callback', passport.authenticate('kakao', {
+//   failureRedirect: '/',
+// }), (res, req) => {
+//   res.redirect('/auth');
+// });
+
+
+
 app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
 })
+
+// module.exports = router;
