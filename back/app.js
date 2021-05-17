@@ -6,6 +6,13 @@ const app = express()
 const db = require('./db/db.js')
 const PORT = 4000
 
+db.connect();
+db.query('select user from insertproduct',function(err,result){
+    if(err) throw err;
+    console.log(result)
+    console.log('connect success');
+})
+
 const naver = require('passport-naver').Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy;
 const passport = require('passport')
