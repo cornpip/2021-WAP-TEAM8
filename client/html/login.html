@@ -15,29 +15,9 @@
       <a href="/login/naver" class="naver">
         <img class="naver__login" src="../assets/naver.PNG" /> </a
       ><br />
-      <a href="javascript:kakaoLogin();" class="kakao">
+      <a href="/login/kakao" class="kakao">
         <img class="kakao__login" src="../assets/kakao.png" />
       </a>
-      <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     </main>
-    <script>
-      window.Kakao.init("a09fa3426ff9f3cae91768bd5be71464");
-      function kakaoLogin() {
-        window.Kakao.Auth.login({
-          scope: "profile, account_email",
-          success: function (authObj) {
-            console.log(authObj);
-            window.Kakao.API.request({
-              url: "/v2/user/me",
-              success: (res) => {
-                const kakao_account = res.kakao_account;
-                console.log(kakao_account);
-              },
-            });
-          },
-        });
-      }
-    </script>
-    <script type="module" src="../src/login.js"></script>
   </body>
 </html>
