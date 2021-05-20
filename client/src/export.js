@@ -1,13 +1,20 @@
 import { ProductInformation } from "./productinfo.js";
 
 export function Navbar(parent, isSuccess) {
-  let url = "/login";
-  let innerText = "Sing in";
-  console.log(parent, isSuccess);
+  let leftUrl = "";
+  let leftInnerText = "";
+
+  let rightUrl = "/login";
+  let rightInnerText = "Sing in";
+
   if (isSuccess) {
-    url = "/mypage";
-    innerText = "My page";
+    leftUrl = "/mypage";
+    leftInnerText = "Mypage";
+
+    rightUrl = "/logout";
+    rightInnerText = "Logout";
   }
+
   const navbar = `<div class="fixnav">
                     <div class="left">
                         <a href="/">
@@ -18,7 +25,8 @@ export function Navbar(parent, isSuccess) {
                         <div class="search">검색</div>
                     </div>
                     <div class="right">
-                        <a href="${url}"><span>${innerText}</span></a>
+                    <a href="${leftUrl}" id="left"><span>${leftInnerText}</span></a>
+                    <a href="${rightUrl}" id="left"><span>${rightInnerText}</span></a>
                     </div>
                 </div>`;
 
@@ -29,12 +37,18 @@ export function Navbar(parent, isSuccess) {
 }
 
 export async function Auth() {
-  console.log("auth에요..");
-  let res = await fetch("/auth", { method: "post" })
-    .then((res) => res.json())
+  return await (await fetch("/auth", { method: "post" })).json();
+}
+
+export function showNavbar(body) {
+  Auth()
+    .then(
+      (res) => {
+        Navbar(body, true);
+      },
+      (rej) => Navbar(body, false)
+    )
     .catch((err) => console.log(err));
-  if (res) return true;
-  else return false;
 }
 
 export function insertInfo(informationJson, products) {

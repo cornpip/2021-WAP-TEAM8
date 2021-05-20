@@ -1,13 +1,11 @@
-import { Navbar, Auth, insertInfo } from "./export.js";
+import { insertInfo, showNavbar } from "./export.js";
 
-const body = document.querySelector("body");
-const products = document.querySelector(".products");
-
-let informationJson;
+const products = document.querySelector(".products"),
+  body = document.querySelector("body");
 
 function init() {
   console.log("네 저에요");
-  Auth().then((res) => Navbar(body, res));
+  showNavbar(body);
   fetch("/oproduct", { method: "post" })
     .then((res) => res.json())
     .then((res) => insertInfo(res, products))

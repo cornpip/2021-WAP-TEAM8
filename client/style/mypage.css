@@ -7,15 +7,32 @@ body::-webkit-scrollbar {
 }
 
 body {
-  max-width: 1745px;
   display: flex;
   flex-direction: column;
   margin: 0;
   background-color: black;
 }
 
+.hidden {
+  display: none;
+}
+
+.no_user {
+  position: fixed;
+  top: 460px;
+  left: 810px;
+  color: white;
+  font-size: 30px;
+}
+
 .app {
   height: 1009px;
+}
+
+.js-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
 .circle {
@@ -57,30 +74,28 @@ body {
 
 .main {
   position: relative;
-  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
 }
 
 .footer {
   position: relative;
-  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  color: white;
-  background-color: black;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
 }
 
 .products {
   position: absolute;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .product {
@@ -89,7 +104,7 @@ body {
   justify-content: center;
   align-items: center;
   align-content: center;
-  background-color: aqua;
+  background-color: rgb(126, 123, 123);
 }
 
 @keyframes circle {

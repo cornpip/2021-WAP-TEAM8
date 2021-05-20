@@ -49,8 +49,10 @@ main {
 
 .fixnav .right {
   position: absolute;
+  display: flex;
+  justify-content: space-around;
   width: 200px;
-  left: 1640px;
+  left: 1500px;
   margin-right: 40px;
   margin-top: 0px;
   font-size: 25px;

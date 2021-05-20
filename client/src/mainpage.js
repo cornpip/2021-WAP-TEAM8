@@ -16,7 +16,7 @@ let BANNER_STATE;
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
-    top: 1009,
+    top: 915,
     behavior: "smooth",
   });
 });
@@ -63,26 +63,38 @@ function setBtn(count) {
   CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
-function init() {
-  Auth().then(function (res) {
-    const bannerRight = banner.querySelector("#right");
-    console.log(bannerRight);
-    if (res) {
-      bannerRight.setAttribute("href", "/mypage");
-      bannerRight.innerHTML = "My page";
-    } else {
-      bannerRight.setAttribute("href", "/login");
-      bannerRight.innerHTML = "Sign in";
-    }
-  });
+function checkAuth() {
+  const bannerLeft = banner.querySelector("#left");
+  const bannerRight = banner.querySelector("#right");
+  Auth()
+    .then(
+      (res) => {
+        bannerLeft.setAttribute("href", "/Mypage");
+        bannerLeft.innerHTML = "Mypage";
+        bannerRight.setAttribute("href", "/logout");
+        bannerRight.innerHTML = "Logout";
+      },
+      (rej) => {
+        bannerLeft.classList.add("hidden");
+        bannerRight.setAttribute("href", "/login");
+        bannerRight.innerHTML = "Sign in";
+      }
+    )
+    .catch((err) => alert(err));
+}
 
+function getProductInformation() {
   fetch("/oproduct", { method: "post" })
     .then((res) => res.json())
     .then((res) => insertInfo(res.slice(0, 6), products))
     .catch((err) => {
       console.log(err);
     });
+}
 
+function init() {
+  checkAuth();
+  getProductInformation();
   BANNER_STATE = localStorage.getItem("banner_mode") || "image";
   setColor();
   if (BANNER_STATE === "image") setImage();

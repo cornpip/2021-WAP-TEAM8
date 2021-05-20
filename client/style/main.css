@@ -32,11 +32,11 @@ a {
 
 .banner {
   background-repeat: no-repeat;
-  background-size: 1920px 1009px;
+  background-size: 1920px 915px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 1009px;
+  height: 915px;
   color: var(--fontcolor);
   text-shadow: 1px 1px 10px rgb(43, 39, 104);
 }
@@ -46,7 +46,6 @@ a {
   margin: 10px 0px 0px 0px;
   width: 100vw;
   max-width: 1400px;
-  min-width: 1000px;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -63,9 +62,15 @@ a {
 }
 
 .upper__banner .left {
-  width: 130px;
+  width: 140px;
   display: flex;
   justify-content: space-around;
+}
+
+.right {
+  display: flex;
+  width: 170px;
+  justify-content: space-between;
 }
 
 .middle__banner {
@@ -96,7 +101,7 @@ li {
 
 .lower__title {
   /* border: 0.1px solid rgb(255, 255, 255); */
-  width: 700px;
+  max-width: 700px;
   /* height: 500px; */
   opacity: 70%;
   line-height: 0px;
@@ -113,6 +118,7 @@ li {
   display: flex;
   justify-content: space-around;
   width: 150px;
+  padding: 20px 0px;
 }
 
 button {

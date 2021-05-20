@@ -1,10 +1,9 @@
-import { Navbar, Auth, insertInfo } from "./export.js";
+import { showNavbar, insertInfo, Auth } from "./export.js";
 
 const app = document.querySelector(".app");
 const body = document.querySelector("body");
 const products = document.querySelector(".products");
 
-Auth().then((res) => Navbar(body, res));
 const circles = document.createElement("div");
 circles.setAttribute("class", "circles");
 
@@ -60,13 +59,34 @@ function makeCircle(number, top, left, color1, color2) {
   return circle;
 }
 
-function init() {
+function getProductInformation() {
   fetch("/oproduct", { method: "post" })
     .then((res) => res.json())
     .then((res) => insertInfo(res.slice(0, 6), products))
     .catch((err) => {
       console.log(err);
     });
+}
+
+function checkUser() {
+  const user = body.querySelector(".app");
+  const noUser = body.querySelector(".no_user");
+  Auth()
+    .then(
+      (res) => {
+        noUser.classList.add("hidden"), user.classList.remove("hidden");
+      },
+      (rej) => {
+        noUser.classList.remove("hidden"), user.classList.add("hidden");
+      }
+    )
+    .catch((err) => console.log(err));
+}
+
+function init() {
+  showNavbar(body);
+  checkUser();
+  getProductInformation();
 }
 init();
 // function handleScroll() {
