@@ -1,11 +1,9 @@
-import { Navbar } from "./navbar.js";
+import { showNavbar } from "./export.js";
 
 const body = document.querySelector("body");
 
-Navbar(body);
+function init() {
+  showNavbar(body);
+}
 
-fetch("https://jsonplaceholder.typicode.com/posts/1")
-  .then((response) => (BODY = response))
-  .then((data) => console.log("data is", data))
-  .then(() => console.log("body is", BODY))
-  .catch((err) => console.log(err));
+init();

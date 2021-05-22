@@ -1,17 +1,22 @@
+import { Auth, insertInfo } from "./export.js";
+
 const banner = document.querySelector(".banner");
 const buttons = document.getElementsByClassName("lower__button");
 const wantToSee = document.getElementById("see");
 const imgModeBtn = document.getElementById("image");
 const colorModeBtn = document.getElementById("color");
+const products = document.querySelector(".products");
 
 const bannerStyle = banner.style;
 
 const BANNER_COLORS = ["#2E86C1", "#1E8449", "#F7DC6F", "#F1948A", "#76448A"];
-CURRENT_BUTTON = buttons[0];
+
+let CURRENT_BUTTON = buttons[0];
+let BANNER_STATE;
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
-    top: 1009,
+    top: 915,
     behavior: "smooth",
   });
 });
@@ -58,7 +63,38 @@ function setBtn(count) {
   CURRENT_BUTTON.style.backgroundColor = "black";
 }
 
+function checkAuth() {
+  const bannerLeft = banner.querySelector("#left");
+  const bannerRight = banner.querySelector("#right");
+  Auth()
+    .then(
+      (res) => {
+        bannerLeft.setAttribute("href", "/Mypage");
+        bannerLeft.innerHTML = "Mypage";
+        bannerRight.setAttribute("href", "/logout");
+        bannerRight.innerHTML = "Logout";
+      },
+      (rej) => {
+        bannerLeft.classList.add("hidden");
+        bannerRight.setAttribute("href", "/login");
+        bannerRight.innerHTML = "Sign in";
+      }
+    )
+    .catch((err) => alert(err));
+}
+
+function getProductInformation() {
+  fetch("/oproduct", { method: "post" })
+    .then((res) => res.json())
+    .then((res) => insertInfo(res.slice(0, 6), products))
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 function init() {
+  checkAuth();
+  getProductInformation();
   BANNER_STATE = localStorage.getItem("banner_mode") || "image";
   setColor();
   if (BANNER_STATE === "image") setImage();

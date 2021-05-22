@@ -12,7 +12,7 @@ main {
 }
 
 .fixnav {
-  width: 100vw;
+  width: 1745px;
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -39,7 +39,7 @@ main {
 
 .fixnav .center {
   position: absolute;
-  left: 760px;
+  left: 670px;
   display: flex;
   justify-content: space-around;
   width: 400px;
@@ -49,11 +49,14 @@ main {
 
 .fixnav .right {
   position: absolute;
-  width: 80px;
-  left: 1780px;
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+  left: 1500px;
   margin-right: 40px;
   margin-top: 0px;
   font-size: 25px;
+  color: white;
 }
 
 a {

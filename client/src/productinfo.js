@@ -2,8 +2,8 @@ export class ProductInformation {
   constructor(information) {
     this.title = information.title;
     this.detail = information.detail;
-    this.number = information.number;
-    this.participant = information.participant;
+    this.number = information.inguser;
+    this.participant = 1;
     this.date = information.date;
     this.state = "진행중";
   }

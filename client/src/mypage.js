@@ -1,11 +1,9 @@
-import { Navbar } from "./navbar.js";
+import { showNavbar, insertInfo, Auth } from "./export.js";
 
 const app = document.querySelector(".app");
-const main = document.querySelector(".main");
+const body = document.querySelector("body");
+const products = document.querySelector(".products");
 
-// window.addEventListener("scroll", handleScroll);
-
-Navbar(app);
 const circles = document.createElement("div");
 circles.setAttribute("class", "circles");
 
@@ -29,7 +27,7 @@ const purple2 = makeCircle(
 
 const green = makeCircle(
   2,
-  "900px",
+  "800px",
   "1300px",
   "rgb(255,249,69)",
   "rgb(0,255,26)"
@@ -38,7 +36,7 @@ const green = makeCircle(
 const red = makeCircle(
   1,
   "300px",
-  "1650px",
+  "1500px",
   "rgb(255, 101, 194)",
   "rgb(255, 41, 48)"
 );
@@ -61,6 +59,36 @@ function makeCircle(number, top, left, color1, color2) {
   return circle;
 }
 
+function getProductInformation() {
+  fetch("/oproduct", { method: "post" })
+    .then((res) => res.json())
+    .then((res) => insertInfo(res.slice(0, 6), products))
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function checkUser() {
+  const user = body.querySelector(".app");
+  const noUser = body.querySelector(".no_user");
+  Auth()
+    .then(
+      (res) => {
+        noUser.classList.add("hidden"), user.classList.remove("hidden");
+      },
+      (rej) => {
+        noUser.classList.remove("hidden"), user.classList.add("hidden");
+      }
+    )
+    .catch((err) => console.log(err));
+}
+
+function init() {
+  showNavbar(body);
+  checkUser();
+  getProductInformation();
+}
+init();
 // function handleScroll() {
 //   let scrollLocation = document.documentElement.scrollTop;
 //   console.log(`${scrollLocation}`);
@@ -70,10 +98,3 @@ function makeCircle(number, top, left, color1, color2) {
 // }
 
 let USER_DATA;
-
-fetch("https://jsonplaceholder.typicode.com/todos/1")
-  .then((res) => res.json())
-  .then((res) => console.log(res))
-  .catch((err) => alert(err));
-
-console.log(USER_DATA);

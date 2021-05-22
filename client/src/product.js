@@ -1,32 +1,14 @@
-import { ProductInformation } from "./productinfo.js";
-import { Navbar } from "./navbar.js";
+import { insertInfo, showNavbar } from "./export.js";
 
-const body = document.querySelector("body");
-const products = document.querySelector(".products");
-
-Navbar(body);
-
-let informationJson;
-
-function insertInfo(res) {
-  informationJson.map((information, index) => {
-    const product = new ProductInformation(information);
-    product.attachTo(products, product.insertToHTMl());
-    product.element
-      .querySelector(".participateBtn")
-      .addEventListener("click", function () {
-        console.log(information);
-        product.participateTo(product.element.querySelector(".participant"));
-        information.participant++;
-      });
-  });
-}
+const products = document.querySelector(".products"),
+  body = document.querySelector("body");
 
 function init() {
+  console.log("네 저에요");
+  showNavbar(body);
   fetch("/oproduct", { method: "post" })
     .then((res) => res.json())
-    .then((res) => (informationJson = res))
-    .then(() => insertInfo())
+    .then((res) => insertInfo(res, products))
     .catch((err) => {
       console.log(err);
     });
