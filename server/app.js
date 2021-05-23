@@ -7,7 +7,7 @@ const db = require('./db/db.js')
 const PORT = 4000
 
 db.connect();
-db.query('select user from insertproduct',function(err,result){
+db.query('select * from insertproduct',function(err,result){
     if(err) throw err;
     console.log('connect success');
 })
@@ -19,10 +19,10 @@ const session = require('express-session')
 const cookieparser = require('cookie-parser')
 
 const multer = require('multer')
-//const upload = multer({dest: 'image/'})
-const upload = multer({
-    storage: multer.memoryStorage(),
-  });
+const upload = multer({dest: 'image/'})
+//const upload = multer({
+//    storage: multer.memoryStorage(),
+//  });
 
 app.use(express.static('../client'))
 
@@ -112,6 +112,21 @@ app.post('/oproduct',function(req,res){
     })
 })
 
+db.query('select id, filename from insertproduct', function(err,result){
+    if(err) throw err;
+    let len = result.length
+    for(i=0; i<len; i++){
+        if(result[i].filename !== null){
+            app.get(`/image/${result[i].id}`, function(req,res){
+                // 왜인지는 모르겠지만 라우터 찍을 때까지 i고
+                // 라우트 안 코드에서 i+1 이다
+                // 그래서 result[i-1]
+                res.sendFile(__dirname + `/./image/${result[i-1].filename}`)
+            })
+        }
+    }
+})
+
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
@@ -139,10 +154,10 @@ app.get('/insertproduct', function(req,res){
 
 app.post('/iproduct_process',upload.single('image'), function(req,res){
     console.log('hi');
-    console.log(req.file);
+    //console.log(req.file);
     let body = req.body;
-    let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser) 
-    VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser})`;
+    let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser, filename) 
+    VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser}, '${req.file.filename}')`;
     db.query(sql);
     res.redirect('/product')
 })

@@ -16,32 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `insertproduct`
+-- Table structure for table `importver`
 --
 
-DROP TABLE IF EXISTS `insertproduct`;
+DROP TABLE IF EXISTS `importver`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `insertproduct` (
+CREATE TABLE `importver` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(256) DEFAULT NULL,
   `itime` datetime DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
-  `image` longblob,
+  `filename` varchar(256) DEFAULT NULL,
   `detail` text,
   `inguser` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `insertproduct`
+-- Dumping data for table `importver`
 --
 
-LOCK TABLES `insertproduct` WRITE;
-/*!40000 ALTER TABLE `insertproduct` DISABLE KEYS */;
-INSERT INTO `insertproduct` VALUES (1,'test',NULL,'11',NULL,NULL,NULL),(2,'test',NULL,'11',NULL,NULL,NULL),(3,'test',NULL,'11',NULL,NULL,3),(4,NULL,NULL,NULL,NULL,'eeee',NULL),(5,'test',NULL,'11',NULL,'33',NULL),(6,'test','2021-05-13 05:38:59','11',NULL,'33',NULL),(7,'tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU','2021-05-13 05:40:24','33',NULL,'55',2),(8,'tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU','2021-05-13 13:18:40','33',NULL,'55',2);
-/*!40000 ALTER TABLE `insertproduct` ENABLE KEYS */;
+LOCK TABLES `importver` WRITE;
+/*!40000 ALTER TABLE `importver` DISABLE KEYS */;
+/*!40000 ALTER TABLE `importver` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-13 14:14:34
+-- Dump completed on 2021-05-24  2:42:37
