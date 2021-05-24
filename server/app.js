@@ -112,17 +112,19 @@ app.post('/oproduct',function(req,res){
     })
 })
 
+function makeimage(i, result){
+    app.get(`/image/${result[i].id}`, function(req,res){
+        console.log(i);
+        res.sendFile(__dirname + `/./image/${result[i].filename}`)
+    })
+}
+
 db.query('select id, filename from insertproduct', function(err,result){
     if(err) throw err;
-    let len = result.length
+    var len = result.length
     for(i=0; i<len; i++){
         if(result[i].filename !== null){
-            app.get(`/image/${result[i].id}`, function(req,res){
-                // 왜인지는 모르겠지만 라우터 찍을 때까지 i고
-                // 라우트 안 코드에서 i+1 이다
-                // 그래서 result[i-1]
-                res.sendFile(__dirname + `/./image/${result[i-1].filename}`)
-            })
+            makeimage(i, result)
         }
     }
 })
