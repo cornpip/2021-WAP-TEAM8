@@ -6,6 +6,8 @@ const app = express()
 const db = require('./db/db.js')
 const PORT = 4000
 
+// db테스트용
+//----------------------------------------------------------------------------------------------------------
 db.connect();
 db.query('select * from locate where 시도="부산광역시" AND 시군구="남구" limit 4000',function(err,result){
     if(err) throw err;
@@ -24,6 +26,11 @@ db.query('select * from locate where 시도="부산광역시" AND 시군구="남
     //console.log(unilocate);
     console.log('connect success');
 })
+
+db.query(`select * from area`, function(err, result){
+    //console.log(result);
+})
+//-------------------------------------------------------------------------------------------------------------
 
 const naver = require('passport-naver').Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy;
@@ -163,6 +170,13 @@ function locatearr(first, second="undefined", res){
 app.post('/olocate', function(req,res){
     let body =req.body;
     locatearr(body.first, body.second, res)
+})
+
+app.post('/slocate', function(req,res){
+    let sql = `select * from area`
+    db.query(sql, function(err,result){
+        res.send(result)
+    })
 })
 
 app.get('/ttt', function(req,res){
