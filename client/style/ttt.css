@@ -1,0 +1,45 @@
+.locates {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.locate {
+  width: 130px;
+  padding: 10px;
+  margin: 5px;
+  border-style: solid;
+}
+
+.locate:hover {
+  animation: srr;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.clicked {
+  background-color: rgb(68, 109, 184);
+  color: white;
+  border-style: solid;
+  border-color: white;
+}
+
+.locates-go {
+  display: flex;
+}
+
+@keyframes srr {
+  0% {
+    opacity: 0.3;
+    background-color: bisque;
+  }
+  50% {
+    opacity: 0.8;
+    background-color: cornflowerblue;
+    color: white;
+  }
+  100% {
+    opacity: 1;
+    background-color: rgb(68, 109, 184);
+    color: white;
+  }
+}
