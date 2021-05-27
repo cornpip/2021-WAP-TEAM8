@@ -53,6 +53,7 @@ export function showNavbar(body) {
 
 export function insertInfo(informationJson, products, needToPt = false) {
   informationJson.map((information) => {
+    console.log(information);
     const product = new ProductInformation(information);
 
     product.attachTo(products, product.insertToHTMl());
@@ -74,4 +75,37 @@ export function insertInfo(informationJson, products, needToPt = false) {
 export function showInfo(e) {
   let key = e.target.id;
   location.href = "/productinfo?key=" + key;
+}
+
+export class Locate {
+  constructor(locate) {
+    this.locate = locate;
+    this.isClick = false;
+  }
+
+  insertToHTML() {
+    const locate = this.makeHTMLElement("div", this.locate);
+    return locate;
+  }
+
+  makeHTMLElement(tagname, innertext) {
+    const html = document.createElement(tagname);
+    html.setAttribute("class", "locate");
+    if (innertext) html.textContent = innertext;
+    html.addEventListener("click", () => this.clickLocate(html));
+    return html;
+  }
+
+  clickLocate(html) {
+    this.isClick = !this.isClick;
+    console.log("click...");
+    this.isClick
+      ? html.classList.add("clicked")
+      : html.classList.remove("clicked");
+    location.href = "/ttt?area=" + this.locate;
+  }
+
+  attachTo(parentNode, locate) {
+    parentNode.appendChild(locate);
+  }
 }
