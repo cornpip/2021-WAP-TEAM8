@@ -81,28 +81,31 @@ export class Locate {
   constructor(locate) {
     this.locate = locate;
     this.isClick = false;
+    this.lhtml = this.makeHTMLElement("div", this.locate);
+    this.lhtml.addEventListener;
   }
 
-  insertToHTML() {
-    const locate = this.makeHTMLElement("div", this.locate);
-    return locate;
+  get lhtml() {
+    return this._lhtml;
+  }
+
+  set lhtml(value) {
+    this._lhtml = value;
+  }
+
+  get isClick() {
+    return this._isClick;
+  }
+
+  set isClick(value) {
+    this._isClick = value;
   }
 
   makeHTMLElement(tagname, innertext) {
     const html = document.createElement(tagname);
     html.setAttribute("class", "locate");
     if (innertext) html.textContent = innertext;
-    html.addEventListener("click", () => this.clickLocate(html));
     return html;
-  }
-
-  clickLocate(html) {
-    this.isClick = !this.isClick;
-    console.log("click...");
-    this.isClick
-      ? html.classList.add("clicked")
-      : html.classList.remove("clicked");
-    location.href = "/ttt?area=" + this.locate;
   }
 
   attachTo(parentNode, locate) {
