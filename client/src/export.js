@@ -1,4 +1,4 @@
-import { ProductInformation } from "./productinfo.js";
+import { ProductInformation } from "./productinfomation.js";
 
 export function Navbar(parent, isSuccess) {
   let leftUrl = "";
@@ -26,7 +26,7 @@ export function Navbar(parent, isSuccess) {
                     </div>
                     <div class="right">
                     <a href="${leftUrl}" id="left"><span>${leftInnerText}</span></a>
-                    <a href="${rightUrl}" id="left"><span>${rightInnerText}</span></a>
+                    <a href="${rightUrl}" id="right"><span>${rightInnerText}</span></a>
                     </div>
                 </div>`;
 
@@ -51,16 +51,64 @@ export function showNavbar(body) {
     .catch((err) => console.log(err));
 }
 
-export function insertInfo(informationJson, products) {
-  informationJson.map((information, index) => {
+export function insertInfo(informationJson, products, needToPt = false) {
+  informationJson.map((information) => {
+    console.log(information);
     const product = new ProductInformation(information);
+
     product.attachTo(products, product.insertToHTMl());
+
     product.element
       .querySelector(".participateBtn")
-      .addEventListener("click", function () {
-        console.log(information);
-        product.participateTo(product.element.querySelector(".participant"));
-        information.participant++;
-      });
+      .addEventListener(
+        "click",
+        needToPt
+          ? () =>
+              product.participateTo(
+                product.element.querySelector(".participant")
+              )
+          : showInfo
+      );
   });
+}
+
+export function showInfo(e) {
+  let key = e.target.id;
+  location.href = "/productinfo?key=" + key;
+}
+
+export class Locate {
+  constructor(locate) {
+    this.locate = locate;
+    this.isClick = false;
+    this.lhtml = this.makeHTMLElement("div", this.locate);
+    this.lhtml.addEventListener;
+  }
+
+  get lhtml() {
+    return this._lhtml;
+  }
+
+  set lhtml(value) {
+    this._lhtml = value;
+  }
+
+  get isClick() {
+    return this._isClick;
+  }
+
+  set isClick(value) {
+    this._isClick = value;
+  }
+
+  makeHTMLElement(tagname, innertext) {
+    const html = document.createElement(tagname);
+    html.setAttribute("class", "locate");
+    if (innertext) html.textContent = innertext;
+    return html;
+  }
+
+  attachTo(parentNode, locate) {
+    parentNode.appendChild(locate);
+  }
 }

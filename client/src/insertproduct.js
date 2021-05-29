@@ -11,14 +11,14 @@ const body = document.querySelector("body");
 function handleClick() {
   if (title.value === "") alert("Value is empty");
   else {
-    var formData = new FormData();
-    formData.append('title', title.value);
-    formData.append('detail', detail.value);
-    formData.append('inguser', number.value);
-    formData.append('image', image.files[0]);
     fetch("/iproduct_process", {
       method: "post",
-      body: formData
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: title.value,
+        detail: detail.value,
+        inguser: number.value,
+      }),
     })
       .then(() => (location.href = "/product"))
       .catch((err) => console.log(err));

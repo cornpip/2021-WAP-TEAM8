@@ -1,0 +1,85 @@
+.body {
+  display: flex;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.locate {
+  padding: 10px;
+  width: 110px;
+  margin: 5px;
+  border-style: solid;
+}
+
+.locates-first {
+  display: flex;
+  flex-wrap: wrap;
+  border-style: solid;
+}
+
+.locate:hover {
+  animation: srr;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.clicked {
+  background-color: rgb(68, 109, 184);
+  color: white;
+  border-style: solid;
+  border-color: white;
+}
+
+.locates-second {
+  display: flex;
+  flex-wrap: wrap;
+  border-style: solid;
+}
+
+.locates-third {
+  display: flex;
+  flex-wrap: wrap;
+  border-style: solid;
+}
+
+.blind {
+  display: none;
+}
+
+.submit_button {
+  background-color: darkcyan;
+  color: white;
+  animation: slide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes srr {
+  0% {
+    opacity: 0.3;
+    background-color: bisque;
+  }
+  50% {
+    opacity: 0.8;
+    background-color: cornflowerblue;
+    color: white;
+  }
+  100% {
+    opacity: 1;
+    background-color: rgb(68, 109, 184);
+    color: white;
+  }
+}

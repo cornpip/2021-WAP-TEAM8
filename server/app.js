@@ -221,6 +221,10 @@ app.get('/product', function(req,res){
     res.render('product.html')
 })
 
+app.get('/productinfo', function(req,res){
+    res.render('productInfo.html')
+})
+
 app.get('/insertproduct', function(req,res){
     res.render('insertproduct.html')
 })
