@@ -1,0 +1,31 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 95vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border-style: solid;
+}
+
+.image {
+  width: 500px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+  margin-right: 50px;
+}
+
+.chat {
+  background-color: cornflowerblue;
+  margin-left: 50px;
+}
