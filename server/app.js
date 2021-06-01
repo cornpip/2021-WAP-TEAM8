@@ -30,8 +30,13 @@ db.query('select * from locate where 시도="부산광역시" AND 시군구="남
 db.query(`select * from area`, function(err, result){
     //console.log(result);
 })
+
+db.query(`select * from user where id='tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU'`, function(err, result){
+    //console.log(result);
+})
 //-------------------------------------------------------------------------------------------------------------
 
+const request =require('request');
 const naver = require('passport-naver').Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy;
 const passport = require('passport')
@@ -71,7 +76,19 @@ passport.use('kakao-login', new KakaoStrategy({
     callbackURL: `http://localhost:${PORT}/auth/kakao/callback`,
 }, function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-        console.log(profile);
+        let sql = `select * from user where id='${profile._json.id}'`
+        let sql2 = `INSERT INTO user(provider, id, email, age, gender) 
+        VALUES('${profile.provider}', '${profile._json.id}', '${profile._json.email}', '${profile._json.age}', '${profile._json.gender}')`
+        db.query(sql,function(err,result){
+            if(err) throw err;
+            if(!result[0]){
+                db.query(sql2, function(err2, result2){
+                    if(err2) throw err2
+                    console.log('successful sign up')
+                })
+            }
+        })
+        //console.log(profile._json);
         return done(null, profile);
     });
 }));
@@ -85,35 +102,56 @@ app.get('/auth/kakao/callback', passport.authenticate('kakao-login', {
 //네이버 로그인
 passport.use(new naver({
     clientID: process.env.NAVER_ID,
-    clientSecret: 'blEJNI4QTA',
+    clientSecret: process.env.NAVER_SECRET,
     callbackURL: `http://localhost:${PORT}/callback/naver`
 },
 function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-        user = {
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            username: profile.displayName,
-            provider: 'naver',
-            naver: profile._json
+        var header = "Bearer " + accessToken;
+        var options = {
+            url: 'https://openapi.naver.com/v1/nid/me',
+            headers: {'Authorization': header}
         };
-        return done(null, profile);
-    });
-}));
+        request.get(options, function(error, response, body){
+            if (!error && response.statusCode == 200) {
+                body = JSON.parse(body);
+                profile._json.gender = body.response.gender;
+                profile._json.mobile = body.response.mobile;
+                profile._json.name = body.response.name;
+                //console.log(body.response);
+            } else {
+                console.log('error');
+                if(response != null) {
+                  console.log('error = ' + response.statusCode);
+                }
+            }
+            let sql = `select * from user where id='${profile._json.id}'`
+            let sql2 = `INSERT INTO user(provider, id, email, age, gender) 
+            VALUES('${profile.provider}', '${profile._json.id}', '${profile._json.email}', '${profile._json.age}', '${profile._json.gender}')`
+            db.query(sql,function(err,result){
+                if(err) throw err;
+                if(!result[0]){
+                    db.query(sql2, function(err2, result2){
+                        if(err2) throw err2
+                        console.log('successful sign up')
+                    })
+                }
+            })
+            //console.log(profile);
+            return done(error, profile);
+        })
+        // profile에 gender나 mobile이 안넘어온다. --> 따로 요청
+    })
+}))
 app.get('/login/naver', passport.authenticate('naver'));
 
-app.get('/callback/naver', function (req, res, next) {
-  passport.authenticate('naver', function (err, user) {
-    //console.log('passport.authenticate(naver)실행')
-    if (!user) { 
-        console.log('로그인 실패');
-     return res.redirect(`http://localhost:${PORT}/login`); }
-    req.logIn(user, function (err) { 
-       //console.log('naver/callback user : ', user);
-       return res.redirect('/');        
+
+app.get('/callback/naver', 
+	passport.authenticate('naver', {
+        failureRedirect: '/login'
+    }), function(req, res) {
+    	res.redirect('/'); 
     });
-  })(req, res);
-});
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -180,6 +218,7 @@ app.post('/slocate', function(req,res){
 })
 
 app.get('/ttt', function(req,res){
+    console.log(req.user);
     res.render('test.html')
 })
 
@@ -210,7 +249,12 @@ app.get('/',function(req,res){
 })
 
 app.get('/login', function(req,res){
-    res.render('login.html')
+    if(req.user){
+        res.redirect('/');
+    }
+    else{
+        res.render('login.html')
+    }
 })
 
 app.get('/mypage',function(req,res){
