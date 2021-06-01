@@ -31,7 +31,7 @@ CREATE TABLE `insertproduct` (
   `detail` text,
   `inguser` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,6 @@ CREATE TABLE `insertproduct` (
 
 LOCK TABLES `insertproduct` WRITE;
 /*!40000 ALTER TABLE `insertproduct` DISABLE KEYS */;
-INSERT INTO `insertproduct` VALUES (1,'tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU','2021-05-25 03:15:21','111111','13a94f8e08c7f0413d17ad6534e724ba','2222',2),(2,'tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU','2021-05-25 03:16:08','dff','ec7cf4044471163b56ef35bc75ee0ee5','dd',2),(3,'tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU','2021-05-25 03:16:57','124','8cb37b29207324140d25ba8294e1934e','3131',2);
 /*!40000 ALTER TABLE `insertproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-02  2:24:30
+-- Dump completed on 2021-06-02  2:30:49
