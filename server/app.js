@@ -55,10 +55,10 @@ let sql4 = `UPDATE user SET inglist=? where usernum=1`
 //     })
 // })
 
-db.query(`select remainder from inguserlist`, function(err, result){
-    let a=result[0].remainder.split(',');
-    console.log(a);
-})
+// db.query(`select remainder from inguserlist`, function(err, result){
+//     let a=result[0].remainder.split(',');
+//     console.log(a);
+// })
 
 db.query(`select * from user where id='test1'`, function(err, result){
     db.query(`select * from inguserlist where makeuser='test1'`, function(err2,result2){
@@ -367,31 +367,6 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     db.query(sql);
     res.redirect('/product')
 })
-
-
-
-// 카카오 로그인 
-// router.use('/auth', require('./auth'));
-
-// passport.use('kakao', new KakaoStrategy({
-//     clientID: process.env.KAKAO_ID,
-//     callbackURL: '/auth/kakao/callback',     // 위에서 설정한 Redirect URI
-//   }, async (accessToken, refreshToken, profile, done) => {
-//     //console.log(profile);
-//     console.log(accessToken);
-//     console.log(refreshToken);
-// }))
-
-
-// router.get('/kakao', passport.authenticate('kakao'));
-
-// router.get('/kakao/callback', passport.authenticate('kakao', {
-//   failureRedirect: '/',
-// }), (res, req) => {
-//   res.redirect('/auth');
-// });
-
-
 
  app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
