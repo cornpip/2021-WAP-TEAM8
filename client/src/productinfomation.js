@@ -6,8 +6,9 @@ export class ProductInformation {
     this.participant = 1;
     this.date = information.date;
     this.state = "진행중";
-    this.key = this.number;
+    this.id = information.id;
   }
+
   get participant() {
     return this._participant;
   }
@@ -27,12 +28,19 @@ export class ProductInformation {
       this.participant
     );
     const participateBtn = this.makeHTMLElement("input", "participateBtn");
-    participateBtn.setAttribute("id", this.key);
+    participateBtn.setAttribute("id", this.id);
+
+    const image = this.makeHTMLElement("img", "image");
+
+    image.setAttribute("src", `/image/${this.id}`);
+    console.log(`/image/${this.id}`);
+    // image.setAttribute("src", `./image/${this.id}`);
+
     participateBtn.type = "button";
     participateBtn.value = "참가할게요";
     const date = this.makeHTMLElement("div", "date", this.date);
     number.append(participant);
-    product.append(title, detail, number, date, participateBtn);
+    product.append(title, image, detail, number, date, participateBtn);
     return product;
   }
 

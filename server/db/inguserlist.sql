@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user`
+-- Table structure for table `inguserlist`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `inguserlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `usernum` int NOT NULL AUTO_INCREMENT,
-  `provider` varchar(32) DEFAULT NULL,
-  `id` varchar(128) NOT NULL,
-  `email` varchar(64) DEFAULT NULL,
-  `age` varchar(64) DEFAULT NULL,
-  `gender` varchar(64) DEFAULT NULL,
-  `inglist` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`usernum`,`id`)
+CREATE TABLE `inguserlist` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `makeuser` varchar(128) DEFAULT NULL,
+  `remainder` varchar(600) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `inguserlist`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `inguserlist` WRITE;
+/*!40000 ALTER TABLE `inguserlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inguserlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-05 15:48:11
+-- Dump completed on 2021-06-05 15:48:38

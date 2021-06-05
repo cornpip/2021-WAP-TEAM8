@@ -21,7 +21,7 @@
   padding: 30px;
   margin: 30px;
   width: 440px;
-  height: 300px;
+  height: 500px;
   background-color: rgb(75, 78, 241);
   border-radius: 12px;
 }
@@ -87,4 +87,8 @@ ul {
 .product:hover {
   transform: scale(1.1);
   transition-duration: 1s;
+}
+
+.image {
+  transform: scale(0.8);
 }
