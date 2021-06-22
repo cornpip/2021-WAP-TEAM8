@@ -16,7 +16,7 @@ let BANNER_STATE;
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
-    top: 915,
+    top: 980,
     behavior: "smooth",
   });
 });
@@ -102,5 +102,37 @@ function init() {
   CURRENT_BUTTON.style.backgroundColor = "black";
   addEventListenerButtons();
 }
+
+const tt1 = document.querySelector(".tt1"),
+  tt2 = document.querySelector(".tt2"),
+  tt3 = document.querySelector(".tt3");
+
+const tts = [tt1, tt2, tt3];
+console.log(tts);
+
+function setStyle(num) {
+  for (let i = 0; i < 3; i++) {
+    if (i != num) {
+      tts[i].style.opacity = "0";
+      tts[i].style.animation = "none";
+    } else {
+      tts[i].style.opacity = "1";
+      tts[i].style.animation = "fade 1s";
+    }
+  }
+}
+
+window.addEventListener("scroll", function () {
+  var currentScrollValue = document.documentElement.scrollTop;
+  if (currentScrollValue < 1000) {
+    setStyle(-1);
+  } else if (currentScrollValue > 1000 && currentScrollValue < 2000) {
+    setStyle(0);
+  } else if (currentScrollValue > 2000 && currentScrollValue < 3000) {
+    setStyle(1);
+  } else if (currentScrollValue > 3000 && currentScrollValue < 3800) {
+    setStyle(2);
+  }
+});
 
 init();

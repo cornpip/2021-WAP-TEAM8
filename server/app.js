@@ -47,13 +47,13 @@ let sql2 = `UPDATE inguserlist SET remainder=? where id=1`
 // })
 let sql3 = `select inglist from user where usernum=1`
 let sql4 = `UPDATE user SET inglist=? where usernum=1`
-// db.query(sql3, function(err, result){
-//     if(err) throw err;
-//     let before=result[0].inglist
-//     db.query(sql4,[before+',5'],function(err2, result2){
-//         if(err2) throw err2;
-//     })
-// })
+//db.query(sql3, function(err, result){
+//    if(err) throw err;
+//    let before=result[0].inglist
+//    db.query(sql4,[before+',9'],function(err2, result2){
+//        if(err2) throw err2;
+//    })
+//})
 
 // db.query(`select remainder from inguserlist`, function(err, result){
 //     let a=result[0].remainder.split(',');
@@ -63,7 +63,7 @@ let sql4 = `UPDATE user SET inglist=? where usernum=1`
 db.query(`select * from user where id='test1'`, function(err, result){
     db.query(`select * from inguserlist where makeuser='test1'`, function(err2,result2){
         result3 =result.concat(result2);
-        console.log(result3);
+        //console.log(result3);
     })
     // console.log(result[0].inglist);
     // let a = result[0].inglist;
@@ -72,7 +72,23 @@ db.query(`select * from user where id='test1'`, function(err, result){
 })
 
 db.query(`select * from inguserlist where makeuser='test1'`,function(err,result){
-    console.log(result.length);
+    //console.log(result);
+})
+db.query(`select * from user where id='tr0_eLNNTW1BEgfJewf3Sc6Mu_jGDngsok6XlwCD1IU'`, function(err, result){
+    //console.log(result)
+})
+
+let sql5 = `select inguser,nowuser  from insertproduct where id=1`
+let sql6 = `UPDATE insertproduct SET nowuser=? where id=1`
+db.query(sql5, function(err, result){
+    if(err) throw err;
+    //if(result[0].nowuser == result[0].inguser){
+    //    res.redirect('/');
+    //}
+    let nowuser = result[0].nowuser + 1
+    //db.query(sql6,[nowuser], function(err2, result2){
+    //    if(err2) throw err2
+    //})
 })
 //-------------------------------------------------------------------------------------------------------------
 
@@ -210,6 +226,15 @@ app.post('/oproduct',function(req,res){
     })
 })
 
+app.post("/oproduct_key", function (req, res) {
+    let body = req.body;
+    console.log(body);
+    let sql = `SELECT * FROM insertproduct WHERE id = ${body.key} `;
+    db.query(sql, function (err, result) {
+      res.send(result);
+    });
+  });
+
 function locatearr(first, second="undefined", res){
     //console.log(first);
     //console.log(second);
@@ -309,7 +334,7 @@ app.get('/mypage',function(req,res){
     res.render('mypage.html')
 })
 
-app.get('/mypageinfo',function(req,res){
+app.post('/mypageinfo',function(req,res){
     let sql = `select * from user where id='${req.user.id}'`
     let sql2 = `select * from inguserlist where makeuser='${req.user.id}'`
     db.query(sql,function(err,result){
@@ -317,8 +342,18 @@ app.get('/mypageinfo',function(req,res){
         db.query(sql2, function(err2, result2){
             if(err2) throw err2;
             userdata = result.concat(result2);
+            //console.log(userdata);
             res.send(userdata);
         })
+    })
+})
+
+app.post('/userlistinfo', function(req,res){
+    let body = req.body;
+    let sql = `select * from inguserlist where id=${body.id}`
+    db.query(sql, function(err, result){
+        if(err) throw err;
+        res.send(result)
     })
 })
 
@@ -332,8 +367,21 @@ app.get('/productinfo', function(req,res){
 
 app.post('/participate', function(req,res){
     let body =req.body
+    let sql5 = `select inguser,nowuser  from insertproduct where id=1`
+    let sql6 = `UPDATE insertproduct SET nowuser=? where id=1`
+    db.query(sql5, function(err, result){
+        if(err) throw err;
+        if(result[0].nowuser == result[0].inguser){
+            res.redirect('/');
+        }
+        let nowuser = result[0].nowuser + 1
+        db.query(sql6,[nowuser], function(err2, result2){
+            if(err2) throw err2
+        })
+    })
     let sql = `select remainder from inguserlist where id=${body.id}`
     let sql2 = `UPDATE inguserlist SET remainder=? where id=${body.id}`
+    console.log(body.id);
     db.query(sql, function(err, result){
         if(err) throw err;
         let before=result[0].remainder;
@@ -342,8 +390,8 @@ app.post('/participate', function(req,res){
                 //console.log(result2);
         })
     })
-    let sql3 = `select inglist from user where id=${req.user.id}`
-    let sql4 = `UPDATE user SET inglist=? where id=${req.user.id}`
+    let sql3 = `select inglist from user where id='${req.user.id}'`
+    let sql4 = `UPDATE user SET inglist=? where id='${req.user.id}'`
     db.query(sql3, function(err, result){
         if(err) throw err;
         let before=result[0].inglist
@@ -351,6 +399,11 @@ app.post('/participate', function(req,res){
             if(err2) throw err2;
         })
     })
+    res.redirect('productInfo.html')
+})
+
+app.get('/ttt4', function(req,res){
+    res.render('humm.html');
 })
 
 app.get('/insertproduct', function(req,res){
@@ -361,10 +414,11 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     console.log('hi');
     //console.log(req.file);
     let body = req.body;
-    let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser, filename) 
-    VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser}, '${req.file.filename}')`;
+    let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser, filename, nowuser, place) 
+    VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser}, '${req.file.filename}', 1, '${body.place}')`;
     let sql2 = `INSERT INTO inguserlist(makeuser) VALUES('${req.user.id}')`
     db.query(sql);
+    db.query(sql2);
     res.redirect('/product')
 })
 

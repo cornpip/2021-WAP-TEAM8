@@ -30,6 +30,8 @@ CREATE TABLE `insertproduct` (
   `filename` varchar(256) DEFAULT NULL,
   `detail` text,
   `inguser` int DEFAULT NULL,
+  `nowuser` int DEFAULT NULL,
+  `place` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-02  2:30:49
+-- Dump completed on 2021-06-22 23:06:29

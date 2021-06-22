@@ -30,13 +30,14 @@ a {
   color: var(--fontcolor);
 }
 
+/*header*/
 .banner {
   background-repeat: no-repeat;
-  background-size: 1920px 915px;
+  background-size: 1920px 980px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 915px;
+  height: 980px;
   color: var(--fontcolor);
   text-shadow: 1px 1px 10px rgb(43, 39, 104);
 }
@@ -131,26 +132,17 @@ button {
   opacity: 0.4;
 }
 
+/*main*/
 .document {
-  height: 1009px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-content: space-around;
+  align-content: space-between;
 }
 
 .document span {
   display: flex;
   justify-content: end;
-}
-
-.footer {
-  height: 200px;
-  color: rgb(0, 0, 0);
-}
-
-footer {
-  background-color: rgb(207, 206, 206);
 }
 
 #see {
@@ -161,7 +153,58 @@ footer {
   color: black;
 }
 
+.tt0 {
+  position: sticky;
+  top: 0px;
+  height: 100px;
+}
+
+.tt0 h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
+  margin: 0px;
+  background-color: white;
+}
+
+.tts {
+  height: 3500px;
+}
+
+.tt1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  opacity: 0;
+  top: 100px;
+  height: 1000px;
+}
+
+.tt1 img {
+  width: 500px;
+}
+
+.tt2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  opacity: 0;
+  top: 100px;
+  height: 1000px;
+}
+
+.tt3 {
+  position: sticky;
+  opacity: 0;
+  top: 200px;
+  height: 1500px;
+}
+/*products*/
 .products {
+  position: sticky;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
@@ -171,11 +214,41 @@ footer {
 .product {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 30px;
-  width: 200px;
-  height: 250px;
-  background-color: rgb(75, 78, 241);
+  width: 230px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
+  box-shadow: 1px 1px 1px black;
+}
+
+.product .title {
+  margin: 0px;
+}
+
+.product .image {
+  width: 200px;
+}
+
+.product .detail {
+  display: none;
+}
+
+.product .number {
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+}
+
+/*footer*/
+.footer {
+  color: rgb(0, 0, 0);
+}
+
+footer {
+  background-color: rgb(207, 206, 206);
 }
 
 /*animation*/
@@ -235,6 +308,18 @@ footer {
   animation: slideY 1s;
   animation-delay: 0.4s;
   animation-fill-mode: both;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes down {

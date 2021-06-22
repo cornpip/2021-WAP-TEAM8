@@ -53,3 +53,42 @@ footer {
   font-size: 20px;
   background-color: rgb(112, 112, 112);
 }
+
+.products {
+  position: sticky;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  border: 0.1px solid rgb(0, 0, 0);
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  width: 230px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 1px 1px 1px black;
+}
+
+.product .title {
+  margin: 0px;
+}
+
+.product .image {
+  width: 200px;
+}
+
+.product .detail {
+  display: none;
+}
+
+.product .number {
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+}
