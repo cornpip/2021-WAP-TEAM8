@@ -208,7 +208,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
-  border: 0.1px solid rgb(0, 0, 0);
 }
 
 .product {
@@ -221,7 +220,7 @@ button {
   height: 300px;
   background-color: rgb(255, 255, 255);
   border-radius: 12px;
-  box-shadow: 1px 1px 1px black;
+  box-shadow: 1px 1px 5px black;
 }
 
 .product .title {
@@ -240,6 +239,11 @@ button {
   display: flex;
   justify-content: space-around;
   width: 80px;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
 }
 
 /*footer*/
