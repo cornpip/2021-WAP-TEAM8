@@ -37,7 +37,7 @@ function showContent(data, mode = "write") {
     const inglist = data[0].inglist.split(",");
     const len = inglist.length;
     for (let i = 1; i < len; i++) {
-      fetchProduct(inglist[i].id);
+      fetchProduct(inglist[i]);
     }
   }
 }
