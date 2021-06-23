@@ -75,7 +75,7 @@ function handlerParticipate() {
     }),
   })
     .then(
-      (res) => console.log(res),
+      (res) => window.location.reload(),
       (rej) => console.log(rej)
     )
     .catch((err) => console.log);

@@ -16,6 +16,7 @@ function handleClick() {
     formData.append("detail", detail.value);
     formData.append("inguser", number.value);
     formData.append("image", image.files[0]);
+    formData.append("place", "부산광역시 남구 대연동");
     fetch("/iproduct_process", {
       method: "post",
       body: formData,

@@ -4,10 +4,16 @@
   justify-content: center;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .products {
   width: 74vw;
   min-width: 500px;
-  max-width: 1400px;
+  max-width: 1230px;
   min-height: 360px;
   display: flex;
   flex-wrap: wrap;
@@ -26,6 +32,16 @@
   background-color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 1px 1px 5px 1px black;
+}
+
+.locate {
+  width: 100px;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 25px;
+  margin: 0px;
 }
 
 .product .image {
@@ -74,15 +90,19 @@
   padding-left: 10px;
   background-color: salmon;
   background: none;
-  outline: 0;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding-left: 20px;
+  font-weight: 600;
 }
 
 .proudct .number {
-  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .product .participant {
-  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .categories {

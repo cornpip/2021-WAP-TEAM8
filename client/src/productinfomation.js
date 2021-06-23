@@ -1,12 +1,24 @@
 export class ProductInformation {
-  constructor(information) {
+  constructor(information, needToPt = false) {
+    console.log(needToPt);
     this.title = information.title;
     this.detail = information.detail;
+    if (!needToPt) {
+      const titleLen = information.title.length;
+      const detaillen = information.detail.length;
+      if (titleLen > 11) {
+        this.title = information.title.slice(0, 7) + "...";
+      }
+      if (detaillen > 26) {
+        this.detail = information.detail.slice(0, 22) + "...";
+      }
+    }
     this.number = information.inguser;
-    this.participant = 1;
+    this.participant = information.nowuser;
     this.date = information.date;
     this.state = "진행중";
     this.id = information.id;
+    this.place = information.place;
   }
 
   get participant() {
@@ -39,10 +51,10 @@ export class ProductInformation {
     top.append(image);
 
     const content = this.makeHTMLElement("div", "content");
-    const locate = this.makeHTMLElement("div", "locate", "대연동");
+    const place = this.makeHTMLElement("div", "locate", this.place);
 
     content.append(title, detail);
-    middle.append(content, locate);
+    middle.append(content, place);
 
     image.setAttribute("src", `/image/${this.id}`);
     console.log(`/image/${this.id}`);
@@ -52,7 +64,7 @@ export class ProductInformation {
     participateBtn.value = "참가할게요";
 
     const ing = this.makeHTMLElement("div", "ing");
-    ing.append(number, participant);
+    ing.append(participant, number);
 
     bottom.append(participateBtn, ing);
 
@@ -70,14 +82,5 @@ export class ProductInformation {
 
   attachTo(parentNode, product) {
     this.element = parentNode.appendChild(product);
-  }
-
-  participateTo(participant) {
-    const pnumber = parseInt(participant.innerText);
-    const number = parseInt(this.number);
-    console.log("click...", pnumber, number);
-    pnumber < number
-      ? (participant.innerText = String(++this.participant))
-      : alert("꽉 찼습니다.");
   }
 }

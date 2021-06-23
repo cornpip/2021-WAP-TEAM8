@@ -95,3 +95,17 @@ footer {
   display: flex;
   flex-direction: row;
 }
+
+.locate {
+  display: none;
+}
+
+.product .bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom .ing {
+  display: flex;
+  flex-direction: row;
+}

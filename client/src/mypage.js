@@ -65,9 +65,9 @@ function getUserInfo() {
     )
     .then(
       (data) => {
-        (USER_DATA = data), showContent(data);
+        console.log(data), (USER_DATA = data), showContent(data);
       },
-      (res) => console.log(rej)
+      (rej) => console.log(rej)
     )
     .catch((err) => console.log(err));
 }
