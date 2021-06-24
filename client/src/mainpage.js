@@ -1,11 +1,12 @@
 import { Auth, insertInfo } from "./export.js";
 
-const banner = document.querySelector(".banner");
-const buttons = document.getElementsByClassName("lower__button");
-const wantToSee = document.getElementById("see");
-const imgModeBtn = document.getElementById("image");
-const colorModeBtn = document.getElementById("color");
-const products = document.querySelector(".products");
+const banner = document.querySelector(".banner"),
+  buttons = document.getElementsByClassName("lower__button"),
+  wantToSee = document.getElementById("see"),
+  imgModeBtn = document.getElementById("image"),
+  colorModeBtn = document.getElementById("color"),
+  products = document.querySelector(".products"),
+  howTo = document.querySelector("#howto");
 
 const bannerStyle = banner.style;
 
@@ -16,7 +17,14 @@ let BANNER_STATE;
 
 wantToSee.addEventListener("click", () => {
   window.scroll({
-    top: 980,
+    top: 2500,
+    behavior: "smooth",
+  });
+});
+
+howTo.addEventListener("click", () => {
+  window.scroll({
+    top: 1001,
     behavior: "smooth",
   });
 });
@@ -105,7 +113,10 @@ function init() {
 
 const tt1 = document.querySelector(".tt1"),
   tt2 = document.querySelector(".tt2"),
-  tt3 = document.querySelector(".tt3");
+  tt3 = document.querySelector(".tt3"),
+  tt1H1 = document.querySelector(".tt1 h1"),
+  tt1Img = document.querySelector(".tt1 img"),
+  tt1A = document.querySelector(".tt1 a");
 
 const tts = [tt1, tt2, tt3];
 console.log(tts);

@@ -53,8 +53,8 @@ export function showNavbar(body) {
 
 export function insertInfo(informationJson, products, needToPt = false) {
   informationJson.map((information) => {
-    console.log(information);
-    const product = new ProductInformation(information);
+    console.log(needToPt);
+    const product = new ProductInformation(information, needToPt);
 
     product.attachTo(products, product.insertToHTMl());
 
@@ -62,12 +62,7 @@ export function insertInfo(informationJson, products, needToPt = false) {
       .querySelector(".participateBtn")
       .addEventListener(
         "click",
-        needToPt
-          ? () =>
-              product.participateTo(
-                product.element.querySelector(".participant")
-              )
-          : showInfo
+        needToPt ? () => console.log("click..") : showInfo
       );
   });
 }

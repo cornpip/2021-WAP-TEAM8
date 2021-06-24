@@ -1,12 +1,24 @@
 export class ProductInformation {
-  constructor(information) {
+  constructor(information, needToPt = false) {
+    console.log(needToPt);
     this.title = information.title;
     this.detail = information.detail;
+    if (!needToPt) {
+      const titleLen = information.title.length;
+      const detaillen = information.detail.length;
+      if (titleLen > 11) {
+        this.title = information.title.slice(0, 7) + "...";
+      }
+      if (detaillen > 26) {
+        this.detail = information.detail.slice(0, 22) + "...";
+      }
+    }
     this.number = information.inguser;
-    this.participant = 1;
+    this.participant = information.nowuser;
     this.date = information.date;
     this.state = "진행중";
     this.id = information.id;
+    this.place = information.place;
   }
 
   get participant() {
@@ -19,18 +31,30 @@ export class ProductInformation {
 
   insertToHTMl() {
     const product = this.makeHTMLElement("div", "product");
-    const title = this.makeHTMLElement("h1", "title", this.title);
+    const title = this.makeHTMLElement("h4", "title", this.title);
     const detail = this.makeHTMLElement("div", "detail", this.detail);
-    const number = this.makeHTMLElement("div", "number", this.number);
+    const number = this.makeHTMLElement("div", "number", `${this.number}명`);
     const participant = this.makeHTMLElement(
       "span",
       "participant",
-      this.participant
+      `${this.participant}명`
     );
     const participateBtn = this.makeHTMLElement("input", "participateBtn");
     participateBtn.setAttribute("id", this.id);
 
     const image = this.makeHTMLElement("img", "image");
+
+    const top = this.makeHTMLElement("div", "top");
+    const middle = this.makeHTMLElement("div", "middle");
+    const bottom = this.makeHTMLElement("div", "bottom");
+
+    top.append(image);
+
+    const content = this.makeHTMLElement("div", "content");
+    const place = this.makeHTMLElement("div", "locate", this.place);
+
+    content.append(title, place);
+    middle.append(content, detail);
 
     image.setAttribute("src", `/image/${this.id}`);
     console.log(`/image/${this.id}`);
@@ -38,9 +62,14 @@ export class ProductInformation {
 
     participateBtn.type = "button";
     participateBtn.value = "참가할게요";
-    const date = this.makeHTMLElement("div", "date", this.date);
-    number.append(participant);
-    product.append(title, image, detail, number, date, participateBtn);
+
+    const ing = this.makeHTMLElement("div", "ing");
+    ing.append(participant, number);
+
+    bottom.append(participateBtn, ing);
+
+    // const date = this.makeHTMLElement("div", "date", this.date);
+    product.append(top, middle, bottom);
     return product;
   }
 
@@ -53,14 +82,5 @@ export class ProductInformation {
 
   attachTo(parentNode, product) {
     this.element = parentNode.appendChild(product);
-  }
-
-  participateTo(participant) {
-    const pnumber = parseInt(participant.innerText);
-    const number = parseInt(this.number);
-    console.log("click...", pnumber, number);
-    pnumber < number
-      ? (participant.innerText = String(++this.participant))
-      : alert("꽉 찼습니다.");
   }
 }

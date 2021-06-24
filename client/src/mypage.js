@@ -18,7 +18,7 @@ function changeButton() {
   const buttons = document.querySelectorAll(".participateBtn");
   const len = buttons.length;
   for (let i = 0; i < len; i++) {
-    buttons[i].value = "상세 정보 보러가기";
+    buttons[i].value = "참가중";
   }
 }
 
@@ -65,9 +65,9 @@ function getUserInfo() {
     )
     .then(
       (data) => {
-        (USER_DATA = data), showContent(data);
+        console.log(data), (USER_DATA = data), showContent(data);
       },
-      (res) => console.log(rej)
+      (rej) => console.log(rej)
     )
     .catch((err) => console.log(err));
 }

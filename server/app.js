@@ -85,11 +85,28 @@ db.query(sql5, function(err, result){
     //if(result[0].nowuser == result[0].inguser){
     //    res.redirect('/');
     //}
-    let nowuser = result[0].nowuser + 1
+    //let nowuser = result[0].nowuser + 1
     //db.query(sql6,[nowuser], function(err2, result2){
     //    if(err2) throw err2
     //})
 })
+
+//let sql7 = `INSERT INTO productchat(productid, chatport, participant, chatting, chattime) VALUES('${req.user.id}')`
+let sql8 = `select * from productchat where participant='test12' AND productid=1 `
+db.query(sql8,function(err,result){
+    //console.log(result[0]);
+    if(!result[0]){
+        console.log('hi')
+    }
+})
+let sql9 = `select participant, chatting, chattime from productchat where productid='1' ORDER BY chattime ASC LIMIT 100`
+db.query(sql9,function(err,result){
+    // console.log(result);
+    // console.log(result[0].participant)
+    // console.log(result[0].chatting)
+    // console.log(result[0].chattime)
+})
+
 //-------------------------------------------------------------------------------------------------------------
 
 const request =require('request');
@@ -215,7 +232,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(req,user,done){
     console.log('페이지마다 확인 될 인증 정보');
-    //console.log(user);
+    //console.log(user.id[5]);
     done(null, user);
 });
 
@@ -287,14 +304,6 @@ app.get('/ttt', function(req,res){
     res.render('test.html')
 })
 
-app.get('/ttt2', function(req,res){
-    res.render('test2.html');
-})
-
-app.get('/ttt3', function(req,res){
-    res.render('test3.html')
-})
-
 function makeimage(i, result){
     app.get(`/image/${result[i].id}`, function(req,res){
         console.log(i);
@@ -334,7 +343,7 @@ app.get('/mypage',function(req,res){
     res.render('mypage.html')
 })
 
-app.post('/mypageinfo',function(req,res){
+app.get('/mypageinfo',function(req,res){
     let sql = `select * from user where id='${req.user.id}'`
     let sql2 = `select * from inguserlist where makeuser='${req.user.id}'`
     db.query(sql,function(err,result){
@@ -367,8 +376,8 @@ app.get('/productinfo', function(req,res){
 
 app.post('/participate', function(req,res){
     let body =req.body
-    let sql5 = `select inguser,nowuser  from insertproduct where id=1`
-    let sql6 = `UPDATE insertproduct SET nowuser=? where id=1`
+    let sql5 = `select inguser,nowuser  from insertproduct where id=${body.id}`
+    let sql6 = `UPDATE insertproduct SET nowuser=? where id=${body.id}`
     db.query(sql5, function(err, result){
         if(err) throw err;
         if(result[0].nowuser == result[0].inguser){
@@ -399,7 +408,7 @@ app.post('/participate', function(req,res){
             if(err2) throw err2;
         })
     })
-    res.redirect('productInfo.html')
+    res.redirect('/productInfo.html')
 })
 
 app.get('/ttt4', function(req,res){
@@ -422,6 +431,26 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     res.redirect('/product')
 })
 
+app.get('/makechat' ,function(req,res){
+    let body= req.body;
+    let x = body.productid + 8000;
+    chat(x); 
+    res.redirect('/')
+})
+
+app.get('/ttt5', function(req,res){
+    chat(4);
+    res.redirect('/')
+})
+
+app.get('/ttt2', function(req,res){
+    res.render('test2.html');
+})
+
+app.get('/ttt3', function(req,res){
+    res.render('test3.html')
+})
+
  app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
 })
@@ -438,33 +467,56 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
 // });
 
 function chat(x){
-    var s = new server({port:x});
+    let cport = x+8000;
+    var s = new server({port:cport});
+    let sql = `select * from productchat where participant=? AND productid=?` //여기 participant 스트링으로 줘야하나 일단주의
+    let sql2 = `INSERT INTO productchat(productid, chatport, participant, chatting, chattime) 
+    VALUES(?, ?, ?, ?, NOW())`
+    let sql3 = `select participant, chatting, chattime from productchat where productid=? ORDER BY chattime ASC LIMIT 100`
+    // connection에서 게시판id 못받지
+    // 처음에 채팅방 들어가기 하고 불러오기 같은 버튼 만들어서 내용 불러오기하자(사실 불러오기버튼은 id정보 보내기위함)
+    // ㄴㄴ onopen 하면 바로 어차피 보내짐
     s.on('connection',ws=>{
         ws.on('message',message=>{
-          parseMessage = JSON.parse(message);
-          console.log(parseMessage);
-          if(parseMessage.type==="name"){
-            ws.personName = parseMessage.data;
-            s.clients.forEach(client=>{
-              client.send(JSON.stringify({
-                newChater:ws.personName,
-                type:"newPeople"
-              }))
+          parse = JSON.parse(message);
+          if(parse.type == "firstinfo"){
+            console.log('hi');
+            db.query(sql3, [parse.productid], function(err3, result3){
+                ws.send(JSON.stringify({
+                    data:result3,
+                    type:'beforechat'
+                }));
             })
+            db.query(sql,[parse.userid, parse.productid],function(err, result){
+                console.log(result[0])
+                if(!result[0]){
+                    db.query(sql2, [parse.productid, cport, parse.userid, `'님이 입장했습니다'`])
+                    s.clients.forEach(client=>{
+                        client.send(JSON.stringify({
+                          newChater:`익명${parse.userid[5]}`, // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등
+                          type:"newPeople"
+                        }))
+                      })
+                      return
+                    } 
+                })
             return
           }
-          s.clients.forEach(client=>{
-            if(client !== ws){
-                console.log('gigi');
-                client.send(JSON.stringify({
-                name:ws.personName,
-                data:parseMessage.data,
-              }));
-            } ;
-          })
-        })
+          console.log(parse);
+          db.query(sql2,[parse.productid, cport, parse.userid, parse.data])
+            s.clients.forEach(client=>{
+                //if(client !== ws){
+                    console.log('gigi');
+                    client.send(JSON.stringify({
+                    name:`익명${parse.userid[5]}`,
+                    data:parse.data,
+
+                 }));
+               //} ;
+             })
+        })  
         console.log("다른 연결이 감지되었습니다.");
-      })
+    })
 }
 
 const s = new server({port:8000});
@@ -472,7 +524,20 @@ s.on('connection',ws=>{
   // 2. 받고
   ws.on('message',message=>{
     parseMessage = JSON.parse(message);
+    db.query(sql8, function(err, result){
+        if(!result[0]){
+            //let sql=`INSERT INTO productchat(productid, chatport, participant, chatting, chattime) VALUES('${req.user.id}')`
+            //여기서 부터 정보받는거다, userid 게시판id 받아두자(user아이디도 받아야함 req.user 못쓰니까)
+            s.clients.forEach(client=>{
+                client.send(JSON.stringify({
+                  newChater:'이름할당', // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등
+                  type:"newPeople"
+                }))
+              })
+        }
+    })
     console.log(parseMessage);
+    //let sql=`INSERT INTO productchat(productid, chatport, participant, chatting, chattime) VALUES('${req.user.id}')`
 // 닉네임 받고
     if(parseMessage.type==="name"){
       ws.personName = parseMessage.data;
@@ -506,18 +571,36 @@ s.on('connection',ws=>{
     })
   })
   // 연결이 끝길때
-  //ws.on('close',()=>{
+    ws.on('close',()=>{
       //console.log('out');
 // 누군가 나감을 알림
-    // s.clients.forEach(client=>{
-    //   client.send(JSON.stringify({
-    //     name:ws.personName,
-    //     type:"bye"
-    //   }))
-    // })
-  //})
+     s.clients.forEach(client=>{
+       client.send(JSON.stringify({
+         name:ws.personName,
+         type:"bye"
+       }))
+     })
+    })
   // 연결될때
   console.log("다른 연결이 감지되었습니다.");
-  ws.send('hi');
+  ws.send(JSON.stringify({
+      data:'hello',
+      type:'chatinfo'
+  }));
 })
+//let sql7 = `INSERT INTO productchat(productid, chatport, participant, chatting, chattime) VALUES('${req.user.id}')`
+// port num = productid + 8000 이런식으로
+// 등록할 때, ws함수로 만들어서 생성하고 db에는 아직 ㄴㄴ
+// 채팅방 들어가기 하면 그 때 productid 주고, chatport id+8000으로 넣고, participant 넣고, 입장채팅넣고, chattime 넣고
+
+        //   if(parse.type==="name"){
+        //     ws.personName = parse.data;
+        //     s.clients.forEach(client=>{
+        //       client.send(JSON.stringify({
+        //         newChater:ws.personName,
+        //         type:"newPeople"
+        //       }))
+        //     })
+        //     return
+        //   }
 

@@ -1,24 +1,25 @@
 import { Locate } from "./export.js";
 
-let SELECTED_FIRST;
-let SELECTED_SECOND;
-let SELECTED_THIRD = [];
-let CLILKED = false;
-
 const first = document.querySelector(".locates-first"),
   second = document.querySelector(".locates-second"),
   third = document.querySelector(".locates-third"),
   btn = document.querySelector(".btn");
 
+let SELECTED_AREA = [
+  { num: first, area: "", use: false, currentUse: null },
+  { num: second, area: "", use: false, currentUse: null },
+  { num: third, area: "", use: false, currrenUse: null },
+];
+
 function init() {
-  const result = hi2();
+  const result = fetchInit();
   result
     .then((res) => res.json())
     .then((res) => insertLocate(res, true))
     .catch((err) => console.log(err));
 }
 
-async function hi2() {
+async function fetchInit() {
   const info = await fetch("/slocate", {
     method: "post",
   });
@@ -30,102 +31,122 @@ function insertLocate(datas, isFirst = false, isSecond = false) {
     const locate = new Locate(isFirst ? data.area : data);
     locate.attachTo(isFirst ? first : isSecond ? second : third, locate.lhtml);
     locate.lhtml.addEventListener("click", () => {
-      isFirst
-        ? handleClickFirst(locate.locate)
-        : isSecond
-        ? handleClickSecond(locate.locate)
-        : handleClickThird(locate.locate);
-      // locate.isClick
-      //   ? (locate.lhtml.classList.remove("clicked"),
-      //     (locate.isClick = false),
-      //     (CLILKED = false))
-      //   : (locate.lhtml.classList.add("clicked"),
-      //     (locate.isClick = true),
-      //     (CLILKED = true));
+      let areaNum;
+      isFirst ? (areaNum = 0) : isSecond ? (areaNum = 1) : (areaNum = 2);
+      handleClick(areaNum, locate.locate, locate.lhtml);
     });
   });
 }
 
-// first 선택했을때
-function handleClickFirst(locate) {
-  btn.classList.remove("submit_button");
-  btn.classList.add("blind");
-  // 이미 선택된게 있다면
-  if (SELECTED_FIRST) {
-    if (SELECTED_SECOND) {
-      removeChild(third);
-    }
-    //하위자식 => 시군구 삭제
-    removeChild(second);
-    // 이전에 선택된거랑 방금 선택한거랑 같으면 삭제하고 종료
-    if (SELECTED_FIRST == locate) {
-      SELECTED_FIRST = null;
-      return;
-    }
+// function showButton(isThird) {
+//   const remove = isThird ? "blind" : "submit_button";
+//   const add = isThird ? "submit_button" : "blind";
+//   btn.classList.remove(remove);
+//   btn.classList.add(add);
+// }
+
+function handleClick(areaNum, locate, element) {
+  const data = {
+    areaNum,
+    locate,
+    element,
+  };
+
+  removeChild(data);
+  const isEqual = compareCurrentLocate(data);
+  setArea(data, isEqual);
+  areaNum < 2 && !isEqual ? fetchArea(data) : console.log("yes");
+}
+
+function compareCurrentLocate(data) {
+  const locate = data.locate;
+  const areaNum = data.areaNum;
+  if (locate == SELECTED_AREA[areaNum].area) return true;
+  else return false;
+}
+
+function setArea(data, isEqual) {
+  const areaNum = data.areaNum;
+  const locate = data.locate;
+  const element = data.element;
+  const nowArea = SELECTED_AREA[areaNum];
+
+  // 이전에 선택한 lcoate랑 같다면 색 없애고, 빈칸으로 만들기
+  if (isEqual) {
+    nowArea.area = "";
+    nowArea.use = false;
+    changeColorOff(element);
+    nowArea.currentUse = null;
   }
-
-  SELECTED_FIRST = locate;
-  // first에 맞는 data 불러옴
-  hi(SELECTED_FIRST)
-    .then(
-      (res) => res.json(),
-      (rej) => console.log(rej)
-    )
-    .then(
-      (datas) => insertLocate(datas, false, true),
-      (rej) => console.log(rej)
-    )
-    .catch((err) => console.log(err));
-}
-
-// second 선택했을때
-function handleClickSecond(locate) {
-  btn.classList.remove("submit_button");
-  btn.classList.add("blind");
-  // 이미 선택된게 있다면
-  if (SELECTED_SECOND) {
-    // 하위자식 => 동 삭제
-    removeChild(third);
-    // 이전에 선택된거랑 방금 선택한거랑 같으면 삭제하고 종료
-    if (SELECTED_SECOND == locate) {
-      SELECTED_SECOND = null;
-      return;
+  // 이전에 선택한거랑 다르다면 원래꺼는 색 없애고, 현재 선택한거 색 주기
+  else {
+    nowArea.area = locate;
+    nowArea.use = true;
+    changeColorOn(element);
+    if (nowArea.currentUse) {
+      changeColorOff(nowArea.currentUse);
     }
+    nowArea.currentUse = element;
   }
-
-  SELECTED_SECOND = locate;
-  // first, second 다 전달하고 data 불러옴
-  hi(SELECTED_FIRST, SELECTED_SECOND)
-    .then(
-      (res) => res.json(),
-      (rej) => console.log(rej)
-    )
-    .then(
-      (datas) => insertLocate(datas, false, false),
-      (rej) => console.log(rej)
-    )
-    .catch((err) => console.log(err));
+  //현재 선택한거 하위 lcoate는 다 없애기
+  switch (areaNum) {
+    case 0:
+      SELECTED_AREA[areaNum + 1].area = "";
+      SELECTED_AREA[areaNum + 2].area = "";
+      break;
+    case 1:
+      SELECTED_AREA[areaNum + 1].area = "";
+      break;
+    default:
+      break;
+  }
 }
 
-function removeChild(parent) {
-  while (parent.hasChildNodes()) parent.removeChild(parent.firstChild);
+function changeColorOff(element) {
+  element.style.backgroundColor = "white";
+  element.style.color = "black";
 }
 
-function handleClickThird(locate) {
-  btn.classList.remove("blind");
-  btn.classList.add("submit_button");
+function changeColorOn(element) {
+  element.style.backgroundColor = "rgb(68, 109, 184)";
+  element.style.color = "white";
 }
 
-async function hi(first, second = "") {
-  const information = await fetch("/olocate", {
+function fetchArea(data) {
+  const areaNum = data.areaNum;
+  const first = SELECTED_AREA[0].area;
+  const second = SELECTED_AREA[1].area;
+
+  fetch("/olocate", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       first: first,
       second: second,
     }),
-  });
-  return information;
+  })
+    .then(
+      (res) => res.json(),
+      (rej) => console.log(rej)
+    )
+    .then(
+      (data) => {
+        insertLocate(data, false, areaNum == 0);
+      },
+      (rej) => console.log(rej)
+    )
+    .catch((err) => console.log(err));
+}
+
+function removeChild(data) {
+  const areaNum = data.areaNum;
+  let childNum = 2 - data.areaNum;
+  for (let i = 0; i < childNum; i++) {
+    while (SELECTED_AREA[areaNum + i + 1].num.hasChildNodes())
+      SELECTED_AREA[areaNum + i + 1].num.removeChild(
+        SELECTED_AREA[areaNum + i + 1].num.firstChild
+      );
+  }
 }
 
 init();

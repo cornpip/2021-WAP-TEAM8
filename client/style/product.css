@@ -4,10 +4,16 @@
   justify-content: center;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .products {
   width: 74vw;
   min-width: 500px;
-  max-width: 1400px;
+  max-width: 1230px;
   min-height: 360px;
   display: flex;
   flex-wrap: wrap;
@@ -18,48 +24,98 @@
 .product {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  justify-content: space-between;
+  align-items: center;
   margin: 30px;
-  width: 440px;
-  height: 500px;
-  background-color: rgb(75, 78, 241);
+  width: 350px;
+  height: 410px;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
+  box-shadow: 1px 1px 5px 1px black;
 }
 
-.product .title {
-  display: flex;
-  justify-content: center;
-  background-color: rgb(255, 223, 82);
-  border-radius: 12px;
-  color: rgb(0, 0, 0);
+.locate {
+  width: 100px;
+  font-weight: 500;
 }
 
-.product .detail {
-  background-color: white;
-  border-radius: 12px;
-  opacity: 0.8;
+.title {
+  font-size: 25px;
+  margin: 0px;
 }
 
-.product .img {
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  padding: 30px 0px;
+.product .image {
+  margin-top: 20px;
+  padding: 0px;
+  width: 350px;
+  height: 235px;
 }
 
-.product .number {
+.product .middle {
+  position: relative;
+  top: -30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: white;
-  margin: 10px 0px;
-  padding: 10px;
-  border-radius: 12px;
 }
 
-li {
-  list-style: none;
+.content {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.detail {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.product .bottom {
+  position: relative;
+  bottom: 10px;
+  width: 320px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(75, 78, 241);
+  border-radius: 30px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.product .ing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100px;
+  border-radius: 30px;
+  background-color: rgb(25, 18, 88);
+}
+
+.product .participateBtn {
+  padding-left: 10px;
+  background-color: salmon;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding-left: 20px;
+  font-weight: 600;
+}
+
+.proudct .number {
+  padding-left: 10px;
+}
+
+.product .participant {
+  padding-right: 10px;
 }
 
 .categories {
