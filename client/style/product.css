@@ -52,13 +52,26 @@ main {
 }
 
 .product .middle {
-  width: 300px;
   position: relative;
   top: -30px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.content {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.detail {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
 
 .product .bottom {

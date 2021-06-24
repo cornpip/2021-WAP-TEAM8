@@ -53,8 +53,8 @@ export class ProductInformation {
     const content = this.makeHTMLElement("div", "content");
     const place = this.makeHTMLElement("div", "locate", this.place);
 
-    content.append(title, detail);
-    middle.append(content, place);
+    content.append(title, place);
+    middle.append(content, detail);
 
     image.setAttribute("src", `/image/${this.id}`);
     console.log(`/image/${this.id}`);
