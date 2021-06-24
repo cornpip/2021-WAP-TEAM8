@@ -116,7 +116,7 @@ db.query(`select id from insertproduct where user='test1'`, function(err, result
 // insert 하자마자 select에 나옴
 //-------------------------------------------------------------------------------------------------------------
 
-
+// chat을 켜질때마다 찍자
 db.query(`select id from insertproduct`, function(err, result){
     //console.log(result);
     let len = result.length
@@ -443,16 +443,9 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser, filename, nowuser, place) 
     VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser}, '${req.file.filename}', 1, '${body.place}')`;
     let sql2 = `INSERT INTO inguserlist(makeuser) VALUES('${req.user.id}')`
-    let sql3 = `select id from insertproduct where user='${req.user.id}'`
     db.query(sql);
     db.query(sql2);
-    db.query(sql3, function(err, result){
-        let len = result.length - 1
-        //console.log(result[len])
-        let x = parseInt(result[len].id)
-        chat(x)
-        //사진 넣으면서 껐다 켜져서 ws날라감
-    })
+    //사진 넣으면서 껐다 켜져서 ws날라간다 (현상황에선 여기에chat() 못 넣음)
     res.redirect('/product')
 })
 
