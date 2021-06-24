@@ -6,7 +6,7 @@
     </div>
   
     <script>
-      const sock = new WebSocket("ws://localhost:8003");  // 여기 포트번호 상품id + 8000으로
+      const sock = new WebSocket("ws://localhost:8000");  // 여기 포트번호 상품id + 8000으로
       const log = document.getElementById("log");
     // 최초접근
       sock.onopen=()=>{
@@ -56,7 +56,7 @@
             }
           return
         }
-        log.innerHTML+="<p>"+"익명"+json.name+":"+json.data;
+        log.innerHTML+="<p>"+json.name+":"+json.data;
       }
     </script>
    </body>

@@ -96,7 +96,7 @@ let sql8 = `select * from productchat where participant='test12' AND productid=1
 db.query(sql8,function(err,result){
     //console.log(result[0]);
     if(!result[0]){
-        console.log('hi')
+        //console.log('hi')
     }
 })
 let sql9 = `select participant, chatting, chattime from productchat where productid='1' ORDER BY chattime ASC LIMIT 100`
@@ -107,7 +107,24 @@ db.query(sql9,function(err,result){
     // console.log(result[0].chattime)
 })
 
+//db.query(`insert into insertproduct (user) value ('test1')`)
+db.query(`select id from insertproduct where user='test1'`, function(err, result){
+    //console.log(result);
+    let len = result.length - 1
+    //console.log(result[len])
+})
+// insert 하자마자 select에 나옴
 //-------------------------------------------------------------------------------------------------------------
+
+
+db.query(`select id from insertproduct`, function(err, result){
+    //console.log(result);
+    let len = result.length
+    for(i=0; i<len; i++){
+        //console.log(result[i].id)
+        chat(result[i].id)
+    }
+})
 
 const request =require('request');
 const naver = require('passport-naver').Strategy;
@@ -426,14 +443,22 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     let sql = `INSERT INTO insertproduct(user, itime, title, detail, inguser, filename, nowuser, place) 
     VALUES('${req.user.id}', NOW(), '${body.title}', '${body.detail}', ${body.inguser}, '${req.file.filename}', 1, '${body.place}')`;
     let sql2 = `INSERT INTO inguserlist(makeuser) VALUES('${req.user.id}')`
+    let sql3 = `select id from insertproduct where user='${req.user.id}'`
     db.query(sql);
     db.query(sql2);
+    db.query(sql3, function(err, result){
+        let len = result.length - 1
+        //console.log(result[len])
+        let x = parseInt(result[len].id)
+        chat(x)
+        //사진 넣으면서 껐다 켜져서 ws날라감
+    })
     res.redirect('/product')
 })
 
-app.get('/makechat' ,function(req,res){
+app.post('/makechat' ,function(req,res){
     let body= req.body;
-    let x = body.productid + 8000;
+    let x = parseInt(body.productid)
     chat(x); 
     res.redirect('/')
 })
@@ -468,6 +493,7 @@ app.get('/ttt3', function(req,res){
 
 function chat(x){
     let cport = x+8000;
+    console.log(cport);
     var s = new server({port:cport});
     let sql = `select * from productchat where participant=? AND productid=?` //여기 participant 스트링으로 줘야하나 일단주의
     let sql2 = `INSERT INTO productchat(productid, chatport, participant, chatting, chattime) 
@@ -490,7 +516,7 @@ function chat(x){
             db.query(sql,[parse.userid, parse.productid],function(err, result){
                 console.log(result[0])
                 if(!result[0]){
-                    db.query(sql2, [parse.productid, cport, parse.userid, `'님이 입장했습니다'`])
+                    db.query(sql2, [parse.productid, cport, parse.userid, `님이 입장했습니다`])
                     s.clients.forEach(client=>{
                         client.send(JSON.stringify({
                           newChater:`익명${parse.userid[5]}`, // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등

@@ -15,11 +15,11 @@
 </body>
 <script>
     function hi(){
-            fetch("http://localhost:4000/userlistinfo", {
+            fetch("http://localhost:4000/makechat", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                id: '1' 
+                productid: '1' 
             })
         })
         .then(function(res){

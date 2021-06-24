@@ -6,13 +6,13 @@
     </div>
   
     <script>
-      const sock = new WebSocket("ws://localhost:8003");  // 여기 포트번호 상품id + 8000으로
+      const sock = new WebSocket("ws://localhost:8001");  // 여기 포트번호 상품id + 8000으로
       const log = document.getElementById("log");
     // 최초접근
       sock.onopen=()=>{
         sock.send(JSON.stringify({
           type:"firstinfo",
-          userid:'test12',
+          userid:'test1C',
           productid:1
         }))
       }
@@ -22,7 +22,7 @@
         // sock.send(text);
         sock.send(JSON.stringify({
           type:"message",
-          userid:'test12',
+          userid:'test1C',
           productid:1,
           data:text
         }));  
@@ -56,7 +56,7 @@
             }
           return
         }
-        log.innerHTML+="<p>"+"익명"+json.name+":"+json.data;
+        log.innerHTML+="<p>"+json.name+":"+json.data;
       }
     </script>
    </body>
