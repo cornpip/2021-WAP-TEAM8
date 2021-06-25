@@ -54,6 +54,12 @@ main {
   animation-fill-mode: both;
 }
 
+.content .left h4 {
+  animation: slideX 1s;
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+}
+
 .content .right .naver {
   animation: slideY 1s;
   animation-delay: 0s;

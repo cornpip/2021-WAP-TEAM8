@@ -5,7 +5,7 @@ export function Navbar(parent, isSuccess) {
   let leftInnerText = "";
 
   let rightUrl = "/login";
-  let rightInnerText = "Sing in";
+  let rightInnerText = "Sign in";
 
   if (isSuccess) {
     leftUrl = "/mypage";
@@ -22,7 +22,7 @@ export function Navbar(parent, isSuccess) {
                         </a>
                     </div>
                     <div class="center">
-                        <div class="search">검색</div>
+                        <div class="search"></div>
                     </div>
                     <div class="right">
                     <a href="${leftUrl}" id="left"><span>${leftInnerText}</span></a>
@@ -53,7 +53,6 @@ export function showNavbar(body) {
 
 export function insertInfo(informationJson, products, needToPt = false) {
   informationJson.map((information) => {
-    console.log(needToPt);
     const product = new ProductInformation(information, needToPt);
 
     product.attachTo(products, product.insertToHTMl());

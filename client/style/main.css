@@ -240,6 +240,13 @@ button {
   box-shadow: 1px 1px 5px black;
 }
 
+.product input {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
 .locate {
   display: none;
 }
@@ -275,19 +282,6 @@ button {
 .products {
   display: flex;
   flex-direction: row;
-}
-
-.up {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  font-size: 35px;
-  background-color: blue;
-}
-
-.up .imo {
-  width: 50px;
-  background-color: black;
 }
 
 /*footer*/

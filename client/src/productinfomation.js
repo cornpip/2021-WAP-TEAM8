@@ -1,6 +1,5 @@
 export class ProductInformation {
   constructor(information, needToPt = false) {
-    console.log(needToPt);
     this.title = information.title;
     this.detail = information.detail;
     if (!needToPt) {
@@ -57,7 +56,6 @@ export class ProductInformation {
     middle.append(content, detail);
 
     image.setAttribute("src", `/image/${this.id}`);
-    console.log(`/image/${this.id}`);
     // image.setAttribute("src", `./image/${this.id}`);
 
     participateBtn.type = "button";

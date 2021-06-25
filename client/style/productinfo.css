@@ -6,6 +6,7 @@ body {
 main {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -100,6 +101,30 @@ main {
 }
 
 .chat {
-  background-color: cornflowerblue;
-  margin-left: 50px;
+  background-color: rgb(240, 239, 192);
+  margin: 50px 80px;
+  padding: 50px 80px;
+}
+
+.chat-no {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  top: 50px;
+  width: 500px;
+  height: 300px;
+  font-weight: 1000;
+  font-size: 25px;
+}
+
+.chat-yes {
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.chat-yes p {
 }

@@ -23,7 +23,6 @@ function changeButton() {
 }
 
 function showContent(data, mode = "write") {
-  console.log(data);
   if (mode == "write" && data.length > 0) {
     const userId = data[0].id;
     const len = data.length;
@@ -98,7 +97,6 @@ function init() {
 }
 
 function addEvent() {
-  console.log("add event");
   category1.addEventListener("click", function () {
     if (CURRENT_CONTENT == "participate") {
       CURRENT_CONTENT = "write";
