@@ -29,7 +29,7 @@ CREATE TABLE `user` (
   `email` varchar(64) DEFAULT NULL,
   `age` varchar(64) DEFAULT NULL,
   `gender` varchar(64) DEFAULT NULL,
-  `inglist` varchar(256) DEFAULT NULL,
+  `inglist` varchar(2000) DEFAULT ' ',
   PRIMARY KEY (`usernum`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-05 15:48:11
+-- Dump completed on 2021-06-25 14:36:13
