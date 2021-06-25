@@ -23,6 +23,7 @@ function changeButton() {
 }
 
 function showContent(data, mode = "write") {
+  console.log(data);
   if (mode == "write" && data.length > 0) {
     const userId = data[0].id;
     const len = data.length;
@@ -34,10 +35,12 @@ function showContent(data, mode = "write") {
   }
 
   if (mode == "participate") {
-    const inglist = data[0].inglist.split(",");
-    const len = inglist.length;
-    for (let i = 1; i < len; i++) {
-      fetchProduct(inglist[i]);
+    const inglist = data[0].inglist ? data[0].inglist.split(",") : false;
+    if (inglist) {
+      const len = inglist.length;
+      for (let i = 1; i < len; i++) {
+        fetchProduct(inglist[i]);
+      }
     }
   }
 }
@@ -65,7 +68,7 @@ function getUserInfo() {
     )
     .then(
       (data) => {
-        console.log(data), (USER_DATA = data), showContent(data);
+        (USER_DATA = data), showContent(data), addEvent();
       },
       (rej) => console.log(rej)
     )
@@ -92,23 +95,25 @@ function checkUser() {
 function init() {
   showNavbar(body);
   checkUser();
-  showContent();
 }
 
-category1.addEventListener("click", function () {
-  if (CURRENT_CONTENT == "participate") {
-    CURRENT_CONTENT = "write";
-    removeContent();
-    showContent(USER_DATA);
-  }
-});
+function addEvent() {
+  console.log("add event");
+  category1.addEventListener("click", function () {
+    if (CURRENT_CONTENT == "participate") {
+      CURRENT_CONTENT = "write";
+      removeContent();
+      showContent(USER_DATA);
+    }
+  });
 
-category2.addEventListener("click", function () {
-  if (CURRENT_CONTENT == "write") {
-    CURRENT_CONTENT = "participate";
-    removeContent();
-    showContent(USER_DATA, "participate");
-  }
-});
+  category2.addEventListener("click", function () {
+    if (CURRENT_CONTENT == "write") {
+      CURRENT_CONTENT = "participate";
+      removeContent();
+      showContent(USER_DATA, "participate");
+    }
+  });
+}
 
 init();

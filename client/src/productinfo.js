@@ -52,9 +52,9 @@ function changeButton() {
 /* 현재 참가중인 상품인지 확인*/
 function checkParticipate(res) {
   const len = res.length;
-  const inglist = res[0].inglist.split(",");
+  const inglist = res[0].inglist ? res[0].inglist.split(",") : false;
   // 참여중인 목록이 null이 아니고, key값이 있다면
-  if (res[0].inglist && inglist.includes(`${key}`)) {
+  if (inglist && inglist.includes(`${key}`)) {
     IS_PARTICIPATE = true;
     return;
   }
@@ -89,8 +89,4 @@ function init() {
   getUserInfo();
 }
 
-function removeEvent() {
-  const participateBtn = products.querySelector(".participateBtn");
-  participateBtn.removeEventListener("click", showInfo);
-}
 init();
