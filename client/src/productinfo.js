@@ -5,9 +5,6 @@ const body = document.querySelector("body"),
 
 // console.log(button);
 
-const image = Array(products.getElementsByTagName("img"));
-console.log(image.style);
-
 const key = location.search.replace("?key=", "");
 let IS_PARTICIPATE = false;
 let USER_ID;
@@ -45,7 +42,6 @@ function getUserInfo() {
 function changeChatMode() {
   const chatYes = document.querySelector(".chat-yes");
   const chatNo = document.querySelector(".chat-no");
-  console.log(USER_ID);
   if (IS_PARTICIPATE) {
     chatNo.style.display = "none";
     chatYes.style.display = "inline";
@@ -93,31 +89,44 @@ function chatOn() {
   };
   // 서버에서 보낸거 받기
   sock.onmessage = (e) => {
-    console.log(e);
     const json = JSON.parse(e.data);
 
     if (json.type === "newPeople") {
       // 새로운 사람 입장시
       if (!json.newChater) return;
-      log.innerHTML += "<p>" + json.newChater + "님이 입장했습니다.</p>";
+      const data = `${json.newChater}님이 입장했습니다.`;
+      const text = makeElement("p", "enter", data);
+      log.append(text);
       return;
     }
 
     if (json.type === "beforechat") {
-      console.log(json.data);
       let a = json.data.length;
       for (let i = 0; i < a; i++) {
-        log.innerHTML +=
-          "<p>" +
-          "익명" +
-          json.data[i].participant[5] +
-          ":" +
-          json.data[i].chatting; //json.data[i].chattime;
+        console.log(json.data);
+        const msg = json.data[i].chatting;
+        let className = "msg";
+        let data = `익명${json.data[i].participant[5]}: ${json.data[i].chatting}`;
+        if (msg == "님이 입장했습니다") {
+          className = "enter";
+          data = `익명${json.data[i].participant[5]}${json.data[i].chatting}.`;
+        }
+        const text = makeElement("p", className, data);
+        log.append(text);
       }
       return;
     }
-    log.innerHTML += "<p>" + json.name + ":" + json.data;
+    const data = `${json.name}: ${json.data}`;
+    const text = makeElement("p", "msg", data);
+    log.append(text);
   };
+}
+
+function makeElement(tagName, className, data) {
+  const element = document.createElement(tagName);
+  element.setAttribute("class", className);
+  element.innerText = data;
+  return element;
 }
 
 /* 현재 참가중인 상품인지 확인*/
@@ -157,7 +166,6 @@ function handlerParticipate() {
 function init() {
   showNavbar(body);
   showProductInfo();
-  console.log(IS_PARTICIPATE);
   getUserInfo();
 }
 

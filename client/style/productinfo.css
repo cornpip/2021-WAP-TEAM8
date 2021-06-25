@@ -4,6 +4,7 @@ body {
 }
 
 main {
+  padding-top: 50px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -101,9 +102,13 @@ main {
 }
 
 .chat {
-  background-color: rgb(240, 239, 192);
+  opacity: 0.8;
+  background-color: rgb(91, 87, 151);
   margin: 50px 80px;
   padding: 50px 80px;
+  border-radius: 20px;
+  height: 300px;
+  overflow-y: auto;
 }
 
 .chat-no {
@@ -120,11 +125,33 @@ main {
 
 .chat-yes {
   display: none;
-  position: absolute;
-  width: 500px;
+  width: 800px;
   height: 300px;
   overflow-y: scroll;
 }
 
-.chat-yes p {
+.sendC footer {
+  color: white;
+}
+
+.enter {
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(170, 170, 170);
+  font-weight: 1000;
+}
+
+.msg {
+  font-weight: 1000;
+  border-radius: 12px;
+  padding-left: 5px;
+}
+
+.msg:nth-child(even) {
+  background-color: rgb(255, 234, 45);
+}
+
+.msg:nth-child(odd) {
+  background-color: rgb(255, 255, 255);
 }
