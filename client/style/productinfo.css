@@ -4,8 +4,10 @@ body {
 }
 
 main {
+  padding-top: 50px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -100,6 +102,56 @@ main {
 }
 
 .chat {
-  background-color: cornflowerblue;
-  margin-left: 50px;
+  opacity: 0.8;
+  background-color: rgb(91, 87, 151);
+  margin: 50px 80px;
+  padding: 50px 80px;
+  border-radius: 20px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.chat-no {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  top: 50px;
+  width: 500px;
+  height: 300px;
+  font-weight: 1000;
+  font-size: 25px;
+}
+
+.chat-yes {
+  display: none;
+  width: 800px;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.sendC footer {
+  color: white;
+}
+
+.enter {
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(170, 170, 170);
+  font-weight: 1000;
+}
+
+.msg {
+  font-weight: 1000;
+  border-radius: 12px;
+  padding-left: 5px;
+}
+
+.msg:nth-child(even) {
+  background-color: rgb(255, 234, 45);
+}
+
+.msg:nth-child(odd) {
+  background-color: rgb(255, 255, 255);
 }

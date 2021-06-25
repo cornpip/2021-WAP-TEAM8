@@ -48,7 +48,7 @@
 }
 
 footer {
-  height: 100px;
+  height: 300px;
   color: white;
   font-size: 20px;
   background-color: rgb(112, 112, 112);
@@ -94,6 +94,14 @@ footer {
 .products {
   display: flex;
   flex-direction: row;
+}
+
+.product input {
+  font-weight: 1000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding-right: 10px;
 }
 
 .locate {

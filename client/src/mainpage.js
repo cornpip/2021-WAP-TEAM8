@@ -119,7 +119,6 @@ const tt1 = document.querySelector(".tt1"),
   tt1A = document.querySelector(".tt1 a");
 
 const tts = [tt1, tt2, tt3];
-console.log(tts);
 
 function setStyle(num) {
   for (let i = 0; i < 3; i++) {
@@ -128,7 +127,7 @@ function setStyle(num) {
       tts[i].style.animation = "none";
     } else {
       tts[i].style.opacity = "1";
-      tts[i].style.animation = "fade 1s";
+      tts[i].style.animation = "fade 0.5s";
     }
   }
 }
@@ -137,11 +136,15 @@ window.addEventListener("scroll", function () {
   var currentScrollValue = document.documentElement.scrollTop;
   if (currentScrollValue < 1000) {
     setStyle(-1);
-  } else if (currentScrollValue > 1000 && currentScrollValue < 2000) {
+  } else if (currentScrollValue < 1800) {
     setStyle(0);
-  } else if (currentScrollValue > 2000 && currentScrollValue < 3000) {
+  } else if (currentScrollValue < 2000) {
+    setStyle(-1);
+  } else if (currentScrollValue < 2800) {
     setStyle(1);
-  } else if (currentScrollValue > 3000 && currentScrollValue < 3800) {
+  } else if (currentScrollValue < 3000) {
+    setStyle(-1);
+  } else if (currentScrollValue < 3800) {
     setStyle(2);
   }
 });

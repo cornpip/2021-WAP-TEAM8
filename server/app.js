@@ -114,6 +114,43 @@ db.query(`select id from insertproduct where user='test1'`, function(err, result
     //console.log(result[len])
 })
 // insert 하자마자 select에 나옴
+
+//db.query(`select inglist from user where id='test12'`,function(err,result){
+//    db.query(`select remainder from inguserlist where id=2`, function(err2, result2){
+//        let arr = result2[0].remainder.split(',');
+//        console.log(arr);
+//        updatefun(arr, 'test1');
+//        console.log(arr);
+//        let a = result[0].inglist.split(',')
+//        //console.log(a);
+//        let b = a.indexOf('1');
+//        //console.log(b);
+//        let c = a.splice(b,1);
+//        //console.log(a);
+//        let d = a.join()
+//        //db.query(`update user set inglist= d where id=test1`)
+//    })
+//})
+
+let productid = 2
+
+//db.query(`select remainder from inguserlist where id=${productid}`, function(err,result){
+//    console.log(result[0]);
+//    let remainarr = result[0].remainder.split(',')
+//    let len = remainarr.length
+//    for (let i=1; i<len; i++){
+//        db.query(`select inglist from user where id='${remainarr[i]}'`,function(err2,result2){
+//            //console.log(result2);
+//            let listarr = result2[0].inglist.split(',')
+//            updatefun(listarr, productid);
+//            console.log(listarr);
+//            db.query(`update user set inglist='${listarr}' where id='${remainarr[i]}'`)        
+//        })
+//    }
+//})
+//db.query(`delete from insertproduct where id=${productid}`)
+//db.query(`delete from inguserlist where id=${productid}`)
+//db.query(`delete from productchat where productid=${productid}`)
 //-------------------------------------------------------------------------------------------------------------
 
 // chat을 켜질때마다 찍자
@@ -446,19 +483,31 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     db.query(sql);
     db.query(sql2);
     //사진 넣으면서 껐다 켜져서 ws날라간다 (현상황에선 여기에chat() 못 넣음)
+    //반대로 꺼졌다 켜지는게 아니면 지금 chat() 꺼내놓은게 의미가 없을 수도 있다.
+    //나중에 사진 입출력 때 서버계속된다면 이 부분도 체크하자
     res.redirect('/product')
 })
 
-app.post('/makechat' ,function(req,res){
-    let body= req.body;
-    let x = parseInt(body.productid)
-    chat(x); 
-    res.redirect('/')
-})
-
-app.get('/ttt5', function(req,res){
-    chat(4);
-    res.redirect('/')
+app.post('/productdelete', function(req, res){
+    let body = req.body
+    db.query(`select remainder from inguserlist where id=${body.productid}`, function(err,result){
+        //console.log(result[0]);
+        let remainarr = result[0].remainder.split(',')
+        let len = remainarr.length
+        for (let i=1; i<len; i++){
+            db.query(`select inglist from user where id='${remainarr[i]}'`,function(err2,result2){
+                //console.log(result2);
+                let listarr = result2[0].inglist.split(',')
+                updatefun(listarr, body.productid);
+                console.log(listarr);
+                db.query(`update user set inglist='${listarr}' where id='${remainarr[i]}'`)       
+            })
+        }
+    })
+    db.query(`delete from insertproduct where id=${body.productid}`)
+    db.query(`delete from inguserlist where id=${body.productid}`)
+    db.query(`delete from productchat where productid=${body.productid}`)
+    res.redirect('/product')
 })
 
 app.get('/ttt2', function(req,res){
@@ -484,6 +533,16 @@ app.get('/ttt3', function(req,res){
 //         httpServer : server
 // });
 
+function updatefun(arr, x){
+    let num = arr.indexOf(`${x}`);
+    if(num !== -1){
+        arr = arr.splice(num, 1);
+        arr = arr.join()
+        return arr
+    }
+    return arr
+}
+
 function chat(x){
     let cport = x+8000;
     console.log(cport);
@@ -498,6 +557,26 @@ function chat(x){
     s.on('connection',ws=>{
         ws.on('message',message=>{
           parse = JSON.parse(message);
+          if(parse.type == "leaveinfo"){
+                db.query(`select inglist from user where id='${parse.userid}'`,function(err1,result1){
+                    db.query(`select remainder from inguserlist where id=${parse.productid}`, function(err2,result2){
+                        let userarr = result1[0].inglist.split(',');
+                        let remainarr = result2[0].remainder.split(',');
+                        updatefun(userarr, parse.productid);
+                        updatefun(remainarr, parse.userid);
+                        db.query(`update user set inglist='${userarr}' where id='${parse.userid}'`)
+                        db.query(`update inguserlist set remainder='${remainarr}' where id='${parse.productid}'`)
+                        db.query(sql2, [parse.productid, cport, parse.userid, `님이 퇴장했습니다`])
+                        s.clients.forEach(client=>{
+                            client.send(JSON.stringify({
+                              leaveChater:`익명${parse.userid[5]}`,
+                              type:"leavePeople"
+                            }))
+                          })
+                    })
+                })
+                return
+            }
           if(parse.type == "firstinfo"){
             console.log('hi');
             db.query(sql3, [parse.productid], function(err3, result3){

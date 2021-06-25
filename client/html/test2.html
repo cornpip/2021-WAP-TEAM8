@@ -1,62 +1,72 @@
 <body>
-    <div id="log"></div>
-    <div id="sendControlls">
-      <input type="text" placeholder="message" id="text"/>
-      <button>send</button>
-    </div>
-  
-    <script>
-      const sock = new WebSocket("ws://localhost:8001");  // 여기 포트번호 상품id + 8000으로
-      const log = document.getElementById("log");
-    // 최초접근
-      sock.onopen=()=>{
-        sock.send(JSON.stringify({
-          type:"firstinfo",
-          userid:'test1C',
-          productid:1
-        }))
-      }
-  // 1.보내면
-      document.querySelector("button").onclick = ()=>{
-        const text = document.getElementById("text").value;
-        // sock.send(text);
-        sock.send(JSON.stringify({
-          type:"message",
-          userid:'test1C',
-          productid:1,
-          data:text
-        }));  
-        //log.innerHTML+="<p class='my'>you: "+text+"</p>";
-      }
-  // 서버에서 보낸거 받기
-      sock.onmessage= e=>{
-        console.log(e);
-        const json = JSON.parse(e.data);
-        if(json.type==="newPeople"){
-          // 새로운 사람 입장시
-          if(!json.newChater)return
-          log.innerHTML+="<p>"+json.newChater+"님이 입장했습니다.</p>";
-          return
-        }
-        // if(json.type==="bye"){
-        //   // 누군가 나갈시
-        //   log.innerHTML+="<p>"+json.name+"님이 퇴장하셨습니다.</p>";
-        //   return
-        // }
+  <div id="log"></div>
+  <div id="sendControlls">
+    <input type="text" placeholder="message" id="text" />
+    <button>send</button>
+  </div>
 
-        // if(json.type==="chatinfo"){
-        //   log.innerHTML+="<p>"+json.data+"</p>";
-        //   return
-        // }
-        if(json.type ==='beforechat'){
-            console.log(json.data);
-            let a = json.data.length
-            for(i=0; i<a; i++){
-              log.innerHTML+="<p>"+"익명"+json.data[i].participant[5]+":"+json.data[i].chatting; //json.data[i].chattime;
-            }
-          return
-        }
-        log.innerHTML+="<p>"+json.name+":"+json.data;
+  <script>
+    const sock = new WebSocket("ws://localhost:8001"); // 여기 포트번호 상품id + 8000으로
+    const log = document.getElementById("log");
+    // 최초접근
+    sock.onopen = () => {
+      sock.send(
+        JSON.stringify({
+          type: "firstinfo",
+          userid: "test1C",
+          productid: 1,
+        })
+      );
+    };
+    // 1.보내면
+    document.querySelector("button").onclick = () => {
+      const text = document.getElementById("text").value;
+      // sock.send(text);
+      sock.send(
+        JSON.stringify({
+          type: "message",
+          userid: "test1C",
+          productid: 1,
+          data: text,
+        })
+      );
+      //log.innerHTML+="<p class='my'>you: "+text+"</p>";
+    };
+    // 서버에서 보낸거 받기
+    sock.onmessage = (e) => {
+      console.log(e);
+      const json = JSON.parse(e.data);
+      if (json.type === "newPeople") {
+        // 새로운 사람 입장시
+        if (!json.newChater) return;
+        log.innerHTML += "<p>" + json.newChater + "님이 입장했습니다.</p>";
+        return;
       }
-    </script>
-   </body>
+      // if(json.type==="bye"){
+      //   // 누군가 나갈시
+      //   log.innerHTML+="<p>"+json.name+"님이 퇴장하셨습니다.</p>";
+      //   return
+      // }
+
+      // if(json.type==="chatinfo"){
+      //   log.innerHTML+="<p>"+json.data+"</p>";
+      //   return
+      // }
+      if (json.type === "beforechat") {
+        console.log(json.data);
+        let a = json.data.length;
+        for (i = 0; i < a; i++) {
+          log.innerHTML +=
+            "<p>" +
+            "익명" +
+            json.data[i].participant[5] +
+            ":" +
+            json.data[i].chatting; //json.data[i].chattime;
+        }
+
+        return;
+      }
+      log.innerHTML += "<p>" + json.name + ":" + json.data;
+    };
+  </script>
+</body>

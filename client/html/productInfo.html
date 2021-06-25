@@ -9,12 +9,19 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>상품상세정보 테스트</h1>
     <main>
       <div class="products"></div>
-      <div class="chat">채팅방</div>
+      <div class="chat">
+        <div class="chat-no">상품에 참가 후 이용해 주세요.</div>
+        <div class="chat-yes">
+          <div id="log"></div>
+          <div id="sendControlls">
+            <input type="text" placeholder="message" id="text" />
+            <button>send</button>
+          </div>
+        </div>
+      </div>
     </main>
-    <footer class="footer">푸터입니다</footer>
     <script type="module" src="../src/productinfo.js"></script>
   </body>
 </html>

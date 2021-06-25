@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `inguserlist`;
 CREATE TABLE `inguserlist` (
   `id` int NOT NULL AUTO_INCREMENT,
   `makeuser` varchar(128) DEFAULT NULL,
-  `remainder` varchar(600) DEFAULT NULL,
+  `remainder` varchar(600) DEFAULT ' ',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-05 15:48:38
+-- Dump completed on 2021-06-26  3:33:58

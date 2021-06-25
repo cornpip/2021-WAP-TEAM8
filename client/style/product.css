@@ -8,14 +8,29 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.insert {
+  width: 200px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 1000;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(45deg, blueviolet, aquamarine);
 }
 
 .products {
-  width: 74vw;
-  min-width: 500px;
+  min-width: 410px;
   max-width: 1230px;
   min-height: 360px;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   flex-wrap: wrap;
   justify-content: start;
   border: 0.1px solid rgb(0, 0, 0);
@@ -36,7 +51,8 @@ main {
 
 .locate {
   width: 100px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .title {
@@ -120,24 +136,15 @@ main {
 
 .categories {
   margin: 30px 0px;
-  display: flex;
-  justify-content: center;
 }
 
-ul {
-  padding: 0px;
-  height: 40px;
+.categories {
   width: 500px;
+  border-radius: 12px;
   background-color: rgb(75, 78, 241);
   color: white;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 20px;
-}
-
-.category {
-  padding: 0px 30px;
+  justify-content: center;
 }
 
 .product:hover {
