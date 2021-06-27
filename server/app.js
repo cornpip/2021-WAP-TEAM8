@@ -151,12 +151,12 @@ let productid = 2
 //db.query(`delete from insertproduct where id=${productid}`)
 //db.query(`delete from inguserlist where id=${productid}`)
 //db.query(`delete from productchat where productid=${productid}`)
-db.query(`select * from insertproduct where id = 2`, function(err1,result1){
-    db.query(`select nowuser from insertproduct where id = 1`, function(err, result){
-        console.log(result[0].nowuser -1);
-    })
-    console.log('hihi');
-})
+// db.query(`select * from insertproduct where id = 2`, function(err1,result1){
+//     db.query(`select nowuser from insertproduct where id = 1`, function(err, result){
+//         console.log(result[0].nowuser -1);
+//     })
+//     console.log('hihi');
+// })
 
 //-------------------------------------------------------------------------------------------------------------
 
