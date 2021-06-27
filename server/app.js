@@ -151,6 +151,13 @@ let productid = 2
 //db.query(`delete from insertproduct where id=${productid}`)
 //db.query(`delete from inguserlist where id=${productid}`)
 //db.query(`delete from productchat where productid=${productid}`)
+db.query(`select * from insertproduct where id = 2`, function(err1,result1){
+    db.query(`select nowuser from insertproduct where id = 1`, function(err, result){
+        console.log(result[0].nowuser -1);
+    })
+    console.log('hihi');
+})
+
 //-------------------------------------------------------------------------------------------------------------
 
 // chat을 켜질때마다 찍자
@@ -560,6 +567,12 @@ function chat(x){
           if(parse.type == "leaveinfo"){
                 db.query(`select inglist from user where id='${parse.userid}'`,function(err1,result1){
                     db.query(`select remainder from inguserlist where id=${parse.productid}`, function(err2,result2){
+                        db.query(`select nowuser from insertproduct where id = ${parse.productid}`, function(err3, result3){
+                            let nowuser = result3[0].nowuser - 1
+                            if(nowuser > 1){
+                                db.query(`update insertproduct set nowuser=${nowuser} where id=${parse.productid}`)
+                            }
+                        })
                         let userarr = result1[0].inglist.split(',');
                         let remainarr = result2[0].remainder.split(',');
                         updatefun(userarr, parse.productid);
