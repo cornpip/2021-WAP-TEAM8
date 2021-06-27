@@ -24,9 +24,10 @@
       // sock.send(text);
       sock.send(
         JSON.stringify({
-          type: "leaveinfo",
-          userid: "test2",
-          productid: 1
+          type: "message",
+          userid: "test12",
+          productid: 1,
+          data: text,
         })
       );
       //log.innerHTML+="<p class='my'>you: "+text+"</p>";
@@ -63,12 +64,6 @@
             json.data[i].chatting; //json.data[i].chattime;
         }
         return;
-      }
-      if(json.type === "leavePeople"){
-          log.innerHTML += "<p>" + json.leaveChater + "님이 퇴장했습니다" // db저장을 첫입장 때랑 비슷하게
-                                                                        // 님이 퇴장했습니다 로 했어요, '님이 퇴장했습니다' 문구는
-                                                                        // 님이 입장했습니다 처럼 그대로 쓰길 추천합니다~ 
-        return
       }
       log.innerHTML += "<p>" + json.name + ":" + json.data;
     };

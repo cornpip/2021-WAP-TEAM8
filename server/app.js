@@ -157,7 +157,6 @@ let productid = 2
 //     })
 //     console.log('hihi');
 // })
-
 //-------------------------------------------------------------------------------------------------------------
 
 // chat을 켜질때마다 찍자
@@ -306,7 +305,7 @@ app.post('/oproduct',function(req,res){
 
 app.post("/oproduct_key", function (req, res) {
     let body = req.body;
-    console.log(body);
+    //console.log(body);
     let sql = `SELECT * FROM insertproduct WHERE id = ${body.key} `;
     db.query(sql, function (err, result) {
       res.send(result);
@@ -343,7 +342,7 @@ function locatearr(first, second="undefined", res){
         let point = unilocate.indexOf(null);
         //console.log(point)
         unilocate.splice(point,1);
-        console.log(unilocate);
+        //console.log(unilocate);
         res.send(unilocate);
     })
 }
@@ -367,7 +366,7 @@ app.get('/ttt', function(req,res){
 
 function makeimage(i, result){
     app.get(`/image/${result[i].id}`, function(req,res){
-        console.log(i);
+        //console.log(i);
         res.sendFile(__dirname + `/./image/${result[i].filename}`)
     })
 }
@@ -451,7 +450,7 @@ app.post('/participate', function(req,res){
     })
     let sql = `select remainder from inguserlist where id=${body.id}`
     let sql2 = `UPDATE inguserlist SET remainder=? where id=${body.id}`
-    console.log(body.id);
+    //console.log(body.id);
     db.query(sql, function(err, result){
         if(err) throw err;
         let before=result[0].remainder;
@@ -489,9 +488,16 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     let sql2 = `INSERT INTO inguserlist(makeuser) VALUES('${req.user.id}')`
     db.query(sql);
     db.query(sql2);
+    db.query(`select id from insertproduct`, function(err, result){
+        let recent = result.length - 1
+        //console.log(result[recent].id);
+        chat(result[recent].id)
+    })
     //사진 넣으면서 껐다 켜져서 ws날라간다 (현상황에선 여기에chat() 못 넣음)
     //반대로 꺼졌다 켜지는게 아니면 지금 chat() 꺼내놓은게 의미가 없을 수도 있다.
     //나중에 사진 입출력 때 서버계속된다면 이 부분도 체크하자
+    //계속되고 꺼졌다 켜졌을 때 chat()꺼내놓을 필요있고
+    // 플러스도 iproduct에도 chat() 들어가면 됨
     res.redirect('/product')
 })
 
@@ -506,7 +512,7 @@ app.post('/productdelete', function(req, res){
                 //console.log(result2);
                 let listarr = result2[0].inglist.split(',')
                 updatefun(listarr, body.productid);
-                console.log(listarr);
+                //console.log(listarr);
                 db.query(`update user set inglist='${listarr}' where id='${remainarr[i]}'`)       
             })
         }
@@ -528,6 +534,7 @@ app.get('/ttt3', function(req,res){
  app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
 })
+
 
 //const s = new wserver({port:PORT});
 
@@ -569,7 +576,7 @@ function chat(x){
                     db.query(`select remainder from inguserlist where id=${parse.productid}`, function(err2,result2){
                         db.query(`select nowuser from insertproduct where id = ${parse.productid}`, function(err3, result3){
                             let nowuser = result3[0].nowuser - 1
-                            if(nowuser > 1){
+                            if(nowuser >= 1){
                                 db.query(`update insertproduct set nowuser=${nowuser} where id=${parse.productid}`)
                             }
                         })

@@ -8,6 +8,8 @@ const body = document.querySelector("body"),
 const key = location.search.replace("?key=", "");
 let IS_PARTICIPATE = false;
 let USER_ID;
+let IS_MAKER = false;
+let IS_LEAVE = false;
 
 function showProductInfo() {
   fetch("/oproduct_key", {
@@ -32,7 +34,10 @@ function getUserInfo() {
     )
     .then(
       (res) => {
-        checkParticipate(res), changeButton(), changeChatMode();
+        console.log(res),
+          checkParticipate(res),
+          changeButton(),
+          changeChatMode();
       },
       (rej) => console.log(rej)
     )
@@ -52,18 +57,52 @@ function changeChatMode() {
 /* 참가 여부에 따라 버튼 바뀜 */
 function changeButton() {
   const button = products.querySelector(".participateBtn");
+  let clickEvent;
   if (IS_PARTICIPATE) {
-    button.value = "참가중";
+    if (IS_MAKER) {
+      button.value = "상품 삭제하기";
+      clickEvent = deleteProduct;
+    } else {
+      button.value = "참가 그만두기";
+      clickEvent = leaveProduct;
+    }
   } else {
-    button.addEventListener("click", () => handlerParticipate());
+    clickEvent = handlerParticipate;
+  }
+  button.addEventListener("click", clickEvent);
+}
+
+function leaveProduct() {
+  const result = confirm("정말로 그만두시겠어요?");
+  if (result) {
+    chatOn(result);
+  }
+}
+
+function deleteProduct() {
+  const result = confirm("정말로 삭제하시겠어요?");
+  if (result) {
+    fetch("/productdelete", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productid: key,
+      }),
+    })
+      .then(
+        (res) => (location.href = "/product"),
+        (rej) => console.log(rej)
+      )
+      .catch((err) => console.log(err));
   }
 }
 
 function chatOn() {
-  const portNum = 8000 + parseInt(key); //포트번호: 8000 + product.id
+  const productid = parseInt(key);
+  const portNum = 8000 + productid; //포트번호: 8000 + product.id
   const sock = new WebSocket(`ws://localhost:${portNum}`); // 여기 포트번호 상품id + 8000으로
   const log = document.getElementById("log");
-  const productid = parseInt(key);
+
   // 최초접근
   sock.onopen = () => {
     sock.send(
@@ -75,6 +114,21 @@ function chatOn() {
     );
   };
   // 1.보내면
+
+  if (IS_PARTICIPATE && !IS_MAKER) {
+    console.log("이벤트 걸었다");
+    document.querySelector(".participateBtn").addEventListener("click", () => {
+      sock.send(
+        JSON.stringify({
+          type: "leaveinfo",
+          userid: USER_ID,
+          productid,
+        })
+      );
+      window.location.reload();
+    });
+  }
+
   document.querySelector("button").onclick = () => {
     const text = document.getElementById("text").value;
     // sock.send(text);
@@ -87,6 +141,7 @@ function chatOn() {
       })
     );
   };
+
   // 서버에서 보낸거 받기
   sock.onmessage = (e) => {
     const json = JSON.parse(e.data);
@@ -107,7 +162,7 @@ function chatOn() {
         const msg = json.data[i].chatting;
         let className = "msg";
         let data = `익명${json.data[i].participant[5]}: ${json.data[i].chatting}`;
-        if (msg == "님이 입장했습니다") {
+        if ((msg == "님이 입장했습니다") | (msg == "님이 퇴장했습니다")) {
           className = "enter";
           data = `익명${json.data[i].participant[5]}${json.data[i].chatting}.`;
         }
@@ -116,6 +171,17 @@ function chatOn() {
       }
       return;
     }
+
+    if (json.type === "leavePeople") {
+      const data = `${json.leaveChater}님이 퇴장했습니다`;
+      const className = "enter";
+      const text = makeElement("p", className, data);
+      log.append(text); // db저장을 첫입장 때랑 비슷하게
+      // 님이 퇴장했습니다 로 했어요, '님이 퇴장했습니다' 문구는
+      // 님이 입장했습니다 처럼 그대로 쓰길 추천합니다~
+      return;
+    }
+
     const data = `${json.name}: ${json.data}`;
     const text = makeElement("p", "msg", data);
     log.append(text);
@@ -143,6 +209,7 @@ function checkParticipate(res) {
   for (let i = 1; i < len; i++) {
     if (res[i].id == key) {
       IS_PARTICIPATE = true;
+      IS_MAKER = true;
       return;
     }
   }
