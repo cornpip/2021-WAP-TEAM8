@@ -34,7 +34,10 @@ function getUserInfo() {
     )
     .then(
       (res) => {
-        checkParticipate(res), changeButton(), changeChatMode();
+        console.log(res),
+          checkParticipate(res),
+          changeButton(),
+          changeChatMode();
       },
       (rej) => console.log(rej)
     )
@@ -122,6 +125,7 @@ function chatOn() {
           productid,
         })
       );
+      window.location.reload();
     });
   }
 
