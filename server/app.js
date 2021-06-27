@@ -504,6 +504,37 @@ app.get("/ttt3", function (req, res) {
   res.render("test3.html");
 });
 
+app.post("/productdelete", function (req, res) {
+  let body = req.body;
+  db.query(
+    `select remainder from inguserlist where id=${body.productid}`,
+    function (err, result) {
+      //console.log(result[0]);
+      let remainarr = result[0].remainder.split(",");
+      console.log(remainarr);
+      let len = remainarr.length;
+      for (let i = 1; i < len; i++) {
+        db.query(
+          `select inglist from user where id='${remainarr[i]}'`,
+          function (err2, result2) {
+            //console.log(result2);
+            let listarr = result2[0].inglist.split(",");
+            updatefun(listarr, body.productid);
+            console.log(listarr);
+            db.query(
+              `update user set inglist='${listarr}' where id='${remainarr[i]}'`
+            );
+          }
+        );
+      }
+    }
+  );
+  db.query(`delete from insertproduct where id=${body.productid}`);
+  db.query(`delete from inguserlist where id=${body.productid}`);
+  db.query(`delete from productchat where productid=${body.productid}`);
+  res.redirect("/product");
+});
+
 app.listen(PORT, () => {
   console.log(`start ${PORT}`);
 });
