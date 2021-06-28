@@ -3,6 +3,7 @@ type
 2. messge {data}
 3. beforecaht <- data{이전 채팅 내용}
 4. newpeople <- newChater{처음 입장한 사람}
+5. leaveinfo
 
 data {
 participant, : 닉네임

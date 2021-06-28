@@ -40,7 +40,7 @@ function handleInsert() {
       method: "post",
       body: formData,
     })
-      .then(() => (location.href = "/product"))
+      .then(() => ((location.href = "/product"), (location.href = "/product")))
       .catch((err) => console.log(err));
   }
   title.value = "";

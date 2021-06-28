@@ -55,7 +55,7 @@ export class ProductInformation {
     content.append(title, place);
     middle.append(content, detail);
 
-    image.setAttribute("src", `/image/${this.id}`);
+    image.setAttribute("src", `http://localhost:5000/image/${this.id}`);
     // image.setAttribute("src", `./image/${this.id}`);
 
     participateBtn.type = "button";
