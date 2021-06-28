@@ -3,7 +3,8 @@ import { showNavbar, Auth, insertInfo } from "./export.js";
 const body = document.querySelector("body"),
   category1 = document.querySelector(".c1"),
   category2 = document.querySelector(".c2"),
-  products = document.querySelector(".products");
+  products = document.querySelector(".products"),
+  subTitle = document.querySelector(".sub-title");
 
 let CURRENT_CONTENT = "write";
 let USER_DATA;
@@ -102,6 +103,9 @@ function addEvent() {
       CURRENT_CONTENT = "write";
       removeContent();
       showContent(USER_DATA);
+      category1.style.color = 'blue';
+      category2.style.color = 'black';
+      subTitle.innerText = "내가 등록한 상품";
     }
   });
 
@@ -110,6 +114,9 @@ function addEvent() {
       CURRENT_CONTENT = "participate";
       removeContent();
       showContent(USER_DATA, "participate");
+      subTitle.innerText = "내가 참여한 상품";
+      category2.style.color = 'blue';
+      category1.style.color = 'black';
     }
   });
 }

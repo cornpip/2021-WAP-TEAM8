@@ -59,16 +59,23 @@ export function insertInfo(informationJson, products, needToPt = false) {
 
     product.element
       .querySelector(".participateBtn")
-      .addEventListener(
-        "click",
-        needToPt ? () => console.log("click..") : showInfo
-      );
+      .addEventListener("click", needToPt ? () => console.log("") : showInfo);
   });
 }
 
 export function showInfo(e) {
   let key = e.target.id;
-  location.href = "/productinfo?key=" + key;
+  Auth()
+    .then(
+      (res) => (location.href = "/productinfo?key=" + key),
+      function (rej) {
+        const result = confirm("로그인 후 이용해 주세요.");
+        if (result) {
+          location.href = "/login";
+        }
+      }
+    )
+    .catch((err) => console.log(err));
 }
 
 export class Locate {

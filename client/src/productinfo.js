@@ -114,7 +114,6 @@ function chatOn() {
     );
   };
   // 1.보내면
-
   if (IS_PARTICIPATE && !IS_MAKER) {
     console.log("이벤트 걸었다");
     document.querySelector(".participateBtn").addEventListener("click", () => {

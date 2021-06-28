@@ -3,6 +3,7 @@ dotenv.config();
 
 const express = require("express")
 const app = express()
+const app2 = express()
 const db = require('./db/db.js')
 const PORT = 4000
 
@@ -15,7 +16,7 @@ const server = require("ws").Server;
 db.connect();
 db.query('select * from locate where 시도="부산광역시" AND 시군구="남구" limit 4000',function(err,result){
     if(err) throw err;
-    console.log(result.length);
+    //console.log(result.length);
     let locate = new Array();
     let len = result.length;
     for(i=0; i<len; i++){
@@ -169,6 +170,25 @@ db.query(`select id from insertproduct`, function(err, result){
     }
 })
 
+// 이미지 서버껏다 켜지면 라우터 찍는코드
+// 이미지는 5000port에 제공
+function makeimage(i, result){
+    app2.get(`/image/${result[i].id}`, function(req,res){
+        //console.log(i);
+        res.sendFile(__dirname + `/./image/${result[i].filename}`)
+    })
+}
+
+db.query('select id, filename from insertproduct', function(err,result){
+    if(err) throw err;
+    var len = result.length
+    for(i=0; i<len; i++){
+        if(result[i].filename !== null){
+            makeimage(i, result)
+        }
+    }
+})
+
 const request =require('request');
 const naver = require('passport-naver').Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy;
@@ -297,7 +317,7 @@ passport.deserializeUser(function(req,user,done){
 });
 
 app.post('/oproduct',function(req,res){
-    let sql = `SELECT id, user,itime,title,detail,inguser FROM insertproduct ORDER BY itime desc`
+    let sql = `SELECT * FROM insertproduct ORDER BY itime desc`
     db.query(sql,function(err, result){
         res.send(result);
     })
@@ -362,23 +382,6 @@ app.post('/slocate', function(req,res){
 app.get('/ttt', function(req,res){
     console.log(req.user);
     res.render('test.html')
-})
-
-function makeimage(i, result){
-    app.get(`/image/${result[i].id}`, function(req,res){
-        //console.log(i);
-        res.sendFile(__dirname + `/./image/${result[i].filename}`)
-    })
-}
-
-db.query('select id, filename from insertproduct', function(err,result){
-    if(err) throw err;
-    var len = result.length
-    for(i=0; i<len; i++){
-        if(result[i].filename !== null){
-            makeimage(i, result)
-        }
-    }
 })
 
 app.get('/logout', function(req, res){
@@ -498,6 +501,13 @@ app.post('/iproduct_process',upload.single('image'), function(req,res){
     //나중에 사진 입출력 때 서버계속된다면 이 부분도 체크하자
     //계속되고 꺼졌다 켜졌을 때 chat()꺼내놓을 필요있고
     // 플러스도 iproduct에도 chat() 들어가면 됨
+    db.query(`select id, filename from insertproduct`, function(err2, result2){
+        let recent = result2.length -1
+        app2.get(`/image/${result2[recent].id}`, function(req,res){
+            //console.log(i);
+            res.sendFile(__dirname + `/./image/${result2[recent].filename}`)
+        })
+    })
     res.redirect('/product')
 })
 
@@ -533,6 +543,10 @@ app.get('/ttt3', function(req,res){
 
  app.listen(PORT, ()=>{
     console.log(`start ${PORT}`);
+})
+
+app2.listen(5000, ()=>{
+    console.log(`start 5000`);
 })
 
 
@@ -599,6 +613,7 @@ function chat(x){
             }
           if(parse.type == "firstinfo"){
             console.log('hi');
+            console.log('hello');
             db.query(sql3, [parse.productid], function(err3, result3){
                 ws.send(JSON.stringify({
                     data:result3,
@@ -606,7 +621,7 @@ function chat(x){
                 }));
             })
             db.query(sql,[parse.userid, parse.productid],function(err, result){
-                console.log(result[0])
+                //console.log(result[0])
                 if(!result[0]){
                     db.query(sql2, [parse.productid, cport, parse.userid, `님이 입장했습니다`])
                     s.clients.forEach(client=>{
@@ -620,6 +635,17 @@ function chat(x){
                 })
             return
           }
+          //if(parse.type == "firstvisit"){
+          //      db.query(sql2, [parse.productid, cport, parse.userid, `님이 입장했습니다`])
+          //      s.clients.forEach(client=>{
+          //          client.send(JSON.stringify({
+          //            newChater:`익명${parse.userid[5]}`, // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등
+          //            type:"newPeople"
+          //          }))
+          //        })
+          //    return
+          //}
+          // 채팅 재입장시 입장했습니다 문제 일단 보류
           console.log(parse);
           db.query(sql2,[parse.productid, cport, parse.userid, parse.data])
             s.clients.forEach(client=>{
