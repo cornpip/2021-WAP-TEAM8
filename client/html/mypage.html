@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>MyPage</title>
     <link rel="stylesheet" href="../style/export.css" />
     <link rel="stylesheet" href="../style/mypage.css" />
   </head>
@@ -11,23 +11,24 @@
     <div class="user">
       <main class="mypage">
         <div class="left">
-          <div class="top">내 얼굴</div>
+          <div class="top">나의 프로필</div>
           <div class="bottom">
-            <ul>
-              <li class="c1">내가 작성한 상품</li>
-              <li class="c2">내가 참여한 상품</li>
+            <ul class="cList">
+              <li class="list-title">나의 활동</li>
+              <li class="c1 list">내가 등록한 상품</li>
+              <li class="c2 list">내가 참여한 상품</li>
             </ul>
           </div>
         </div>
         <div class="right">
-          내용 짜라란
+          <div class="sub-title">내가 등록한 상품</div>
           <div class="products"></div>
         </div>
       </main>
     </div>
 
-    <div class="no_user hidden">No User...</div>
-    <footer>푸터입니다</footer>
+    <div class="no_user hidden">로그인 해주세요</div>
+    <!-- <footer>푸터입니다</footer> -->
     <script type="module" src="../src/mypage.js"></script>
   </body>
 </html>

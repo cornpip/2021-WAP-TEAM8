@@ -7,20 +7,25 @@
   flex-direction: row;
   height: 100vh;
   margin: 10px;
-  border-style: solid;
   justify-content: start;
+  color: #282828;
 }
 
 .mypage .left {
   margin: 10px;
-  max-width: 30vw;
-  border-style: solid;
+  min-width: 200px;
+  max-width: 200px;
+  background-color: #e8f5ff;
 }
 
 .mypage .right {
-  margin: 10px;
-  width: 70vw;
-  border-style: solid;
+  margin: 20px;
+  width: 90vw;
+  border-width: 4px;
+  box-shadow: 2px 2px 2px 3px #b4b4dc;
+  background-color: #e8f5ff;
+  border-color: aliceblue;
+  border-radius: 20px;
 }
 
 .left {
@@ -29,15 +34,21 @@
 }
 
 .left .top {
-  margin: 10px;
   height: 150px;
-  border-style: solid;
+  border-style: groove;
+  padding: 10px;
+  border-color: aliceblue;
+  font-size: large;
+  font-weight: 600;
 }
 
 .left .bottom {
-  margin: 10px;
   height: 80vh;
-  border-style: solid;
+  padding: 20px;
+  border-bottom-style: groove;
+  border-right-style: groove;
+  border-left-style: groove;
+  border-color: aliceblue;
 }
 
 .no_user {
@@ -118,6 +129,30 @@ footer {
   flex-direction: row;
 }
 
-ul {
+.list {
   cursor: pointer;
+}
+
+.c1 {
+  color: blue;
+}
+.cList {
+  text-align: center;
+  list-style: none;
+  padding-left: 0px;
+  line-height: 30px;
+}
+
+.sub-title {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.list-title {
+  font-size: large;
+  font-weight: bold;
+  text-align: left;
+  line-height: 50px;
 }
