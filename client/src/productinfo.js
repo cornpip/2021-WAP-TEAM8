@@ -11,7 +11,7 @@ let USER_ID;
 let IS_MAKER = false;
 let IS_LEAVE = false;
 
-function showProductInfo() {
+async function showProductInfo() {
   fetch("/oproduct_key", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ function changeChatMode() {
 /* 참가 여부에 따라 버튼 바뀜 */
 function changeButton() {
   const button = products.querySelector(".participateBtn");
-  let clickEvent;
+  let clickEvent = () => console.log("이벤트 안걸림");
   if (IS_PARTICIPATE) {
     if (IS_MAKER) {
       button.value = "상품 삭제하기";
@@ -232,8 +232,12 @@ function handlerParticipate() {
 
 function init() {
   showNavbar(body);
-  showProductInfo();
-  getUserInfo();
+  showProductInfo()
+    .then(
+      () => getUserInfo(),
+      (rej) => console.log(rej)
+    )
+    .catch((err) => console.log(err));
 }
 
 init();
