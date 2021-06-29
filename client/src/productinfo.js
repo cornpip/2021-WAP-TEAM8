@@ -63,7 +63,7 @@ function changeButton() {
       button.value = "상품 삭제하기";
       clickEvent = deleteProduct;
     } else {
-      button.value = "참가 그만두기";
+      button.value = "채팅방 나가기";
       clickEvent = leaveProduct;
     }
   } else {
@@ -73,7 +73,7 @@ function changeButton() {
 }
 
 function leaveProduct() {
-  const result = confirm("정말로 그만두시겠어요?");
+  const result = confirm("정말로 나가시겠어요?");
   if (result) {
     chatOn(result);
   }

@@ -62,9 +62,9 @@ export class ProductInformation {
     participateBtn.value = "참가할게요";
 
     const ing = this.makeHTMLElement("div", "ing");
-    ing.append(participant, number);
+    ing.append(participant, "/", number);
 
-    bottom.append(participateBtn, ing);
+    bottom.append(participateBtn,  ing);
 
     // const date = this.makeHTMLElement("div", "date", this.date);
     product.append(top, middle, bottom);
