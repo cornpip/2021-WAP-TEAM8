@@ -17,15 +17,18 @@ label {
   align-items: center;
 }
 
+.insert {
+  width: 300px;
+  margin-top: 10px;
+}
+
 input {
   border: 1px solid;
-  width: 200px;
   height: 25px;
   border-radius: 5px;
 }
 
 .image {
-  border: none;
 }
 
 .locate {
@@ -82,4 +85,27 @@ input {
   max-height: 529px;
   min-width: 150px;
   max-width: 400px;
+}
+
+.input {
+  display: flex;
+  margin: 10px;
+}
+
+input {
+  margin-right: 20px;
+}
+
+.input_left {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_right {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_top {
+  display: flex;
 }

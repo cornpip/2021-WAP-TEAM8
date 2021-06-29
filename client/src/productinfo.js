@@ -11,7 +11,7 @@ let USER_ID;
 let IS_MAKER = false;
 let IS_LEAVE = false;
 
-function showProductInfo() {
+async function showProductInfo() {
   fetch("/oproduct_key", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -57,13 +57,13 @@ function changeChatMode() {
 /* 참가 여부에 따라 버튼 바뀜 */
 function changeButton() {
   const button = products.querySelector(".participateBtn");
-  let clickEvent;
+  let clickEvent = () => console.log("이벤트 안걸림");
   if (IS_PARTICIPATE) {
     if (IS_MAKER) {
       button.value = "상품 삭제하기";
       clickEvent = deleteProduct;
     } else {
-      button.value = "참가 그만두기";
+      button.value = "채팅방 나가기";
       clickEvent = leaveProduct;
     }
   } else {
@@ -73,7 +73,7 @@ function changeButton() {
 }
 
 function leaveProduct() {
-  const result = confirm("정말로 그만두시겠어요?");
+  const result = confirm("정말로 나가시겠어요?");
   if (result) {
     chatOn(result);
   }
@@ -114,6 +114,7 @@ function chatOn() {
     );
   };
   // 1.보내면
+
   if (IS_PARTICIPATE && !IS_MAKER) {
     console.log("이벤트 걸었다");
     document.querySelector(".participateBtn").addEventListener("click", () => {
@@ -231,8 +232,12 @@ function handlerParticipate() {
 
 function init() {
   showNavbar(body);
-  showProductInfo();
-  getUserInfo();
+  showProductInfo()
+    .then(
+      () => getUserInfo(),
+      (rej) => console.log(rej)
+    )
+    .catch((err) => console.log(err));
 }
 
 init();

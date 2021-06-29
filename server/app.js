@@ -222,11 +222,14 @@ app.post('/auth', function(req,res){
     res.send(req.user)
 })
 
+let host = 'localhost'
+let aws = '3.35.211.102'
+
 //카카오 로그인
 passport.use('kakao-login', new KakaoStrategy({
     clientID: process.env.KAKAO_ID,
     clientSecret: process.env.KAKAO_SECRET,
-    callbackURL: `http://localhost:${PORT}/auth/kakao/callback`,
+    callbackURL: `http://${aws}:${PORT}/auth/kakao/callback`,
 }, function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
         let sql = `select * from user where id='${profile._json.id}'`
@@ -256,7 +259,7 @@ app.get('/auth/kakao/callback', passport.authenticate('kakao-login', {
 passport.use(new naver({
     clientID: process.env.NAVER_ID,
     clientSecret: process.env.NAVER_SECRET,
-    callbackURL: `http://localhost:${PORT}/callback/naver`
+    callbackURL: `http://${aws}:${PORT}/callback/naver`
 },
 function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {

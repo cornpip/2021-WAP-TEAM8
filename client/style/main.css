@@ -161,6 +161,7 @@ button {
   position: sticky;
   top: 0px;
   height: 100px;
+  text-align: center;
 }
 
 .tt0 h1 {
