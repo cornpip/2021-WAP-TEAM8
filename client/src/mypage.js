@@ -1,4 +1,4 @@
-import { showNavbar, Auth, insertInfo } from "./export.js";
+cimport { showNavbar, Auth, insertInfo } from "./export.js";
 
 const body = document.querySelector("body"),
   category1 = document.querySelector(".c1"),
