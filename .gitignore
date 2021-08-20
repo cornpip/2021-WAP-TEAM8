@@ -117,3 +117,8 @@ dist
 node_modules
 package-lock.json
 image
+routertest.js
+#Database/
+db.js
+db2.js
+test2.js

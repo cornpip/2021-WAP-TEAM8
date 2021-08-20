@@ -99,8 +99,9 @@ function deleteProduct() {
 
 function chatOn() {
   const productid = parseInt(key);
-  const portNum = 8000 + productid; //포트번호: 8000 + product.id
-  const sock = new WebSocket(`ws://localhost:${portNum}`); // 여기 포트번호 상품id + 8000으로
+  //const portNum = 8000 + productid; //포트번호: 8000 + product.id
+  const sock = new WebSocket(`ws://localhost:9000`)
+  //const sock = new WebSocket(`ws://localhost:${portNum}`); // 여기 포트번호 상품id + 8000으로
   const log = document.getElementById("log");
 
   // 최초접근
