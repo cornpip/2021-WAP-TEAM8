@@ -1,3 +1,5 @@
+const path = require('path');
+
 function locatearr(db ,first, second="undefined", res){
     let sql = `select * from locate where 시도="${first}" limit 4000`
     let inlist = "시군구"
@@ -36,8 +38,10 @@ function updatefun(arr, x){
 
 function makeimage(app2, i, result){
     app2.get(`/image/${result[i].id}`, function(req,res){
-        //console.log(i);
-        res.sendFile(__dirname + `/./image/${result[i].filename}`)
+        //console.log(path.resolve(`./a`))
+        //res.sendFile(__dirname + `/../image/${result[i].filename}`)
+        //sendfile에서 ../ 상위폴더가는 코드 해킹취급하면서 forbidden err남
+        res.sendFile(path.resolve(`image/${result[i].filename}`))
     })
 }
 

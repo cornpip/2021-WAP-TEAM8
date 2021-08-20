@@ -1,3 +1,4 @@
+const path = require('path');
 const multer = require('multer')
 const upload = multer({dest: 'image/'})
 //const upload = multer({
@@ -69,7 +70,7 @@ exports.iproduct_process = (db, app, app2)=>{
             let recent = result2.length -1
             app2.get(`/image/${result2[recent].id}`, function(req,res){
                 //console.log(i);
-                res.sendFile(__dirname + `/./image/${result2[recent].filename}`)
+                res.sendFile(path.resolve(`image/${result2[recent].filename}`))
             })
         })
         res.redirect('/product')
