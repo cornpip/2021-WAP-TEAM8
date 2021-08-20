@@ -1,0 +1,111 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-content: center;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.insert__product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.insert {
+  width: 300px;
+  margin-top: 10px;
+}
+
+input {
+  border: 1px solid;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.image {
+}
+
+.locate {
+  display: flex;
+  flex-direction: row;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.locates-first {
+  margin: 10px;
+  border-radius: 12px;
+  min-width: 150px;
+  max-width: 400px;
+  padding: 30px;
+  box-shadow: 1px 1px 5px black;
+  max-height: 529px;
+}
+
+.locate {
+  padding: 5px;
+}
+
+.locates-second {
+  margin: 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 253px;
+  max-height: 529px;
+  padding: 30px;
+  box-shadow: 1px 1px 5px black;
+}
+
+.locate {
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.locates-second .locate {
+  width: 80px;
+}
+
+.locates-third {
+  box-shadow: 1px 1px 5px black;
+  margin: 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 30px;
+  max-height: 529px;
+  min-width: 150px;
+  max-width: 400px;
+}
+
+.input {
+  display: flex;
+  margin: 10px;
+}
+
+input {
+  margin-right: 20px;
+}
+
+.input_left {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_right {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_top {
+  display: flex;
+}

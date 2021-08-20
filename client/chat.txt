@@ -1,0 +1,12 @@
+type 
+1. firstinfo {userid, productid}
+2. messge {data}
+3. beforecaht <- data{이전 채팅 내용}
+4. newpeople <- newChater{처음 입장한 사람}
+5. leaveinfo
+
+data {
+participant, : 닉네임
+chatting, : 채팅내용
+chattime : 채팅시간
+}

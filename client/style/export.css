@@ -1,0 +1,52 @@
+body {
+  margin: 0px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+main {
+  top: 100px;
+}
+
+.fixnav .left,
+.fixnav .right {
+  font-size: 25px;
+}
+
+.fixnav .center {
+  font-size: 20px;
+  padding-left: 35px;
+}
+.fixnav .right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 210px;
+}
+
+.fixnav .right #right,
+.fixnav .left #left {
+  padding: 0px 25px;
+}
+
+.fixnav .left {
+  padding-left: 35px;
+}
+
+.fixnav {
+  height: 100px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}

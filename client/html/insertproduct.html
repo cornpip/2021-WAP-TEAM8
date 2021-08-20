@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insert Product</title>
+    <link rel="stylesheet" href="../style/export.css" />
+    <link rel="stylesheet" href="../style/insertproduct.css" />
+  </head>
+  <body>
+    <main>
+      <div class="insert__product">
+        <div class="input_top">
+          <div class="input_left input">
+            <h3>제목</h3>
+            <input
+              placeholder="제목을 입력해주세요"
+              type="text"
+              class="title insert"
+              labe
+            />
+            <h3>인원</h3>
+            <input
+              placeholder="채팅방 인원"
+              type="number"
+              class="number insert"
+            />
+          </div>
+          <div class="input_right input">
+            <h3>내용</h3>
+            <input
+              placeholder="내용을 입력해주세요"
+              type="text"
+              class="detail insert"
+            />
+            <div class="picture">
+              <h3>상품이미지 첨부</h3>
+              <input type="file" class="image insert" />
+            </div>
+          </div>
+        </div>
+        <div class="locate">
+          <div class="locates-first"></div>
+          <div class="locates-second"></div>
+          <div class="locates-third"></div>
+        </div>
+        <input type="submit" value="상품등록" class="insert-button" />
+      </div>
+    </main>
+    <script type="module" src="../src/insertproduct.js"></script>
+  </body>
+</html>

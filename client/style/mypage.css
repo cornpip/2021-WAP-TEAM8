@@ -1,0 +1,160 @@
+.hidden {
+  display: none;
+}
+
+.mypage {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  margin: 10px;
+  justify-content: start;
+  color: #282828;
+}
+
+.mypage .left {
+  margin: 10px;
+  min-width: 200px;
+  max-width: 200px;
+  background-color: #e8f5ff;
+  overflow: auto;
+}
+
+.mypage .right {
+  margin: 20px;
+  width: 90vw;
+  border-width: 4px;
+  box-shadow: 2px 2px 2px 3px #b4b4dc;
+  background-color: #e8f5ff;
+  border-color: aliceblue;
+  border-radius: 20px;
+  overflow: auto;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.left .top {
+  height: 150px;
+  border-style: groove;
+  padding: 10px;
+  border-color: aliceblue;
+  font-size: large;
+  font-weight: 600;
+}
+
+.left .bottom {
+  height: 80vh;
+  padding: 20px;
+  border-bottom-style: groove;
+  border-right-style: groove;
+  border-left-style: groove;
+  border-color: aliceblue;
+}
+
+.no_user {
+  width: 100vw;
+  height: 100vh;
+  background-color: cornflowerblue;
+  font-size: 25px;
+}
+
+footer {
+  height: 300px;
+  color: white;
+  font-size: 20px;
+  background-color: rgb(112, 112, 112);
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  width: 230px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 1px 1px 5px black;
+}
+
+.product .title {
+  margin: 0px;
+}
+
+.product .image {
+  width: 200px;
+}
+
+.product .detail {
+  display: none;
+}
+
+.product .number {
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
+}
+
+.product input {
+  font-weight: 1000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.locate {
+  display: none;
+}
+
+.product .bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom .ing {
+  display: flex;
+  flex-direction: row;
+}
+
+.list {
+  cursor: pointer;
+}
+
+.c1 {
+  color: blue;
+}
+.cList {
+  text-align: center;
+  list-style: none;
+  padding-left: 0px;
+  line-height: 30px;
+}
+
+.sub-title {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.list-title {
+  font-size: large;
+  font-weight: bold;
+  text-align: left;
+  line-height: 50px;
+}

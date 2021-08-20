@@ -1,0 +1,400 @@
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+
+:root {
+  --fontcolor: rgb(255, 251, 228);
+}
+
+body {
+  -ms-overflow-style: none;
+  margin: 0;
+  font-family: "Song Myung", serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 21px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+a {
+  text-decoration-line: none;
+  color: var(--fontcolor);
+}
+
+/*header*/
+.banner {
+  background-repeat: no-repeat;
+  background-size: 1920px 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 980px;
+  color: var(--fontcolor);
+  text-shadow: 1px 1px 10px rgb(43, 39, 104);
+}
+
+.upper__banner {
+  border-bottom: 0.1px solid rgb(255, 255, 255);
+  margin: 10px 0px 0px 0px;
+  width: 100vw;
+  max-width: 1400px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mode {
+  cursor: pointer;
+}
+
+.upper__banner .left,
+.upper__banner .right {
+  padding: 0px 60px;
+}
+
+.upper__banner .left {
+  width: 140px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.right {
+  display: flex;
+  width: 170px;
+  justify-content: space-between;
+}
+
+.middle__banner {
+  font-size: 40px;
+  display: flex;
+  height: 250px;
+  align-items: center;
+}
+
+.lower__banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+  height: 620px;
+}
+
+.lower__navbar {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+li {
+  list-style-type: none;
+}
+
+.lower__title {
+  /* border: 0.1px solid rgb(255, 255, 255); */
+  max-width: 700px;
+  /* height: 500px; */
+  opacity: 70%;
+  line-height: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  font-size: 50px;
+  color: var(--fontcolor);
+  text-shadow: 1px 1px 10px rgb(43, 39, 104);
+}
+
+.lower__buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 150px;
+  padding: 20px 0px;
+}
+
+button {
+  margin: 5px;
+  cursor: pointer;
+  height: 15px;
+  outline: 0;
+  border-radius: 50px;
+  background-color: rgb(194, 190, 190);
+  opacity: 0.4;
+}
+
+#howto {
+  cursor: pointer;
+}
+
+/*main*/
+.document {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.document span {
+  display: flex;
+  justify-content: end;
+}
+
+#see {
+  cursor: pointer;
+}
+
+.document a {
+  color: black;
+}
+
+.tt0 {
+  position: sticky;
+  top: 0px;
+  height: 100px;
+  text-align: center;
+}
+
+.tt0 h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
+  margin: 0px;
+  background-color: white;
+}
+
+.tts {
+  height: 3500px;
+}
+
+.tt1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  opacity: 0;
+  top: 100px;
+  height: 1000px;
+}
+
+.ttl:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.tt1:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.tt1:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.tt1 img {
+  width: 500px;
+}
+
+.tt2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  opacity: 0;
+  top: 100px;
+  height: 1000px;
+}
+
+.tt3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  opacity: 0;
+  top: 100px;
+  height: 500px;
+}
+/*products*/
+.products {
+  position: sticky;
+  display: flex;
+  width: 870px;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  width: 230px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 1px 1px 5px black;
+}
+
+.product input {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.locate {
+  display: none;
+}
+
+.product .title {
+  margin: 0px;
+}
+
+.product .image {
+  width: 200px;
+}
+
+.product .detail {
+  display: none;
+}
+
+.product .number {
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+}
+
+.product .bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom .ing {
+  display: flex;
+  flex-direction: row;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
+}
+
+/*footer*/
+.footer {
+  color: rgb(0, 0, 0);
+}
+
+footer {
+  background-color: rgb(207, 206, 206);
+}
+
+/*animation*/
+.title__banner {
+  animation: slideX 1s;
+}
+
+.mode:nth-child(1) {
+  animation: slideY 1s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+}
+
+.mode:nth-child(2) {
+  animation: slideY 1s;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
+
+.right {
+  animation: slideY 1s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+}
+
+.navbar:nth-child(1) {
+  animation: slideX 1s;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.navbar:nth-child(2) {
+  animation: slideX 1s;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+.navbar:nth-child(3) {
+  animation: slideX 1s;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.ltitle:nth-child(1) {
+  animation: slideY 1s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+}
+
+.ltitle:nth-child(2) {
+  animation: slideY 1s;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.ltitle:nth-child(3) {
+  animation: slideY 1s;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes down {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideY {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideX {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
