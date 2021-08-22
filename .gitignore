@@ -115,10 +115,11 @@ dist
 .pnp.*
 
 node_modules
-package-lock.json
+#package-lock.json
 image
 routertest.js
 #Database/
 db.js
 db2.js
 test2.js
+sessiondb.js

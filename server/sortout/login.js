@@ -7,10 +7,12 @@ const KakaoStrategy = require('passport-kakao').Strategy;
 
 exports.kakao = (db, app, ip, port)=>{
     passport.use('kakao-login', new KakaoStrategy({
+        session:true, 
         clientID: process.env.KAKAO_ID,
         clientSecret: process.env.KAKAO_SECRET,
         callbackURL: `http://${ip}:${port}/auth/kakao/callback`,
-    }, function(accessToken, refreshToken, profile, done) {
+        passReqToCallback: true
+    }, function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
             let sql = `select * from user where id='${profile._json.id}'`
             let sql2 = `INSERT INTO user(provider, id, email, age, gender) 
@@ -39,11 +41,13 @@ exports.kakao = (db, app, ip, port)=>{
 
 exports.naver = (db, app, ip, port)=>{
     passport.use(new naver({
+        session:true, 
         clientID: process.env.NAVER_ID,
         clientSecret: process.env.NAVER_SECRET,
-        callbackURL: `http://${ip}:${port}/callback/naver`
+        callbackURL: `http://${ip}:${port}/callback/naver`,
+        passReqToCallback: true
     },
-    function(accessToken, refreshToken, profile, done) {
+    function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
             var header = "Bearer " + accessToken;
             var options = {

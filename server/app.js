@@ -7,6 +7,7 @@ const passive = require('./sortout/passive')
 const firstset = require('./sortout/firstset')
 
 const db = require('./Database/db.js')
+const sessiondb = require('./Database/sessiondb')
 const express = require("express")
 const app = express()
 const app2 = express()
@@ -61,7 +62,12 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 app.use(cookieparser());
-app.use(session({secret:'secret', resave:true, saveUninitialized: true}));
+app.use(session({
+  secret:'secret', 
+  resave:false, 
+  saveUninitialized: true,
+  store: sessiondb.Mystore(session)
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
