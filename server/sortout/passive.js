@@ -69,7 +69,7 @@ exports.iproduct_process = (db, app, app2)=>{
         db.query(`select id, filename from insertproduct`, function(err2, result2){
             let recent = result2.length -1
             app2.get(`/image/${result2[recent].id}`, function(req,res){
-                //console.log(i);
+                console.log(recent);
                 res.sendFile(path.resolve(`image/${result2[recent].filename}`))
             })
         })

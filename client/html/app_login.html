@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>heloo3333tt</h1>
+    <button id='btn' onclick="openme();">열기</button>
+    <button id='btn' onclick="closeme();">닫기</button>
+</body>
+<script>
+    // window.onload = function () {
+    //     window.opener = 'Self';
+    //     window.open('', '_parent', '');
+    //     // self.opener = self;
+    //     window.close();
+    //     console.log("hi")
+    // }
+    window.onload = function(){
+        window.close()
+    }
+
+    function openme() {
+        window.open("http://localhost:4000/applog", '_blank');
+
+        // window.close("http://localhost:4000");
+    }
+    function closeme(){
+        window.close();
+    }
+</script>
+
+</html>

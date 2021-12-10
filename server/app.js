@@ -6,14 +6,15 @@ const info = require('./sortout/info')
 const passive = require('./sortout/passive')
 const firstset = require('./sortout/firstset')
 
-const db = require('./Database/db.js')
-const sessiondb = require('./Database/sessiondb')
+const db = require('./Database/dbform.js')
+const sessiondb = require('./Database/sessiondbform')
 const express = require("express")
 const app = express()
 const app2 = express()
 const PORT = 4000
 const PORT2 = 5000
 const host = 'localhost'
+const amulator = '10.0.2.2'
 //const aws = '3.35.211.102'
 
 const passport = require('passport')
@@ -45,6 +46,10 @@ db.query(`select id from insertproduct where user='test1'`, function(err, result
     //console.log(result);
     let len = result.length - 1
     //console.log(result[len])
+})
+
+db.query(`select * from locate where 시도="부산광역시" AND 시군구="남구"`, function(req,res){
+  //console.log(res);
 })
 // insert 하자마자 select에 나옴
 //-------------------------------------------------------------------------------------------------------------
@@ -96,7 +101,16 @@ passive.productdelete(db, app);
 
 
 app.get('/',function(req,res){
+    //console.log(req.user)
     res.render('main.html')
+})
+
+app.get('/logintest', function(req, res){
+  if(!req.user){
+    res.send({"provider": "not login"})
+  }else{
+    res.send(req.user);
+  }
 })
 
 app.get('/mypage',function(req,res){
@@ -130,6 +144,10 @@ app.get('/ttt3', function(req,res){
 
 app.get('/ttt4', function(req,res){
     res.render('humm.html');
+})
+
+app.get('/applog', function(req, res){
+  res.render('app_login.html')
 })
 
 app.listen(PORT, ()=>{

@@ -103,7 +103,7 @@ function getProductInformation() {
 function init() {
   checkAuth();
   getProductInformation();
-  BANNER_STATE = localStorage.getItem("banner_mode") || "image";
+  // BANNER_STATE = localStorage.getItem("banner_mode") || "image";
   setColor();
   if (BANNER_STATE === "image") setImage();
   else setColor();

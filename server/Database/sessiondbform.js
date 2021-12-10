@@ -1,8 +1,8 @@
 let options = {
-    host: "",
-    user: "",
-    password: "",
-    database: "",
+    host: "localhost",
+    user: "root",
+    password: "chdnjf491",
+    database: "togetor",
     clearExpired: true, // 만료됐을시 행 삭제
     //checkExpirationInterval: 5000, //만료된거 지우는 주기
     //expiration: 30000 // 유효한 세션 최대타임 시간은(ms)
@@ -16,4 +16,4 @@ Mystore = (session)=>{
     return new Mysqlstore(options)
 }
 
-module.exports= {mystore}
+module.exports= {Mystore}

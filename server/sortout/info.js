@@ -14,7 +14,7 @@ exports.oproduct_key = (db, app)=>{
         let body = req.body;
         let sql = `SELECT * FROM insertproduct WHERE id = ${body.key} `;
         db.query(sql, function (err, result) {
-          res.send(result);
+            res.send(result);
         });
       });
 }

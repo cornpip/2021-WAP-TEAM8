@@ -15,17 +15,25 @@
 </body>
 <script>
     function hi(){
-            fetch("http://localhost:4000/productdelete", {
-            method: "post",
+            fetch("http://localhost:4000/olocate", {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                productid: '1' 
+                first: '부산광역시', 
+                second: ''
             })
         })
         .then(function(res){
-            console.log(res)
-            //document.getElementById('ddd').innerHTML="<img src='./image/14' alt='' /> " 
+            return res.json()
+            //document.getElementById('ddd').innerHTML=`${res.json()}` 
         })
+        .then((res)=>{
+            console.log(res);
+            res.map((v)=>console.log(v))
+        })
+        // then 한 곳에서 json하고 변수 저장하고 바로 쓸라하면 배열을 못찝네 머 달려있는거 옴
+        // 첫 번째에서 json하고 다음 then에서 data사용하자
+        // 그래서 예제에서 두번째를 data 변수로 쓴 듯
         .catch((err) => console.log(err));
     }
 </script>
