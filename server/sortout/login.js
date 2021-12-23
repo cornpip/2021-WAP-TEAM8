@@ -9,8 +9,8 @@ exports.kakao = (db, app, ip, port)=>{
     passport.use('kakao-login', new KakaoStrategy({
         session:true, 
         clientID: process.env.KAKAO_ID,
-        clientSecret: process.env.KAKAO_SECRET,
-        callbackURL: `http://${ip}:${port}/auth/kakao/callback`,
+        //clientSecret: process.env.KAKAO_SECRET,
+        callbackURL: `http://${ip}:${port}/callback/kakao`,
         passReqToCallback: true
     }, function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
@@ -32,7 +32,7 @@ exports.kakao = (db, app, ip, port)=>{
 
     }));
     app.get('/login/kakao', passport.authenticate('kakao-login'));
-    app.get('/auth/kakao/callback', passport.authenticate('kakao-login', {
+    app.get('/callback/kakao', passport.authenticate('kakao-login', {
         failureRedirect: '/',
     }), (req, res) => {
         res.redirect('/');
@@ -131,4 +131,52 @@ exports.out = (app)=>{
         req.logout();
         res.redirect('/');
     });
+}
+
+exports.mlogin = (db, appm) => {
+    appm.post('/kakao', function (req, res) {
+        body = req.body
+        console.log(body)
+        let sql = `select * from user where id='${body.id}'`
+        let sql2 = `INSERT INTO user(provider, id) VALUES('kakao', '${body.id}')`
+        db.query(sql, function (err, result) {
+            if (err) {
+                res.send({"state": `${err}`})
+                throw err
+            }
+            if (!result[0]) {
+                db.query(sql2, function (err2, result2) {
+                    if (err2) throw err2
+                    console.log('successful sign up')
+                    res.send({"state":"successful sign up"})
+                })
+            }else{
+                console.log('already signed')
+                res.send({"state": "already signed"})
+            }
+        })
+    });
+
+    appm.post('/naver', function(req,res){
+        body = req.body
+        console.log(body)
+        let sql = `select * from user where id='${body.id}'`
+        let sql2 = `INSERT INTO user(provider, id) VALUES('naver', '${body.id}')`
+        db.query(sql, function (err, result) {
+            if (err) {
+                res.send({"state": `${err}`})
+                throw err
+            }
+            if (!result[0]) {
+                db.query(sql2, function (err2, result2) {
+                    if (err2) throw err2
+                    console.log('successful sign up')
+                    res.send({"state":"successful sign up"})
+                })
+            }else{
+                console.log('already signed')
+                res.send({"state": "already signed"})
+            }
+        })
+    })
 }

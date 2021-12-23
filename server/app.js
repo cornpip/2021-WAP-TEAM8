@@ -51,6 +51,19 @@ db.query(`select id from insertproduct where user='test1'`, function(err, result
 db.query(`select * from locate where 시도="부산광역시" AND 시군구="남구"`, function(req,res){
   //console.log(res);
 })
+
+let sql = `select * from user where id='123'`
+let sql2 = `INSERT INTO user(provider, id) 
+VALUES('naver', '123')`
+db.query(sql,function(err,result){
+    if(err) throw err;
+    if(!result[0]){
+        db.query(sql2, function(err2, result2){
+            if(err2) throw err2
+            console.log('successful sign up')
+        })
+    }
+})
 // insert 하자마자 select에 나옴
 //-------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +101,10 @@ login.auth(app);
 login.in(app);
 login.out(app);
 
+const appm = express()
+app.use('/mlogin', appm);
+login.mlogin(db, appm);
+
 info.oproduct(db, app);
 info.oproduct_key(db, app);
 info.slocate(db, app);
@@ -101,7 +118,7 @@ passive.productdelete(db, app);
 
 
 app.get('/',function(req,res){
-    //console.log(req.user)
+    // console.log(req.user)
     res.render('main.html')
 })
 
