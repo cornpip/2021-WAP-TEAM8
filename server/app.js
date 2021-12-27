@@ -6,8 +6,8 @@ const info = require('./sortout/info')
 const passive = require('./sortout/passive')
 const firstset = require('./sortout/firstset')
 
-const db = require('./Database/dbform.js')
-const sessiondb = require('./Database/sessiondbform')
+const db = require('./Database/db.js')
+const sessiondb = require('./Database/sessiondb.js')
 const express = require("express")
 const app = express()
 const app2 = express()
@@ -20,6 +20,17 @@ const amulator = '10.0.2.2'
 const passport = require('passport')
 const session = require('express-session')
 const cookieparser = require('cookie-parser')
+
+// const bodyParser = require('body-parser');
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// const multer = require('multer');
+// const upload = multer();
+// app.use(upload.array());
+
 
 // db테스트용
 //----------------------------------------------------------------------------------------------------------
@@ -101,6 +112,9 @@ info.userlistinfo(db, app);
 
 passive.participate(db, app);
 passive.iproduct_process(db, app, app2);
+
+passive.iproduct_mobile(db, app, app2);
+
 passive.productdelete(db, app);
 
 

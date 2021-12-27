@@ -57,7 +57,7 @@ export class ProductInformation {
 
     let host = `http://118.223.255.68:5000/image/${this.id}`
     let local =  `http://localhost:5000/image/${this.id}`
-    image.setAttribute("src", host);
+    image.setAttribute("src", local);
     // image.setAttribute("src", `./image/${this.id}`);
 
     participateBtn.type = "button";

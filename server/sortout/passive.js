@@ -101,3 +101,26 @@ exports.productdelete = (db, app)=>{
     })
     
 }
+
+exports.iproduct_mobile=(db, app, app2) =>{
+    app.post('/iproduct_mobile', upload.single('one'),function(req,res){
+        let body = req.body
+        console.log(body)
+        console.log("--------------------------")
+        // console.log(body)
+        console.log(req.file.filename);
+        let sql = `INSERT INTO insertproduct(user, itime, deadline, title, detail, inguser, filename, nowuser, place) 
+        VALUES('${body.login}', NOW(), '${body.deadline}', '${body.title}', '${body.detail}', ${body.userlimit}, '${req.file.filename}', 1, '${body.place}')`;
+        let sql2 = `INSERT INTO inguserlist(makeuser) VALUES('${body.login}')`
+        db.query(sql);
+        db.query(sql2);
+        db.query(`select id, filename from insertproduct`, function(err2, result2){
+            let recent = result2.length -1
+            app2.get(`/image/${result2[recent].id}`, function(req,res){
+                console.log(recent);
+                res.sendFile(path.resolve(`image/${result2[recent].filename}`))
+            })
+        })
+        res.send("success")
+    })
+}
