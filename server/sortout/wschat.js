@@ -36,8 +36,9 @@ function chat(updatefun, db){
                         db.query(sql2, [parse.productid, cport, parse.userid, `님이 퇴장했습니다`])
                         s.clients.forEach(client=>{
                             client.send(JSON.stringify({
-                              leaveChater:`익명${parse.userid[5]}`,
-                              type:"leavePeople"
+                              leaveChater:`익명${parse.userid[2]}`,
+                              type:"leavePeople",
+                              name: `익명${parse.userid[2]}`,
                             }))
                           })
                     })
@@ -59,8 +60,9 @@ function chat(updatefun, db){
                     db.query(sql2, [parse.productid, cport, parse.userid, `님이 입장했습니다`])
                     s.clients.forEach(client=>{
                         client.send(JSON.stringify({
-                          newChater:`익명${parse.userid[5]}`, // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등
-                          type:"newPeople"
+                          newChater:`익명${parse.userid[2]}`, // 여기를 익명 + userid 한곳 따서 일단해볼까 ex) 익명x, 익명D, 익명0 등등
+                          type:"newPeople",
+                          name: `익명${parse.userid[2]}`,
                         }))
                       })
                       return
@@ -85,7 +87,7 @@ function chat(updatefun, db){
                 //if(client !== ws){
                     console.log('gigi');
                     client.send(JSON.stringify({
-                    name:`익명${parse.userid[5]}`,
+                    name:`익명${parse.userid[2]}`,
                     data:parse.data,
 
                  }));
